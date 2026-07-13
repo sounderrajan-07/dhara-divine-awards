@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-outfit: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  /* Dhara Brand Palette - Warm Antique Leather Brown matching the book cover */
+  --color-primary: #401C0C;
+  --color-primary-light: #5C2913;
+  --color-primary-dark: #281006;
+  
+  --color-accent: #D9762E;
+  --color-gold: #C9A646;
+  --color-gold-light: #FFD27F;
+  --color-temple-gold: #D4AF37;
+
+  /* Surface & Paper Tones */
+  --color-surface: #FDFBF8;
+  --color-surface-container-low: #FBF9F4;
+  --color-surface-container: #F5F3EE;
+  --color-surface-container-high: #EAE8E3;
+  --color-surface-border: #E4E2DD;
+  --color-surface-dim: #DBDAD5;
+
+  /* Dark Theme Surfaces */
+  --color-dark-surface: #121310;
+  --color-dark-container: #1B1C19;
+  --color-dark-container-high: #242622;
+  --color-dark-border: #30312E;
+
+  /* Text colors */
+  --color-text-main: #1B1C19;
+  --color-text-muted: #534436;
+  --color-text-light: #867463;
+
+  /* Shadows */
+  --shadow-soft: 0 8px 30px rgba(64, 28, 12, 0.06);
+  --shadow-premium: 0 12px 40px -10px rgba(64, 28, 12, 0.12);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.03);
+  --shadow-card-hover: 0 16px 35px rgba(64, 28, 12, 0.09);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-surface-border);
+  }
+  .dark * {
+    border-color: var(--color-dark-border);
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Custom scrollbar for premium feel */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #DBDAD5;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #867463;
+  }
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: rgba(253, 251, 248, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(234, 232, 227, 0.8);
+}
+
+.glass-panel-dark {
+  background: rgba(27, 28, 25, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(48, 49, 46, 0.8);
+}
+
+/* Micro animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(201, 166, 70, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(201, 166, 70, 0.6); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite;
+}
+
