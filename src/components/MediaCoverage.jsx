@@ -19,28 +19,28 @@ export default function MediaCoverage({ onSubmitSuccess }) {
     {
       title: "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards",
       date: "24 Jan, 2025",
-      image: "/images/News/news-1.jpeg",
+      image: "/images/News/DHARA Divine Awards.jpg",
       link: "https://www.youtube.com/live/qOAbFfB22uI",
       summary: "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman was formally invited as a Chief Guest and dignitary to the flagship Dhara Divine Awards Ceremony, recognizing unsung grassroots heroes and NGOs for exemplary humanitarian and cultural service inspired by spiritual values."
     },
     {
       title: "Smt. Vanathi Srinivasan Graces Dhara Divine Awards Ceremony as Chief Guest",
       date: "24 Jan, 2025",
-      image: "/images/News/news-2.jpeg",
+      image: "/images/News/Mupperum Vizha.jpg",
       link: "https://www.youtube.com/live/qOAbFfB22uI",
       summary: "Prominent leader and MLA Smt. Vanathi Srinivasan was invited as a Chief Guest and dignitary to grace the Dhara Divine Awards Ceremony, joining Dhara Foundations to recognize dedicated grassroots champions, philanthropists, and silent social workers performing noble seva."
     },
     {
       title: "Governor of Maharashtra Appreciates DHARA Divine Awards",
       date: "31 Aug, 2025",
-      image: "https://dharafoundations.in/admin/public/storage/news/F0UPoUHRvLsAnKb4wDUmaTSnRn79kpA3ezVuy4M0.png",
+      image: "/images/News/Governor of Maharashtra Appreciates DHARA Divine Awards 2025.png",
       link: "https://dharafoundations.in/newsDetails/32",
       summary: "His Excellency, the Governor of Maharashtra, expressed deep appreciation for Dhara Foundations' tireless efforts in honoring unsung heroes and promoting cultural revival."
     },
     {
       title: "DHARA Divine Awards Ceremony",
       date: "24 Jan, 2025",
-      image: "https://dharafoundations.in/admin/public/storage/news/u8tLWSyhRnQSTFTTVWZhs3ko3yuQWcgvkCupytIr.jpg",
+      image: "/images/Home section/Hon'ble justice Shri G.R Swaminathan  Avl..jpg",
       link: "https://dharafoundations.in/newsDetails/27",
       summary: "Felicitation of 63 silent service leaders of Sanatana Dharma at the Chinmaya Heritage Centre in Chetpet, Chennai, in the presence of Madras HC Judge Justice GR Swaminathan."
     },

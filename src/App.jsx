@@ -288,12 +288,18 @@ export default function App() {
           Registered Public Non-profit Organization · Est. 2024
         </div>
         <h1 style={{ color: 'var(--color-deep-forest-dark)', fontFamily: 'var(--font-serif)', fontWeight: '800' }}>
-          Kindness in Action, <br/>
-          <em style={{ fontStyle: 'italic', fontWeight: '500', background: 'linear-gradient(120deg, var(--color-saffron-glow), var(--color-primary-accent))', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Faith</em> in Every Step
+          Dhara <em style={{ fontStyle: 'italic', fontWeight: '500', background: 'linear-gradient(120deg, var(--color-saffron-glow), var(--color-primary-accent))', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Divine</em> Awards
         </h1>
-        <p className="lede" style={{ color: 'var(--ink-soft)' }}>
-          Dhara Foundations stands beside the poor, the forgotten, and the faithful — feeding the hungry, restoring sacred spaces, and giving dignity to those society often overlooks.
-        </p>
+        <ul className="hero-highlights font-serif text-[#786450]" style={{ listStyle: 'none', padding: 0, margin: '20px 0 30px 0', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '1.15rem', lineHeight: '1.5', color: 'var(--ink-soft)' }}>
+            <span style={{ color: 'var(--color-saffron-glow)', fontSize: '1.25rem', marginTop: '-2px' }}>✦</span>
+            <span>An annual celebration honouring selfless individuals in the path of spiritual and social service</span>
+          </li>
+          <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '1.15rem', lineHeight: '1.5', color: 'var(--ink-soft)' }}>
+            <span style={{ color: 'var(--color-saffron-glow)', fontSize: '1.25rem', marginTop: '-2px' }}>✦</span>
+            <span>Recognizing excellence from grassroots volunteers to thought leaders</span>
+          </li>
+        </ul>
         <div className="hero-actions" style={{ flexWrap: 'wrap', gap: '12px' }}>
           <button onClick={() => setActiveTab('donate')} className="btn btn-primary sparkle-shimmer-btn">Donate Now</button>
           <button onClick={(e) => { e.preventDefault(); setActiveTab('gallery'); }} className="btn btn-ghost-dark">Explore Divine Awards →</button>

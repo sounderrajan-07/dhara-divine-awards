@@ -442,7 +442,15 @@ const defaultGalleryImages = [
 ];
 
 export default function GalleryPage() {
-  const [galleryImages, setGalleryImages] = useState(defaultGalleryImages);
+  const cleanCategory = (cat) => {
+    if (cat === '1. Spiritual Piller') return '1. Spiritual Pillar';
+    if (cat === '2. Institutions and Organisation') return '2. Institutions and Organisations';
+    return cat;
+  };
+
+  const [galleryImages, setGalleryImages] = useState(() => 
+    defaultGalleryImages.map(img => ({ ...img, category: cleanCategory(img.category) }))
+  );
   const [selectedCategory, setSelectedCategory] = useState('All Sections');
   const [searchQuery, setSearchQuery] = useState('');
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -451,7 +459,9 @@ export default function GalleryPage() {
     const loadGallery = async () => {
       const data = await fetchGallery();
       if (data && data.length > 0) {
-        setGalleryImages([...data, ...defaultGalleryImages]);
+        const cleanedData = data.map(img => ({ ...img, category: cleanCategory(img.category) }));
+        const cleanedDefaults = defaultGalleryImages.map(img => ({ ...img, category: cleanCategory(img.category) }));
+        setGalleryImages([...cleanedData, ...cleanedDefaults]);
       }
     };
     loadGallery();
@@ -471,16 +481,16 @@ export default function GalleryPage() {
   const categories = [
     'All Sections',
     'Highlights',
-    '1. Spiritual Piller',
-    '2. Institutions and Organisation',
+    '1. Spiritual Pillar',
+    '2. Institutions and Organisations',
     '3. Individuals and Professionals',
     '4. Grass Route Eminents'
   ];
 
   const sectionDescriptions = {
     'Highlights': 'Key moments from sacred assemblies, chief guest felicitations, and the grand Dhara Divine Awards ceremony.',
-    '1. Spiritual Piller': 'Sivachariyars, Bhattachariyars, Sivanadiyars, and Spiritual Masters who uphold sacred traditions.',
-    '2. Institutions and Organisation': 'Spiritual schools, siddha hospitals, anna dhan centers, and dedicated institutions serving society.',
+    '1. Spiritual Pillar': 'Sivachariyars, Bhattachariyars, Sivanadiyars, and Spiritual Masters who uphold sacred traditions.',
+    '2. Institutions and Organisations': 'Spiritual schools, siddha hospitals, anna dhan centers, and dedicated institutions serving society.',
     '3. Individuals and Professionals': 'Eminent judges, doctors, scientists, authors, artists, and leaders advancing Sanatana Dharma.',
     '4. Grass Route Eminents': 'Unsung heroes: Veda padashalas, temple sculptors, traditional artists, gho shalas, and sacred craftsmen.'
   };
@@ -516,7 +526,7 @@ export default function GalleryPage() {
 
   // Determine sections to display
   const sectionsToDisplay = selectedCategory === 'All Sections'
-    ? ['Highlights', '1. Spiritual Piller', '2. Institutions and Organisation', '3. Individuals and Professionals', '4. Grass Route Eminents']
+    ? ['Highlights', '1. Spiritual Pillar', '2. Institutions and Organisations', '3. Individuals and Professionals', '4. Grass Route Eminents']
     : [selectedCategory];
 
   return (
