@@ -303,19 +303,6 @@ export default function App() {
         <div className="hero-actions" style={{ flexWrap: 'wrap', gap: '12px' }}>
           <button onClick={() => setActiveTab('donate')} className="btn btn-primary sparkle-shimmer-btn">Donate Now</button>
           <button onClick={(e) => { e.preventDefault(); setActiveTab('gallery'); }} className="btn btn-ghost-dark">Explore Divine Awards →</button>
-          <a 
-            href="/images/Dhara%20Divine%20Awards.pdf" 
-            download="Dhara Divine Awards 2025 Brochure.pdf"
-            className="btn btn-ghost-dark"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-          >
-            <svg className="w-4.5 h-4.5 download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            <span>Download Dhara Divine Awards 2025 Brochure</span>
-          </a>
         </div>
         <div className="hero-stats">
           <div className="hero-stat">
@@ -404,7 +391,7 @@ export default function App() {
       <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-deep-forest-dark)' }}>From our photo gallery</h2>
     </div>
     <div className="gallery-grid">
-      <div className="g-item tall overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
+      <div className="g-item banner overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
         <img src="/images/Devine Awards images/devine awrds-57.jpg" alt="Grand Assembly of Chief Guests & Spiritual Dignitaries" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
         <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Grand Assembly of Chief Guests & Spiritual Dignitaries</div>
       </div>
@@ -421,8 +408,16 @@ export default function App() {
         <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Shri N. Gopalaswami IAS (Rtd.)</div>
       </div>
       <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
+        <img src="/images/Home section/Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal.jpg" alt="Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
+        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal</div>
+      </div>
+      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
         <img src="/images/Home section/Sri la Sri Thirunavukkarasu Desika Parmacharya Swamigal.jpg" alt="Sri la Sri Thirunavukkarasu Desika Paramacharya Swamigal" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
         <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Sri la Sri Thirunavukkarasu Desika Paramacharya Swamigal</div>
+      </div>
+      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
+        <img src="/images/Home section/Shri.S.Vinoth Ragavendran M.E - Founder - President.jpg" alt="Shri S. Vinoth Ragavendran M.E. - Founder & President" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
+        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Shri S. Vinoth Ragavendran M.E. - Founder & President</div>
       </div>
     </div>
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '36px' }}>
@@ -990,8 +985,19 @@ export default function App() {
           <h2 className="preloader-text">
             Celebrating the Unspoken Celebrities
           </h2>
-          <div className="preloader-spinner">
-            <div className="preloader-spinner-bar"></div>
+          <div className="preloader-divine-loader">
+            <svg className="divine-loader-svg" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" stroke="var(--color-saffron-glow)" strokeWidth="1.5" strokeDasharray="3 6" fill="none" opacity="0.6" className="divine-ring-rotate" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(0 50 50)" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(45 50 50)" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(90 50 50)" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(135 50 50)" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(180 50 50)" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(225 50 50)" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(270 50 50)" />
+              <path d="M50 15 C55 35, 45 35, 50 15 Z" fill="var(--color-saffron-glow)" opacity="0.8" transform="rotate(315 50 50)" />
+              <circle cx="50" cy="50" r="8" fill="var(--color-saffron-glow-dark)" />
+            </svg>
           </div>
         </div>
       </div>

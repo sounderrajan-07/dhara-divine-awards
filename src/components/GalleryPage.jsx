@@ -124,6 +124,18 @@ const defaultGalleryImages = [
     "isHighlight": true
   },
   {
+    "src": "/images/Home section/Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal.jpg",
+    "category": "Highlights",
+    "caption": "Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal",
+    "isHighlight": true
+  },
+  {
+    "src": "/images/Home section/Shri.S.Vinoth Ragavendran M.E - Founder - President.jpg",
+    "category": "Highlights",
+    "caption": "Shri S. Vinoth Ragavendran M.E. - Founder & President",
+    "isHighlight": true
+  },
+  {
     "src": "/images/Section 1/1.Shri.S. Ravi (Sivachariyar).jpg",
     "category": "1. Spiritual Piller",
     "caption": "1. Shri.S. Ravi (Sivachariyar)"
@@ -638,6 +650,25 @@ export default function GalleryPage() {
             </div>
           );
         })}
+      </div>
+
+      {/* Brochure Download CTA at the bottom end of the gallery */}
+      <div className="flex flex-col items-center justify-center pt-12 pb-6 border-t border-[#D9CBB0]/40 mt-16 text-center space-y-4">
+        <h4 className="font-serif text-2xl font-bold text-[var(--color-deep-forest-dark)]">Dhara Divine Awards 2025 Brochure</h4>
+        <p className="text-sm text-[var(--ink-soft)] max-w-md">Download the official event brochure to learn more about the nominations, spiritual pillars, and program details.</p>
+        <a 
+          href="/images/Dhara Divine Awards.pdf" 
+          download="Dhara Divine Awards 2025 Brochure.pdf"
+          className="btn btn-primary sparkle-shimmer-btn inline-flex items-center gap-2"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+        >
+          <svg className="w-4.5 h-4.5 download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Download 2025 Brochure (PDF)</span>
+        </a>
       </div>
 
       {/* Lightbox Modal */}
