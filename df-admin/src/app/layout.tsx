@@ -3,8 +3,9 @@ import "@/index.css";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "Dhara Foundations | Divine Awards 2026 Admin Portal",
-  description: "Centralized operational command and vetting dashboard for Dhara Divine Awards 2026 and trust portals.",
+  title: "Dhara Foundations | Divine Awards",
+  description: "An annual celebration honouring selfless individuals in the path of spiritual and social service.",
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
