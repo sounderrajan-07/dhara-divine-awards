@@ -5,7 +5,15 @@
       "destination": "https://dhara-devineawards.vercel.app/api/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/admin/:path*",
+      "destination": "https://dhara-devineawards.vercel.app/:path*"
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "https://dhara-devineawards.vercel.app/_next/:path*"
+    },
+    {
+      "source": "/(?!admin|_next|api)(.*)",
       "destination": "/"
     }
   ]
