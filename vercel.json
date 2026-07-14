@@ -13,8 +13,8 @@
       "destination": "https://dhara-devineawards.vercel.app/_next/:path*"
     },
     {
-      "source": "/(?!admin|_next|api)(.*)",
-      "destination": "/"
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ]
 }
