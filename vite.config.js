@@ -7,7 +7,7 @@ import fs from 'fs'
 // Auto-copy admin logos to root public folder
 try {
   const rootPublic = path.resolve(__dirname, './public');
-  const adminPublic = path.resolve(__dirname, './DF Admin/public');
+  const adminPublic = path.resolve(__dirname, './df-admin/public');
   
   if (fs.existsSync(adminPublic)) {
     if (fs.existsSync(path.join(adminPublic, 'logo.png'))) {
@@ -29,7 +29,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './DF Admin/src'),
+      '@': path.resolve(__dirname, './df-admin/src'),
       'react': path.resolve(__dirname, './node_modules/react'),
       'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
     },
