@@ -971,10 +971,7 @@ export default function App() {
             </div>
           );
 
-  const isAdminRoute = location.pathname.startsWith('/admin');
-  if (isAdminRoute) {
-    return <AdminPortalPage />;
-  }
+
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -1024,7 +1021,7 @@ export default function App() {
           <Route path="/highlights" element={<div className="animate-fade-in"><EventsActivities /></div>} />
           <Route path="/enquiry" element={<div className="animate-fade-in"><GeneralEnquiries onSubmitSuccess={handleFormSuccess} /></div>} />
           <Route path="/thankyou" element={<div className="animate-fade-in"><ThankYouPage /></div>} />
-          <Route path="/admin" element={<AdminPortalPage />} />
+
           <Route path="*" element={getHomeElement()} />
         </Routes>
       </main>
