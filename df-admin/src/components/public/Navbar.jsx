@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Phone, Mail, ChevronDown } from 'lucide-react';
+import { Phone, Mail, ChevronDown, Download } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, mobileMenuOpen, setMobileMenuOpen }) {
+export default function Navbar({ activeTab, setActiveTab, mobileMenuOpen, setMobileMenuOpen, showInstallBtn, onInstall }) {
   const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -83,7 +83,16 @@ export default function Navbar({ activeTab, setActiveTab, mobileMenuOpen, setMob
             <a href="#" className={activeTab === 'contact' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setActiveTab('contact'); }}>Contact</a>
           </nav>
 
-          <div className="nav-cta">
+          <div className="nav-cta" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            {showInstallBtn && (
+              <button 
+                onClick={onInstall} 
+                className="btn btn-outline-saffron sparkle-shimmer-btn"
+                style={{ padding: '10px 20px', borderRadius: '999px', fontSize: '13.5px' }}
+              >
+                <Download className="w-4 h-4 mr-1" /> Install App
+              </button>
+            )}
             <button onClick={() => setActiveTab('donate')} className="btn btn-gold sparkle-shimmer-btn">Donate Now</button>
           </div>
           
@@ -139,6 +148,17 @@ export default function Navbar({ activeTab, setActiveTab, mobileMenuOpen, setMob
             
             <div className="mobile-dropdown-divider" />
             
+            {showInstallBtn && (
+              <>
+                <button 
+                  onClick={() => { onInstall(); setMobileMenuOpen(false); }} 
+                  className="btn btn-outline-saffron w-full justify-center mb-3"
+                  style={{ display: 'flex', width: '100%', justifyContent: 'center', marginBottom: '12px' }}
+                >
+                  <Download className="w-4 h-4 mr-1.5" /> Install App
+                </button>
+              </>
+            )}
             <button onClick={() => { setActiveTab('donate'); setMobileMenuOpen(false); }} className="btn btn-gold w-full justify-center">Donate Now</button>
           </div>
         )}

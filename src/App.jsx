@@ -151,6 +151,61 @@ export default function App() {
   // Brand preloader seen flag (runs on every reload)
   const [showPreloader, setShowPreloader] = useState(true);
 
+  // PWA Install States & Logics
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstallBtn, setShowInstallBtn] = useState(false);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+
+  useEffect(() => {
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then((reg) => console.log('Service Worker registered successfully:', reg.scope))
+        .catch((err) => console.error('Service Worker registration failed:', err));
+    }
+
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallBtn(true);
+      const isDismissed = sessionStorage.getItem('pwa-banner-dismissed');
+      if (!isDismissed) {
+        setShowInstallBanner(true);
+      }
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    const handleAppInstalled = () => {
+      setDeferredPrompt(null);
+      setShowInstallBtn(false);
+      setShowInstallBanner(false);
+      console.log('App was successfully installed');
+    };
+
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`PWA installation outcome: ${outcome}`);
+    setDeferredPrompt(null);
+    setShowInstallBtn(false);
+    setShowInstallBanner(false);
+  };
+
+  const dismissInstallBanner = () => {
+    setShowInstallBanner(false);
+    sessionStorage.setItem('pwa-banner-dismissed', 'true');
+  };
+
   useEffect(() => {
     if (showPreloader) {
       document.body.style.overflow = 'hidden';
@@ -1007,6 +1062,8 @@ export default function App() {
         setActiveTab={changeTab} 
         mobileMenuOpen={mobileMenuOpen} 
         setMobileMenuOpen={setMobileMenuOpen} 
+        showInstallBtn={showInstallBtn}
+        onInstall={handleInstallClick}
       />
       {/* Main Content Area */}
       <main style={{ flex: '1 0 auto' }}>
@@ -1230,6 +1287,31 @@ export default function App() {
               allowFullScreen
               style={{ width: '100%', height: '100%' }}
             ></iframe>
+          </div>
+        </div>
+      )}
+
+      {/* Floating PWA Install Banner */}
+      {showInstallBanner && (
+        <div className="pwa-install-banner">
+          <div className="pwa-install-inner">
+            <div className="pwa-info">
+              <div className="pwa-icon-container">
+                <img src="/logo/New logo.png" alt="App Icon" className="pwa-app-icon" />
+              </div>
+              <div>
+                <h4 className="pwa-title">Dhara Divine Awards</h4>
+                <p className="pwa-desc">Install our app for offline support and seamless access.</p>
+              </div>
+            </div>
+            <div className="pwa-actions">
+              <button onClick={handleInstallClick} className="btn btn-gold btn-sm sparkle-shimmer-btn" style={{ padding: '8px 16px', fontSize: '12px', borderRadius: '999px' }}>
+                Install
+              </button>
+              <button onClick={dismissInstallBanner} className="pwa-close-btn" aria-label="Close">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       )}
