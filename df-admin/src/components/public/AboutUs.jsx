@@ -65,28 +65,7 @@ export default function AboutUs() {
     }
   ];
 
-  const awardPillars = [
-    {
-      title: "Spiritual Service",
-      description: "Honouring individuals who uplift society through devotion, wisdom, and the path of dharma — from temple caretakers to spiritual healers."
-    },
-    {
-      title: "Grassroots Impact",
-      description: "Recognizing unsung heroes working selflessly in slums, villages, and disaster zones where real change begins."
-    },
-    {
-      title: "Corporate to Commoner",
-      description: "Appreciating the wide spectrum of service — from CEOs driving CSR initiatives to dedicated local volunteers."
-    },
-    {
-      title: "Beyond Awards - A Responsibility",
-      description: "Not just a trophy — a platform of encouragement with a ₹25,000 cash reward to fuel more good work."
-    },
-    {
-      title: "A Spiritual Gathering with a Cause",
-      description: "Merging culture, spirituality, and celebration in a sacred, soulful evening of purpose, music, and mantras."
-    }
-  ];
+
 
   return (
     <div className="py-16 px-6 md:px-12 max-w-7xl mx-auto w-full space-y-20">
@@ -227,14 +206,28 @@ export default function AboutUs() {
             </svg>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs font-mono text-[var(--color-saffron-glow)] uppercase tracking-widest font-bold block">Why Divine Awards?</span>
-              <h4 className="text-2xl md:text-3xl font-serif font-bold text-[#FFD27F]">"Celebrating the Unspoken Celebrities"</h4>
-              <p className="text-xs text-[#F3E9D4] leading-relaxed">
-                “Service to Humanity is Service to the Divine.” Rooted in this belief, the Dhara Divine Awards aims to empower those who work quietly behind the scenes, transforming lives and preserving traditions.
-              </p>
-              <div className="pt-2">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
+            {/* Left side: General Intro */}
+            <div className="lg:col-span-6 space-y-6">
+              <span className="text-xs font-mono text-[var(--color-saffron-glow)] uppercase tracking-widest font-bold block">
+                Recognising Extraordinary Service
+              </span>
+              <h4 className="text-3xl md:text-4xl font-serif font-bold text-[#FFD27F] leading-tight">
+                About Dhara Divine Awards
+              </h4>
+              <div className="space-y-4 text-sm text-[#F3E9D4] leading-relaxed font-sans">
+                <p>
+                  The <strong>Dhara Divine Awards</strong> were conceived with a simple yet powerful purpose—to recognize individuals and organizations whose contributions have significantly improved the lives of others.
+                </p>
+                <p>
+                  In a world often focused on achievement and recognition, countless heroes continue to work quietly behind the scenes, transforming communities through dedication, compassion, and selfless service. These awards shine a spotlight on such remarkable individuals and institutions.
+                </p>
+                <p className="italic text-neutral-300 pt-2 border-t border-white/10 font-serif">
+                  "The Dhara Divine Awards stand as a tribute to those who make a difference—not for recognition, but because service is their calling."
+                </p>
+              </div>
+              
+              <div className="pt-4">
                 <div className="inline-flex items-center gap-4 bg-white/5 border border-[var(--color-saffron-glow)]/35 px-6 py-4 rounded-2xl">
                   <Award className="w-8 h-8 text-[var(--color-saffron-glow)]" />
                   <div>
@@ -245,22 +238,40 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="lg:col-span-7 space-y-4">
-              <div className="grid grid-cols-1 gap-4">
-                {awardPillars.map((pillar, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[var(--color-saffron-glow)]/30 rounded-2xl p-5 transition-all duration-300 flex gap-4 items-start cursor-pointer"
-                  >
-                    <div className="w-8 h-8 rounded-xl bg-[var(--color-saffron-glow)]/10 text-[var(--color-saffron-glow)] flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold font-mono text-[var(--color-saffron-glow)]">0{idx + 1}</span>
+            {/* Right side: Theme and Aims */}
+            <div className="lg:col-span-6 space-y-8">
+              {/* Theme Block */}
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-3">
+                <span className="text-[10px] uppercase tracking-wider font-mono text-[var(--color-saffron-glow)] font-bold block">
+                  Theme for 2025
+                </span>
+                <h5 className="text-xl font-bold text-[#FFD27F] font-serif">
+                  "Service Rooted in Spirit"
+                </h5>
+                <p className="text-xs text-neutral-300 leading-relaxed font-sans">
+                  The 2025 edition celebrates those whose actions are guided by values, purpose, and a deep commitment to humanity.
+                </p>
+              </div>
+
+              {/* Aims Block */}
+              <div className="space-y-4">
+                <h5 className="font-bold text-sm text-[#FFD27F] uppercase tracking-wider font-sans">
+                  The awards aim to:
+                </h5>
+                <div className="grid grid-cols-1 gap-3">
+                  {[
+                    "Honour excellence in social service.",
+                    "Celebrate leadership driven by compassion.",
+                    "Inspire future generations of changemakers.",
+                    "Promote a culture of service and responsibility.",
+                    "Recognize sustainable community impact."
+                  ].map((aim, idx) => (
+                    <div key={idx} className="flex gap-3 items-start text-xs text-neutral-200">
+                      <span className="text-[var(--color-saffron-glow)] mt-0.5 select-none font-sans">✦</span>
+                      <span className="font-sans leading-relaxed">{aim}</span>
                     </div>
-                    <div className="space-y-1">
-                      <h5 className="font-bold text-sm text-[#FFD27F]">{pillar.title}</h5>
-                      <p className="text-xs text-neutral-300 leading-relaxed">{pillar.description}</p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
