@@ -123,6 +123,25 @@ export default function HomeApp() {
   const [subdomain, setSubdomain] = useState('');
   const [homeActiveVideoId, setHomeActiveVideoId] = useState<string | null>(null);
   const [heroVideoMuted, setHeroVideoMuted] = useState(false);
+  const heroVideoRef = React.useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (video) {
+      video.muted = heroVideoMuted;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.warn("Unmuted autoplay blocked, falling back to muted autoplay:", error);
+          if (!heroVideoMuted) {
+            setHeroVideoMuted(true);
+            video.muted = true;
+            video.play().catch(err => console.error("Muted autoplay fallback failed:", err));
+          }
+        });
+      }
+    }
+  }, [heroVideoMuted]);
 
   // Thank You State
   const [successData, setSuccessData] = useState<any>(null);
@@ -373,6 +392,7 @@ export default function HomeApp() {
                 position: 'relative'
               }}>
                 <video 
+                  ref={heroVideoRef}
                   src="/video/hero section video.mp4" 
                   poster="/images/News/DHARA Divine Awards Ceremony.jpg" 
                   autoPlay 
@@ -456,7 +476,7 @@ export default function HomeApp() {
               <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Sri la Sri Thirunavukkarasu Desika Paramacharya Swamigal</div>
             </div>
             <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-              <img src="/images/Home section/Shri.S.Vinoth Ragavendran M.E - Founder - President.jpg" alt="Shri S. Vinoth Ragavendran M.E. - Founder & President" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
+              <img src="/images/Home section/Dhara Divine Moment.jpeg" alt="Shri S. Vinoth Ragavendran M.E. - Founder & President" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
               <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Shri S. Vinoth Ragavendran M.E. - Founder & President</div>
             </div>
           </div>
