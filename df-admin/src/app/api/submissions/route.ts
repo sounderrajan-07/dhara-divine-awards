@@ -44,7 +44,8 @@ export async function POST(request: Request) {
         nominator_phone: body.nominatorPhone || '',
         vetting_status: 'pending',
         created_at: timestamp,
-        avatar_url: body.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'
+        avatar_url: body.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+        nominee_work_image: body.nomineeWorkImage || ''
       };
       db.nominations.push(newEntry);
       activityType = 'nomination';

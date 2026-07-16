@@ -16,7 +16,6 @@ import MediaCoverage from '@/components/public/MediaCoverage';
 import GeneralEnquiries from '@/components/public/GeneralEnquiries';
 import Navbar from '@/components/public/Navbar';
 import Footer from '@/components/public/Footer';
-import DivineCursor from '@/components/public/DivineCursor';
 
 // Subdomain components
 import EventRegistration from '@/components/public/EventRegistration';
@@ -374,7 +373,7 @@ export default function HomeApp() {
                 position: 'relative'
               }}>
                 <video 
-                  src="/video/dhara_hero.mp4" 
+                  src="/video/hero section video.mp4" 
                   poster="/images/News/DHARA Divine Awards Ceremony.jpg" 
                   autoPlay 
                   loop 
@@ -1000,7 +999,6 @@ export default function HomeApp() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <DivineCursor />
       {/* Preloader Overlay */}
       <div className={`preloader-overlay ${showPreloader ? 'active' : 'fade-out'}`}>
         <div className="preloader-content">

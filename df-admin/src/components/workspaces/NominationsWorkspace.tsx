@@ -31,11 +31,7 @@ export const NominationsWorkspace: React.FC = () => {
 
   const categories: string[] = [
     'all',
-    'Arts & Culture',
-    'Social Welfare',
-    'Temple Restoration',
-    'Vedic Education',
-    'Environmental Seva'
+    ...Array.from(new Set(nominations.map(nom => nom.category))).filter(Boolean)
   ];
 
   const columns: { id: VettingStatus; title: string; color: string; bg: string; border: string; desc: string }[] = [
@@ -81,7 +77,7 @@ export const NominationsWorkspace: React.FC = () => {
                   : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3] dark:hover:bg-[#30312E]'
               }`}
             >
-              {cat === 'all' ? 'All Domains (1,286)' : cat}
+              {cat === 'all' ? `All Domains (${nominations.length})` : `${cat} (${nominations.filter(n => n.category === cat).length})`}
             </button>
           ))}
         </div>
@@ -325,6 +321,19 @@ export const NominationsWorkspace: React.FC = () => {
                 {previewNomination.bio_summary}
               </p>
             </div>
+
+            {previewNomination.nominee_work_image && (
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold text-[#867463] uppercase tracking-wider">Uploaded Evidence / Nominee Work Image</h4>
+                <div className="border border-[#E4E2DD] dark:border-[#30312E] rounded-2xl overflow-hidden bg-neutral-50 dark:bg-neutral-900 flex justify-center p-2">
+                  <img 
+                    src={previewNomination.nominee_work_image} 
+                    alt="Nominee Work Evidence" 
+                    className="max-h-[300px] object-contain rounded-xl shadow-sm" 
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Supporting Links & Media */}
             <div className="space-y-3">

@@ -1,9 +1,4 @@
-export type NominationCategory = 
-  | 'Arts & Culture' 
-  | 'Social Welfare' 
-  | 'Temple Restoration' 
-  | 'Vedic Education' 
-  | 'Environmental Seva';
+export type NominationCategory = string;
 
 export type VettingStatus = 'pending' | 'shortlisted' | 'approved' | 'rejected';
 
@@ -20,6 +15,7 @@ export interface Nomination {
   assigned_jury?: string;
   created_at: string;
   avatar_url?: string;
+  nominee_work_image?: string;
 }
 
 export type DonationType = 'individual' | 'corporate';

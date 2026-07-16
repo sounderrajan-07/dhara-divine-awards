@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Award, User, FileText, ArrowRight, ArrowLeft, Mail, Phone, MapPin, Check } from 'lucide-react';
+import { Award, User, FileText, ArrowRight, ArrowLeft, Mail, Phone, MapPin, Check, X } from 'lucide-react';
 import { submitForm } from '../utils/api';
 
 export default function AwardNominations({ onSubmitSuccess }) {
@@ -16,7 +16,8 @@ export default function AwardNominations({ onSubmitSuccess }) {
     category: 'seva_ratna',
     sevaSummary: '',
     impactMetrics: '',
-    references: ''
+    references: '',
+    nomineeWorkImage: ''
   });
 
   const categories = {
@@ -45,6 +46,65 @@ export default function AwardNominations({ onSubmitSuccess }) {
       subtitle: 'Educational Upliftment Award',
       desc: 'Saluting teachers or organizers establishing path-breaking educational projects for street children, rural girls, or tribal communities.'
     }
+  };
+
+  const groupedCategories = {
+    "II. INSTITUTIONS/ORGANISATIONS": [
+      "Hospitals",
+      "Restaurants",
+      "School Education Institutions",
+      "College Educational Institutions",
+      "Annadhan Centres",
+      "Industries",
+      "Women Organisation",
+      "Spiritual Equipments",
+      "Spiritual Books",
+      "Waterbodies Aarti group",
+      "Pooja Goods",
+      "Instrumental Group",
+      "Spiritual Tourism companies",
+      "Spiritual Media",
+      "Siddha Hospital",
+      "Textile Industries",
+      "Jewllery Industries",
+      "Spiritual Meditation Centres",
+      "Spiritual Music Schools"
+    ],
+    "III. INDIVIDUALS/ PROFESSIONALS": [
+      "Cinema And Art Industry",
+      "Entrepreneurs",
+      "Spiritual Speakers",
+      "Astrologers",
+      "Judges",
+      "Advocates",
+      "Professors",
+      "Social Evangelists",
+      "Auditors",
+      "Doctors",
+      "Traditional Sports Trainers",
+      "Volunteers who recovered old temple",
+      "Agricultural industry",
+      "Construction industry",
+      "Scientists",
+      "Writers",
+      "Vedic Scholars",
+      "Spiritual Singers",
+      "Spiritual Music Directors"
+    ],
+    "IV. GRASS ROUTE EMINENTS": [
+      "Vedic Schools",
+      "Bakthi Sevaks in Need",
+      "Ghoshalas",
+      "Black Stone Sculptors",
+      "Metal Sculptors",
+      "Carpenters",
+      "Temple Artists",
+      "Madapalli Workers",
+      "Flower Decoration",
+      "Sacred Elephant keeper",
+      "Potters And GoluDoll Makers",
+      "Street Play Artists"
+    ]
   };
 
   const handleChange = (e) => {
@@ -78,21 +138,29 @@ export default function AwardNominations({ onSubmitSuccess }) {
       alert('Please fill in the Seva Summary of the nominee.');
       return;
     }
+    if (!formData.nomineeWorkImage) {
+      alert("Please upload an image showing the nominee's work as evidence.");
+      return;
+    }
+
+    const categoryTitle = categories[formData.category]
+      ? categories[formData.category].title
+      : formData.category;
 
     const submission = {
       ...formData,
-      categoryTitle: categories[formData.category].title
+      categoryTitle
     };
 
     submitForm('Award Nominations', submission);
 
     onSubmitSuccess({
       title: 'Nomination Submitted Successfully',
-      message: `Pranam, ${formData.nominatorName}. Your nomination of ${formData.nomineeName} for the prestigious "${categories[formData.category].title}" award has been received. Our jury consisting of eminent spiritual leaders and social workers will evaluate the Seva Summary. We will notify both you and the nominee if selected for the shortlist.`,
+      message: `Pranam, ${formData.nominatorName}. Your nomination of ${formData.nomineeName} for the prestigious "${categoryTitle}" award has been received. Our jury consisting of eminent spiritual leaders and social workers will evaluate the Seva Summary and evidence. We will notify both you and the nominee if selected for the shortlist.`,
       details: [
         { label: 'Nominator', value: formData.nominatorName },
         { label: 'Nominee', value: formData.nomineeName },
-        { label: 'Category', value: categories[formData.category].title }
+        { label: 'Category', value: categoryTitle }
       ]
     });
   };
@@ -100,7 +168,7 @@ export default function AwardNominations({ onSubmitSuccess }) {
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="text-center mb-12">
-        <span className="text-sun-gold font-semibold uppercase tracking-wider text-sm font-sans font-semibold">Honoring Selfless Souls</span>
+        <span className="text-sun-gold font-semibold uppercase tracking-wider text-sm font-sans">Honoring Selfless Souls</span>
         <h2 className="text-4xl font-serif text-forest-teal-dark mt-2 mb-4">Divine Awards 2025 Nominations</h2>
         <p className="text-neutral-600 max-w-2xl mx-auto font-sans">
           Do you know a silent hero who does outstanding seva without seeking recognition? Nominate them today to shine a light on their noble deeds.
@@ -287,15 +355,26 @@ export default function AwardNominations({ onSubmitSuccess }) {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-forest-teal text-sm font-sans bg-white"
               >
-                {Object.entries(categories).map(([key, cat]) => (
-                  <option key={key} value={key}>{cat.title} ({cat.subtitle})</option>
+                <optgroup label="I. KEY DIVINE AWARDS">
+                  {Object.entries(categories).map(([key, cat]) => (
+                    <option key={key} value={key}>{cat.title} ({cat.subtitle})</option>
+                  ))}
+                </optgroup>
+                {Object.entries(groupedCategories).map(([groupTitle, list]) => (
+                  <optgroup key={groupTitle} label={groupTitle}>
+                    {list.map((cat) => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
             </div>
 
             <div className="p-4 bg-[#FDFBF7] rounded-2xl border border-sage-accent/40 text-xs font-sans text-neutral-600">
               <strong className="text-forest-teal-dark block mb-1">Category Criteria:</strong>
-              {categories[formData.category].desc}
+              {categories[formData.category]
+                ? categories[formData.category].desc
+                : `Honoring and recognizing exceptional service, leadership, and positive impact achieved in the field of "${formData.category}".`}
             </div>
 
             <div className="pt-4 flex justify-between">
@@ -334,7 +413,7 @@ export default function AwardNominations({ onSubmitSuccess }) {
               <textarea
                 name="sevaSummary"
                 required
-                rows="6"
+                rows="5"
                 placeholder="Detail the selfless acts, activities, or systemic impacts that the nominee has accomplished. Include historical timelines, populations served, and why they deserve this prestigious honor..."
                 value={formData.sevaSummary}
                 onChange={handleChange}
@@ -344,30 +423,103 @@ export default function AwardNominations({ onSubmitSuccess }) {
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-forest-teal mb-2 font-sans">
-                Quantifiable Impact / Metrics (Optional)
+                Upload Nominee's Work / Evidence (Image) *
               </label>
-              <textarea
-                name="impactMetrics"
-                rows="3"
-                placeholder="E.g., Planted 50,000 trees, fed 10,000 kids during pandemic, cleared 150km of choked riverbed..."
-                value={formData.impactMetrics}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-forest-teal text-sm font-sans"
-              ></textarea>
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-neutral-250 rounded-2xl hover:border-forest-teal transition-colors bg-[#FDFBF9]/50">
+                <div className="space-y-1 text-center">
+                  {formData.nomineeWorkImage ? (
+                    <div className="relative inline-block">
+                      <img
+                        src={formData.nomineeWorkImage}
+                        alt="Nominee work preview"
+                        className="max-h-48 rounded-lg object-contain shadow-sm border border-neutral-100"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, nomineeWorkImage: '' }))}
+                        className="absolute -top-2 -right-2 p-1.5 bg-red-650 text-white rounded-full hover:bg-red-700 transition-colors shadow-md cursor-pointer"
+                        title="Remove Image"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <svg
+                        className="mx-auto h-12 w-12 text-neutral-400"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <div className="flex text-sm text-neutral-600 font-sans justify-center">
+                        <label
+                          htmlFor="file-upload"
+                          className="relative cursor-pointer bg-transparent rounded-md font-semibold text-sun-gold hover:text-amber-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-forest-teal"
+                        >
+                          <span>Upload a file</span>
+                          <input
+                            id="file-upload"
+                            name="file-upload"
+                            type="file"
+                            accept="image/*"
+                            className="sr-only"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                const reader = new FileReader();
+                                reader.onloadend = () => {
+                                  setFormData(prev => ({ ...prev, nomineeWorkImage: reader.result }));
+                                };
+                                reader.readAsDataURL(file);
+                              }
+                            }}
+                          />
+                        </label>
+                        <p className="pl-1">or drag and drop</p>
+                      </div>
+                      <p className="text-xs text-neutral-500 font-sans">PNG, JPG, JPEG up to 5MB</p>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-forest-teal mb-2 font-sans">
-                Supporting Links / References
-              </label>
-              <input
-                type="text"
-                name="references"
-                placeholder="Google Drive folder, website links, news article links separated by commas"
-                value={formData.references}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-forest-teal text-sm font-sans"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-forest-teal mb-2 font-sans">
+                  Quantifiable Impact / Metrics (Optional)
+                </label>
+                <textarea
+                  name="impactMetrics"
+                  rows="3"
+                  placeholder="E.g., Planted 50,000 trees, fed 10,000 kids during pandemic, cleared 150km of choked riverbed..."
+                  value={formData.impactMetrics}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-forest-teal text-sm font-sans"
+                ></textarea>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-forest-teal mb-2 font-sans">
+                  Supporting Links / References (Optional)
+                </label>
+                <textarea
+                  name="references"
+                  rows="3"
+                  placeholder="Google Drive folder, website links, news article links separated by commas"
+                  value={formData.references}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-forest-teal text-sm font-sans"
+                ></textarea>
+              </div>
             </div>
 
             <div className="pt-4 flex justify-between">
