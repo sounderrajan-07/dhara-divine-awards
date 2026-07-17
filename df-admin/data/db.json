@@ -5,6 +5,1570 @@
   "volunteers": [],
   "enquiries": [],
   "activityLogs": [],
-  "gallery": [],
-  "events": []
+  "gallery": [
+    {
+      "id": "home-img-0",
+      "src": "/images/Devine Awards images/devine awrds-57.jpg",
+      "category": "Highlights",
+      "caption": "Grand Assembly of Chief Guests & Spiritual Dignitaries",
+      "priority": 100,
+      "featured": true
+    },
+    {
+      "id": "home-img-1",
+      "src": "/images/Home section/Hon'ble Justice Shri T.N Vallinayagam(Rtd).jpg",
+      "category": "Guest Dignitaries",
+      "caption": "Hon'ble Justice Shri T.N. Vallinayagam (Rtd.)",
+      "priority": 99,
+      "featured": true
+    },
+    {
+      "id": "home-img-2",
+      "src": "/images/Home section/Hon'ble justice Shri G.R Swaminathan  Avl..jpg",
+      "category": "Guest Dignitaries",
+      "caption": "Hon'ble Justice Shri G.R. Swaminathan Avl.",
+      "priority": 98,
+      "featured": true
+    },
+    {
+      "id": "home-img-3",
+      "src": "/images/Home section/Shri.N.Gopalaswami IAS(Rtd).jpg",
+      "category": "Guest Dignitaries",
+      "caption": "Shri N. Gopalaswami IAS (Rtd.)",
+      "priority": 97,
+      "featured": true
+    },
+    {
+      "id": "home-img-4",
+      "src": "/images/Home section/Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal.jpg",
+      "category": "Spiritual Pillars",
+      "caption": "Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal",
+      "priority": 96,
+      "featured": true
+    },
+    {
+      "id": "home-img-5",
+      "src": "/images/Home section/Sri la Sri Thirunavukkarasu Desika Parmacharya Swamigal.jpg",
+      "category": "Spiritual Pillars",
+      "caption": "Sri la Sri Thirunavukkarasu Desika Paramacharya Swamigal",
+      "priority": 95,
+      "featured": true
+    },
+    {
+      "id": "home-img-6",
+      "src": "/images/Home section/Dhara Divine Moment.jpeg",
+      "category": "Highlights",
+      "caption": "Shri S. Vinoth Ragavendran M.E. - Founder & President",
+      "priority": 94,
+      "featured": true
+    },
+    {
+      "id": "gal-high-0",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (1).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 1",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-1",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (2).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 2",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-2",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (3).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 3",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-3",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (4).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 4",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-4",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (5).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 5",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-5",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (6).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 6",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-6",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (7).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 7",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-7",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (8).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 8",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-8",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (9).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 9",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-9",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (10).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 10",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-10",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (11).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 11",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-11",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (12).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 12",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-12",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (13).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 13",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-13",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (14).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 14",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-14",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (15).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 15",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-15",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (16).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 16",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-16",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (17).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 17",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-17",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (18).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 18",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-18",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (19).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 19",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-19",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (20).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 20",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-20",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (21).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 21",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-21",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (22).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 22",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-22",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (23).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 23",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-23",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (24).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 24",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-24",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (25).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 25",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-25",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (26).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 26",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-26",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (27).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 27",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-27",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (28).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 28",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-28",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (29).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 29",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-29",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (30).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 30",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-30",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (31).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 31",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-31",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (32).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 32",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-32",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (33).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 33",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-33",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (34).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 34",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-34",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (35).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 35",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-35",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (36).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 36",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-36",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (37).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 37",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-37",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (38).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 38",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-38",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (39).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 39",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-39",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (40).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 40",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-40",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (41).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 41",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-41",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (42).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 42",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-42",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (43).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 43",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-43",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (44).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 44",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-44",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (45).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 45",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-45",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight  (46).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 46",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-46",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (1).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 47",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-47",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (2).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 48",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-48",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (3).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 49",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-49",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (4).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 50",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-50",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (5).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 51",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-51",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (6).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 52",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-52",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (7).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 53",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-53",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (8).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 54",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-54",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (9).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 55",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-55",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (10).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 56",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-56",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (11).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 57",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-57",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (12).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 58",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-58",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (13).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 59",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-59",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (14).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 60",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-60",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (15).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 61",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-61",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (16).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 62",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-62",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (17).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 63",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-63",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (18).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 64",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-64",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (19).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 65",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-65",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (20).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 66",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-66",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (21).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 67",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-67",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (22).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 68",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-68",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (23).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 69",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-69",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (24).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 70",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-70",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (25).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 71",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-71",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (26).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 72",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-72",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (27).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 73",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-73",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (28).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 74",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-74",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (29).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 75",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-75",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (30).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 76",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-76",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (31).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 77",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-77",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (32).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 78",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-78",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (33).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 79",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-79",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (34).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 80",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-80",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (35).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 81",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-81",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (36).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 82",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-82",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (37).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 83",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-83",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (38).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 84",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-84",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (39).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 85",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-85",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (40).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 86",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-86",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (41).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 87",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-87",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (42).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 88",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-88",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (43).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 89",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-89",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (44).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 90",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-90",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (45).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 91",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-91",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (46).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 92",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-92",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (47).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 93",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-93",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (48).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 94",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-94",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (49).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 95",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-95",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (50).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 96",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-96",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (51).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 97",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-97",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (52).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 98",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-98",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (53).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 99",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-99",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (55).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 100",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-100",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (56).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 101",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-101",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (57).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 102",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-102",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (58).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 103",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-103",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (59).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 104",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-104",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (67).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 105",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-105",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (68).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 106",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-106",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (69).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 107",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-107",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (70).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 108",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-108",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (71).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 109",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-109",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (72).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 110",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-110",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (73).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 111",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-111",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (74).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 112",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-112",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (76).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 113",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-113",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (77).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 114",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-114",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (78).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 115",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-115",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (79).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 116",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-116",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (80).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 117",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-117",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (81).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 118",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-118",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (82).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 119",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-119",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (84).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 120",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-120",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (85).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 121",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-121",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (86).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 122",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-122",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (87).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 123",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-123",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (88).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 124",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-124",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (89).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 125",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-125",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (90).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 126",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-126",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (91).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 127",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-127",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (92).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 128",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-128",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (93).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 129",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-129",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (94).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 130",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-130",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (95).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 131",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-131",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (96).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 132",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-132",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (97).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 133",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-133",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (98).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 134",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-134",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (99).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 135",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-135",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (100).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 136",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-136",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (101).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 137",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-137",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (102).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 138",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-138",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (103).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 139",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-139",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (104).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 140",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-140",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (105).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 141",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-141",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (106).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 142",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-142",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (107).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 143",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-143",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (108).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 144",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-144",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (109).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 145",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-145",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (110).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 146",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-146",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (111).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 147",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-147",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (112).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 148",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-148",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (113).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 149",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-149",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (114).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 150",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-150",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (115).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 151",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-151",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (116).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 152",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-152",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (117).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 153",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-153",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (118).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 154",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-154",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (119).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 155",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-155",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (120).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 156",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-156",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (121).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 157",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-157",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (122).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 158",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-158",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (123).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 159",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-159",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (124).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 160",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-160",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (125).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 161",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-161",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (126).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 162",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-162",
+      "src": "/images/Highlights1/Dhara Divine Awards - Highlight (127).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 163",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-163",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (43).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 164",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-164",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (44).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 165",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-165",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (45).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 166",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-166",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (46).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 167",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-167",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (47).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 168",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-168",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (48).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 169",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-169",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (49).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 170",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-170",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (50).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 171",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-171",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (51).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 172",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-172",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (52).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 173",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-173",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (53).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 174",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-174",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (54).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 175",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-175",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (55).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 176",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-176",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (56).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 177",
+      "priority": 0,
+      "featured": false
+    },
+    {
+      "id": "gal-high-177",
+      "src": "/images/Highlights1/E Dhara Divine Awards - Highlight  (57).png",
+      "category": "Highlights",
+      "caption": "Dhara Divine Awards - Moments 178",
+      "priority": 0,
+      "featured": false
+    }
+  ],
+  "events": [
+    {
+      "id": "ev-vid-3",
+      "title": "Hon'ble Justice (Retd.) Thiru T.N. Vallinayagam",
+      "type": "video",
+      "category": "Madras HC Judge",
+      "youtubeId": "J6BvffQ1ZKQ",
+      "featured": true,
+      "priority": 100
+    },
+    {
+      "id": "ev-vid-4",
+      "title": "Yatheeswar Raja - Spiritual Music Director",
+      "type": "video",
+      "category": "Spiritual Music",
+      "youtubeId": "IILqWheG9f4",
+      "featured": true,
+      "priority": 99
+    },
+    {
+      "id": "home-vid-2",
+      "youtubeId": "1T_SGxOs-CY",
+      "title": "Mahout Receiving an Award",
+      "description": "Felicitation ceremony of Temple Mahout recognizing their dedication and service to sacred temple elephants.",
+      "category": "Temple Seva",
+      "type": "video",
+      "priority": 98,
+      "featured": true
+    },
+    {
+      "id": "home-vid-3",
+      "youtubeId": "oEsIdHha5uw",
+      "title": "Dr. Rajeswari Ramachandran",
+      "description": "Keynote address and award presentation honoring Dr. Rajeswari Ramachandran's charitable services.",
+      "category": "Social Welfare",
+      "type": "video",
+      "priority": 97,
+      "featured": true
+    },
+    {
+      "id": "home-vid-4",
+      "youtubeId": "VONlv_X9Aro",
+      "title": "Traditional Sports Coach",
+      "description": "Honoring traditional coaches for reviving and instructing ancient sports and martial arts.",
+      "category": "Heritage Sports",
+      "type": "video",
+      "priority": 96,
+      "featured": true
+    },
+    {
+      "id": "home-vid-5",
+      "youtubeId": "3FQgwocLBnQ",
+      "title": "CA Prabakaran",
+      "description": "Professional governance perspective and felicitation of CA Prabakaran for supporting social trusts.",
+      "category": "Financial Seva",
+      "type": "video",
+      "priority": 95,
+      "featured": true
+    },
+    {
+      "id": "ev-vid-0",
+      "title": "Sivachariyar S. Ravi Sivaachariyar",
+      "type": "video",
+      "category": "Sivachariyar Seva",
+      "youtubeId": "FbStAM_Zj2I",
+      "featured": false
+    },
+    {
+      "id": "ev-vid-1",
+      "title": "Bhattacharyar Raju @ Lakshmana Bhattar",
+      "type": "video",
+      "category": "Temple Priest Seva",
+      "youtubeId": "YfHlnUSwxtY",
+      "featured": false
+    },
+    {
+      "id": "ev-vid-2",
+      "title": "Amman Worship Exponent - Shri Vasu",
+      "type": "video",
+      "category": "Amman Worship",
+      "youtubeId": "EuHZEntcPyE",
+      "featured": false
+    }
+  ]
 }

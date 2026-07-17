@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Award, Users, Calendar, Trees, Search, Play, X } from 'lucide-react';
+import { fetchEvents } from '../utils/api';
 
 export default function EventsActivities() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeVideoId, setActiveVideoId] = useState(null);
+  const [dynamicEvents, setDynamicEvents] = useState([]);
+
+  useEffect(() => {
+    fetchEvents().then(res => {
+      if (res && res.length) {
+        setDynamicEvents(res.filter(ev => ev.type === 'video'));
+      }
+    });
+  }, []);
 
   const getImageUrl = (src) => {
     if (!src) return '';
-    if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('/uploads') || src.startsWith('data:')) {
-      if (src.startsWith('/uploads')) {
-        return `${API_BASE}${src}`;
-      }
-      return src;
-    }
     return src;
   };
 
@@ -427,7 +431,20 @@ export default function EventsActivities() {
     }
   ];
 
+  const dynamicSection = dynamicEvents.length > 0 ? {
+    id: "sec-dynamic",
+    title: "Recent Updates & Events",
+    subtitle: "Latest videos added via admin portal.",
+    videos: dynamicEvents.map(ev => ({
+      id: ev.youtubeId,
+      title: ev.title,
+      description: ev.description,
+      duration: ev.category
+    }))
+  } : null;
+
   const sections = [
+    ...(dynamicSection ? [dynamicSection] : []),
     {
       id: "sec-1",
       title: "Spiritual Pillars",
@@ -454,7 +471,7 @@ export default function EventsActivities() {
     }
   ];
 
-  const allMedia = [...section1Videos, ...section2Videos, ...section3Videos, ...section4Videos];
+  const allMedia = sections.flatMap(sec => sec.videos);
 
   const matchesSearch = (item) => {
     if (!searchQuery) return true;

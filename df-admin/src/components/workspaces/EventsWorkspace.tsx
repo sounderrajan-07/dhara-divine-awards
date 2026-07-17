@@ -5,7 +5,7 @@ import { useApp } from '../../context/AppContext';
 import { Calendar, Search, Plus, Trash2, X, Filter, Upload, Play, Image as ImageIcon } from 'lucide-react';
 
 export const EventsWorkspace: React.FC = () => {
-  const { events, addEvent, deleteEvent, globalSearchQuery } = useApp();
+  const { events, addEvent, updateEvent, deleteEvent, globalSearchQuery } = useApp();
   const [selectedType, setSelectedType] = useState<string>('All');
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
@@ -18,9 +18,14 @@ export const EventsWorkspace: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [youtubeId, setYoutubeId] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
+  const [featured, setFeatured] = useState<boolean>(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const types = ['All', 'image', 'video'];
-  const categoriesList = ['Spiritual Seva', 'Community Seva', 'Traditional Art', 'Traditional Craft', 'News & Press', 'YouTube Videos'];
+  const standardEventCategories = ['Spiritual Seva', 'Community Seva', 'Traditional Art', 'Traditional Craft', 'News & Press', 'YouTube Videos'];
+  const uniqueCategories = Array.from(new Set([...standardEventCategories, ...events.map(ev => ev.category).filter(Boolean)]));
+  
+  const categoriesList = uniqueCategories;
 
   const filteredEvents = events.filter(ev => {
     const matchesType = selectedType === 'All' || ev.type === selectedType;
@@ -41,35 +46,13 @@ export const EventsWorkspace: React.FC = () => {
     if (src.startsWith('http') || src.startsWith('/uploads') || src.startsWith('data:')) {
       return src;
     }
-    return src;
-  };
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await res.json();
-      if (data.success) {
-        setImageUrl(data.url);
-      } else {
-        alert('Upload failed: ' + (data.error || 'Unknown error'));
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Upload failed');
-    } finally {
-      setUploading(false);
+    if (src.startsWith('/images/')) {
+      return `http://localhost:5173${src}`;
     }
+    return `http://localhost:5173/images/Devine Awards images/${src}`;
   };
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,28 +70,47 @@ export const EventsWorkspace: React.FC = () => {
     }
 
     const payload = {
-      type,
-      category: type === 'video' ? 'YouTube Videos' : category,
       title,
-      image: type === 'video' ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : imageUrl,
+      type,
+      category,
       description,
+      image: type === 'image' ? imageUrl : undefined,
       youtubeId: type === 'video' ? youtubeId : undefined,
-      duration: duration || undefined
+      duration,
+      featured
     };
 
-    await addEvent(payload);
+    if (editingId) {
+      await updateEvent(editingId, payload);
+    } else {
+      await addEvent(payload);
+    }
 
     // Reset and close
     setTitle('');
-    setCategory('Spiritual Seva');
-    setType('image');
     setDescription('');
     setImageUrl('');
     setYoutubeId('');
     setDuration('');
+    setFeatured(false);
+    setCategory('Spiritual Seva');
+    setType('image');
+    setEditingId(null);
     setShowAddModal(false);
   };
 
+  const handleEditClick = (ev: any) => {
+    setEditingId(ev.id);
+    setTitle(ev.title);
+    setCategory(ev.category);
+    setType(ev.type);
+    setDescription(ev.description || '');
+    setImageUrl(ev.image || '');
+    setYoutubeId(ev.youtubeId || '');
+    setDuration(ev.duration || '');
+    setFeatured(ev.featured || false);
+    setShowAddModal(true);
+  };
   const handleDelete = async (id: string, titleStr: string) => {
     if (window.confirm(`Are you sure you want to delete event: "${titleStr}"?`)) {
       await deleteEvent(id);
@@ -128,10 +130,21 @@ export const EventsWorkspace: React.FC = () => {
           </p>
         </div>
         <button
-          onClick={() => setShowAddModal(true)}
+          onClick={() => {
+            setEditingId(null);
+            setTitle('');
+            setDescription('');
+            setImageUrl('');
+            setYoutubeId('');
+            setDuration('');
+            setFeatured(false);
+            setCategory('Spiritual Seva');
+            setType('image');
+            setShowAddModal(true);
+          }}
           className="bg-[#401C0C] hover:bg-[#5C2913] dark:bg-[#5C2913] dark:hover:bg-[#5C2913] text-white rounded-xl text-xs font-semibold px-4 py-2.5 flex items-center gap-1.5 cursor-pointer transition-all self-start sm:self-center shadow-sm"
         >
-          <Plus size={16} /> Add Event/Activity
+          <Plus size={16} /> Add Event/Video
         </button>
       </div>
 
@@ -189,6 +202,12 @@ export const EventsWorkspace: React.FC = () => {
                 <span className="absolute top-3 left-3 bg-[#401C0C] text-[#FFD27F] text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm">
                   {ev.category}
                 </span>
+                
+                {ev.featured && (
+                  <span className="absolute top-3 right-3 bg-[#FFD27F] text-[#401C0C] text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-sm">
+                    On Home Page
+                  </span>
+                )}
 
                 {ev.duration && (
                   <span className="absolute bottom-3 left-3 bg-black/60 text-white text-[9px] font-mono px-2 py-0.5 rounded shadow">
@@ -196,14 +215,23 @@ export const EventsWorkspace: React.FC = () => {
                   </span>
                 )}
 
-                {/* Delete button overlay */}
-                <button
-                  onClick={() => handleDelete(ev.id, ev.title)}
-                  className="absolute bottom-3 right-3 p-2 bg-red-500 hover:bg-red-600 text-white rounded-xl shadow-md transition-all cursor-pointer opacity-0 group-hover:opacity-100"
-                  title="Delete event"
-                >
-                  <Trash2 size={14} />
-                </button>
+                {/* Delete/Edit button overlay */}
+                <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    onClick={() => handleEditClick(ev)}
+                    className="p-2 bg-white/90 hover:bg-white text-[#401C0C] rounded-xl shadow-md transition-all cursor-pointer"
+                    title="Edit event"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(ev.id, ev.title)}
+                    className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-xl shadow-md transition-all cursor-pointer"
+                    title="Delete event"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
               </div>
 
               {/* Info */}
@@ -239,7 +267,7 @@ export const EventsWorkspace: React.FC = () => {
             </button>
 
             <h3 className="font-serif text-xl font-bold text-[#1B1C19] dark:text-[#F3F4F6] mb-6 flex items-center gap-2">
-              <Calendar className="text-[#D9762E]" size={20} /> Add Event/Activity
+              <Calendar className="text-[#D9762E]" size={20} /> {editingId ? 'Edit' : 'Add'} Event/Activity
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -373,6 +401,22 @@ export const EventsWorkspace: React.FC = () => {
                   className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#401C0C] dark:focus:border-[#FFD27F] transition-all"
                 />
               </div>
+
+              <div className="flex items-center gap-2 pt-2 pb-1">
+                <input
+                  type="checkbox"
+                  id="featuredCheckbox"
+                  checked={featured}
+                  onChange={(e) => setFeatured(e.target.checked)}
+                  className="w-4 h-4 text-[#401C0C] bg-[#F5F3EE] dark:bg-[#242622] border-[#C9A646] rounded focus:ring-[#D9762E] focus:ring-2 cursor-pointer"
+                />
+                <label htmlFor="featuredCheckbox" className="text-xs font-semibold text-[#1B1C19] dark:text-[#F3F4F6] cursor-pointer">
+                  Show on Home Page
+                </label>
+              </div>
+              <p className="text-[10px] text-[#867463] dark:text-[#9CA3AF] ml-6 mt-[-8px]">
+                Checking this will feature the video prominently on the main website's homepage.
+              </p>
 
               <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#F5F3EE] dark:border-[#2E302A]">
                 <button

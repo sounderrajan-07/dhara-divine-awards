@@ -7,7 +7,7 @@ export async function GET() {
     return NextResponse.json(db.gallery, {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       }
     });
@@ -25,7 +25,9 @@ export async function POST(request: Request) {
       id: `gal-${Date.now()}`,
       src: body.src,
       category: body.category || 'Award Ceremony',
-      caption: body.caption || 'Dhara Divine Awards image'
+      caption: body.caption || 'Dhara Divine Awards image',
+      priority: body.priority || 0,
+      featured: body.featured || false
     };
 
     db.gallery.unshift(newImage);
@@ -44,12 +46,49 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, image: newImage, gallery: db.gallery }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       }
     });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to add image to gallery' }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const body = await request.json();
+    const db = await readDb();
+    
+    const index = db.gallery.findIndex(img => img.id === body.id);
+    if (index === -1) {
+      return NextResponse.json({ error: 'Image not found' }, { status: 404 });
+    }
+
+    db.gallery[index] = {
+      ...db.gallery[index],
+      ...body
+    };
+
+    db.activityLogs.unshift({
+      id: `log-${Date.now()}`,
+      timestamp: 'Just now',
+      type: 'system',
+      message: `Admin updated gallery image: "${db.gallery[index].caption}"`,
+      user: body.user || 'Super Admin'
+    });
+
+    await writeDb(db);
+
+    return NextResponse.json({ success: true, image: db.gallery[index], gallery: db.gallery }, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to update image in gallery' }, { status: 500 });
   }
 }
 
@@ -85,7 +124,7 @@ export async function OPTIONS() {
   return new Response(null, {
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     }
   });

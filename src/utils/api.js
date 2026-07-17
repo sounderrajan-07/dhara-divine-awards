@@ -73,3 +73,40 @@ export async function fetchEvents() {
     return null;
   }
 }
+
+/**
+ * Fetches site config from the backend.
+ */
+export async function fetchSiteConfig() {
+  try {
+    const res = await fetch(`${API_BASE}/api/config`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to fetch site config:', err);
+    return null;
+  }
+}
+
+/**
+ * Converts a Google Drive share link to a direct image link.
+ */
+export function getGoogleDriveDirectLink(url) {
+  if (!url) return url;
+  
+  if (url.includes('drive.google.com/file/d/')) {
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    }
+  }
+  
+  if (url.includes('drive.google.com/open?id=')) {
+    const match = url.match(/id=([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    }
+  }
+
+  return url;
+}

@@ -7,7 +7,7 @@ export async function GET() {
     return NextResponse.json(db.events, {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       }
     });
@@ -48,12 +48,49 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, event: newEvent, events: db.events }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       }
     });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to add event' }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const body = await request.json();
+    const db = await readDb();
+    
+    const index = db.events.findIndex(ev => ev.id === body.id);
+    if (index === -1) {
+      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
+    }
+
+    db.events[index] = {
+      ...db.events[index],
+      ...body
+    };
+
+    db.activityLogs.unshift({
+      id: `log-${Date.now()}`,
+      timestamp: 'Just now',
+      type: 'system',
+      message: `Admin updated event: "${db.events[index].title}"`,
+      user: body.user || 'Super Admin'
+    });
+
+    await writeDb(db);
+
+    return NextResponse.json({ success: true, event: db.events[index], events: db.events }, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to update event' }, { status: 500 });
   }
 }
 
@@ -89,7 +126,7 @@ export async function OPTIONS() {
   return new Response(null, {
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PUT',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     }
   });

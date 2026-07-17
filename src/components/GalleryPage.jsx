@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Image, Search, ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
-import { fetchGallery, API_BASE } from '../utils/api';
+import { fetchGallery, API_BASE, getGoogleDriveDirectLink } from '../utils/api';
 
 const highlightImages = [
   // 1. Double space highlights: (1) to (46) (Newly added, sorts first in folder due to double space)
@@ -372,13 +372,14 @@ export default function GalleryPage() {
 
   const getImageUrl = (src) => {
     if (!src) return '';
-    if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('/uploads') || src.startsWith('data:') || src.startsWith('/images/')) {
-      if (src.startsWith('/uploads')) {
-        return `${API_BASE}${src}`;
+    const processedSrc = getGoogleDriveDirectLink(src);
+    if (processedSrc.startsWith('http://') || processedSrc.startsWith('https://') || processedSrc.startsWith('/uploads') || processedSrc.startsWith('data:') || processedSrc.startsWith('/images/')) {
+      if (processedSrc.startsWith('/uploads')) {
+        return `${API_BASE}${processedSrc}`;
       }
-      return src;
+      return processedSrc;
     }
-    return `/images/Devine Awards images/${src}`;
+    return `/images/Devine Awards images/${processedSrc}`;
   };
 
   const categories = [

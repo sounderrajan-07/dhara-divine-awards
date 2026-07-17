@@ -25,6 +25,8 @@ import DonorSupport from './components/DonorSupport';
 import CorporateCSR from './components/CorporateCSR';
 import AwardNominations from './components/AwardNominations';
 import ThankYouPage from './components/ThankYouPage';
+import CustomCursor from './components/ui/CustomCursor';
+import { fetchSiteConfig, fetchGallery, fetchEvents, getGoogleDriveDirectLink, API_BASE } from './utils/api';
 
 const dashboardCategories = [
   { id: 'seva', label: 'Participation & Seva' },
@@ -146,6 +148,37 @@ export default function App() {
   const [heroVideoMuted, setHeroVideoMuted] = useState(true);
   const heroVideoRef = React.useRef(null);
   const heroObserverRef = React.useRef(null);
+  const [siteConfig, setSiteConfig] = useState(null);
+  const [homeGallery, setHomeGallery] = useState([]);
+  const [homeEvents, setHomeEvents] = useState([]);
+
+  useEffect(() => {
+    fetchSiteConfig().then(config => {
+      if (config) setSiteConfig(config);
+    });
+    fetchGallery().then(galleryData => {
+      if (galleryData && galleryData.length) {
+        setHomeGallery(galleryData.filter(img => img.featured).sort((a, b) => (b.priority || 0) - (a.priority || 0)));
+      }
+    });
+    fetchEvents().then(eventsData => {
+      if (eventsData && eventsData.length) {
+        setHomeEvents(eventsData.filter(ev => ev.featured && ev.type === 'video').sort((a, b) => (b.priority || 0) - (a.priority || 0)));
+      }
+    });
+  }, []);
+
+  const getImageUrl = (src) => {
+    if (!src) return '';
+    const processedSrc = getGoogleDriveDirectLink(src);
+    if (processedSrc.startsWith('http://') || processedSrc.startsWith('https://') || processedSrc.startsWith('/uploads') || processedSrc.startsWith('data:') || processedSrc.startsWith('/images/')) {
+      if (processedSrc.startsWith('/uploads')) {
+        return `${API_BASE}${processedSrc}`;
+      }
+      return processedSrc;
+    }
+    return `/images/Devine Awards images/${processedSrc}`;
+  };
 
   // Effect 1: Forcibly pause/mute video whenever route changes away from home
   useEffect(() => {
@@ -453,8 +486,8 @@ export default function App() {
               }
               heroVideoRef.current = el;
             }}
-            src="/video/hero section video.mp4" 
-            poster="/images/News/DHARA Divine Awards Ceremony.jpg" 
+            src={getGoogleDriveDirectLink(siteConfig?.heroVideoUrl) || "/video/hero section video.mp4"} 
+            poster={getGoogleDriveDirectLink(siteConfig?.heroVideoPoster) || "/images/News/DHARA Divine Awards Ceremony.jpg"} 
             autoPlay
             loop 
             muted={heroVideoMuted}
@@ -511,34 +544,16 @@ export default function App() {
       <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-deep-forest-dark)' }}>From our photo gallery</h2>
     </div>
     <div className="gallery-grid">
-      <div className="g-item banner overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-        <img src="/images/Devine Awards images/devine awrds-57.jpg" alt="Grand Assembly of Chief Guests & Spiritual Dignitaries" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
-        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Grand Assembly of Chief Guests & Spiritual Dignitaries</div>
-      </div>
-      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-        <img src="/images/Home section/Hon'ble Justice Shri T.N Vallinayagam(Rtd).jpg" alt="Hon'ble Justice Shri T.N. Vallinayagam (Rtd.)" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
-        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Hon'ble Justice Shri T.N. Vallinayagam (Rtd.)</div>
-      </div>
-      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-        <img src="/images/Home section/Hon'ble justice Shri G.R Swaminathan  Avl..jpg" alt="Hon'ble Justice Shri G.R. Swaminathan Avl." className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
-        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Hon'ble Justice Shri G.R. Swaminathan Avl.</div>
-      </div>
-      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-        <img src="/images/Home section/Shri.N.Gopalaswami IAS(Rtd).jpg" alt="Shri N. Gopalaswami IAS (Rtd.)" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
-        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Shri N. Gopalaswami IAS (Rtd.)</div>
-      </div>
-      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-        <img src="/images/Home section/Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal.jpg" alt="Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
-        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal</div>
-      </div>
-      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-        <img src="/images/Home section/Sri la Sri Thirunavukkarasu Desika Parmacharya Swamigal.jpg" alt="Sri la Sri Thirunavukkarasu Desika Paramacharya Swamigal" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
-        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Sri la Sri Thirunavukkarasu Desika Paramacharya Swamigal</div>
-      </div>
-      <div className="g-item overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]">
-        <img src="/images/Home section/Dhara Divine Moment.jpeg" alt="Shri S. Vinoth Ragavendran M.E. - Founder & President" className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500" />
-        <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>Shri S. Vinoth Ragavendran M.E. - Founder & President</div>
-      </div>
+      {homeGallery.length > 0 ? (
+        homeGallery.slice(0, 7).map((img, idx) => (
+          <div key={img.id || idx} className={`g-item ${idx === 0 ? 'banner ' : ''}overflow-hidden rounded-3xl border border-[var(--color-card-border)]/50 shadow-premium relative group bg-[#281006]`}>
+            <img src={getImageUrl(img.src)} alt={img.caption || img.category} className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+            <div className="tag px-3 py-1.5 bg-deep-forest text-saffron-glow text-[11px] font-sans font-medium tracking-normal rounded-xl max-w-[90%] leading-tight text-center shadow-lg" style={{ background: 'var(--color-deep-forest)' }}>{img.caption || img.category}</div>
+          </div>
+        ))
+      ) : (
+        <div className="text-center py-12 text-[#867463]">No featured gallery images available.</div>
+      )}
     </div>
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '36px' }}>
       <button 
@@ -568,123 +583,90 @@ export default function App() {
       gap: '28px', 
       marginTop: '44px' 
     }}>
-      {[
-        {
-          id: "J6BvffQ1ZKQ",
-          title: "Hon’ble Justice (Retd.) Thiru T.N. Vallinayagam",
-          description: "Speech by Hon'ble Justice (Retd.) T.N. Vallinayagam (Madras High Court) celebrating the awardees' noble service.",
-          duration: "Madras HC Judge"
-        },
-        {
-          id: "IILqWheG9f4",
-          title: "Yatheeswar Raja - Spiritual Music Director",
-          description: "Devotional performance and traditional music discourse by Spiritual Music Director Yatheeswar Raja.",
-          duration: "Spiritual Music"
-        },
-        {
-          id: "1T_SGxOs-CY",
-          title: "Mahout Receiving an Award",
-          description: "Felicitation ceremony of Temple Mahout recognizing their dedication and service to sacred temple elephants.",
-          duration: "Temple Seva"
-        },
-        {
-          id: "oEsIdHha5uw",
-          title: "Dr. Rajeswari Ramachandran",
-          description: "Keynote address and award presentation honoring Dr. Rajeswari Ramachandran's charitable services.",
-          duration: "Social Welfare"
-        },
-        {
-          id: "VONlv_X9Aro",
-          title: "Traditional Sports Coach",
-          description: "Honoring traditional coaches for reviving and instructing ancient sports and martial arts.",
-          duration: "Heritage Sports"
-        },
-        {
-          id: "3FQgwocLBnQ",
-          title: "CA Prabakaran",
-          description: "Professional governance perspective and felicitation of CA Prabakaran for supporting social trusts.",
-          duration: "Financial Seva"
-        }
-      ].map((vid) => (
-        <div 
-          key={vid.id} 
-          className="glassmorphism-card group" 
-          style={{ 
-            borderRadius: '24px', 
-            overflow: 'hidden', 
-            border: '1px solid rgba(217, 203, 176, 0.45)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            height: '100%'
-          }}
-        >
-          <div>
-            <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
-              <img 
-                src={`https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`} 
-                alt={vid.title} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85, transition: 'all 0.4s ease' }} 
-                className="group-hover:scale-105 group-hover:opacity-100"
-              />
-              <button 
-                onClick={() => setHomeActiveVideoId(vid.id)}
-                style={{ 
+      {homeEvents.length > 0 ? (
+        homeEvents.slice(0, 6).map((vid, idx) => (
+          <div 
+            key={vid.id || idx} 
+            className="glassmorphism-card group" 
+            style={{ 
+              borderRadius: '24px', 
+              overflow: 'hidden', 
+              border: '1px solid rgba(217, 203, 176, 0.45)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '100%'
+            }}
+          >
+            <div>
+              <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
+                <img 
+                  src={getGoogleDriveDirectLink(vid.image) || `https://img.youtube.com/vi/${vid.youtubeId}/hqdefault.jpg`} 
+                  alt={vid.title} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85, transition: 'all 0.4s ease' }} 
+                  className="group-hover:scale-105 group-hover:opacity-100"
+                />
+                <button 
+                  onClick={() => setHomeActiveVideoId(vid.youtubeId)}
+                  style={{ 
+                    position: 'absolute', 
+                    inset: 0, 
+                    margin: 'auto', 
+                    width: '60px', 
+                    height: '60px', 
+                    borderRadius: '50%', 
+                    background: 'var(--color-primary-accent)', 
+                    border: '2px solid var(--color-saffron-glow)', 
+                    color: '#fff', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    cursor: 'pointer',
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  className="play-hover-btn"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '22px', height: '22px', marginLeft: '3px' }}>
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </button>
+                <div style={{ 
                   position: 'absolute', 
-                  inset: 0, 
-                  margin: 'auto', 
-                  width: '60px', 
-                  height: '60px', 
-                  borderRadius: '50%', 
-                  background: 'var(--color-primary-accent)', 
-                  border: '2px solid var(--color-saffron-glow)', 
-                  color: '#fff', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  cursor: 'pointer',
-                  boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
-                  transition: 'all 0.3s ease'
-                }}
-                className="play-hover-btn"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: '22px', height: '22px', marginLeft: '3px' }}>
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-              </button>
-              <div style={{ 
-                position: 'absolute', 
-                bottom: '12px', 
-                right: '12px', 
-                background: 'rgba(5, 46, 42, 0.85)', 
-                color: 'var(--color-saffron-glow)', 
-                padding: '4px 8px', 
-                borderRadius: '6px', 
-                fontSize: '10px', 
-                fontWeight: 'bold', 
-                fontFamily: 'var(--font-mono)' 
-              }}>
-                {vid.duration}
+                  bottom: '12px', 
+                  right: '12px', 
+                  background: 'rgba(5, 46, 42, 0.85)', 
+                  color: 'var(--color-saffron-glow)', 
+                  padding: '4px 8px', 
+                  borderRadius: '6px', 
+                  fontSize: '10px', 
+                  fontWeight: 'bold', 
+                  fontFamily: 'var(--font-mono)' 
+                }}>
+                  {vid.category || "Video"}
+                </div>
+              </div>
+              <div style={{ padding: '24px' }}>
+                <h4 style={{ 
+                  fontFamily: 'var(--font-serif)', 
+                  color: 'var(--color-deep-forest-dark)', 
+                  fontSize: '18px', 
+                  fontWeight: 'bold', 
+                  lineHeight: '1.4', 
+                  marginBottom: '10px' 
+                }}>
+                  {vid.title}
+                </h4>
+                <p style={{ color: 'var(--ink-soft)', fontSize: '13px', lineHeight: '1.5' }}>
+                  {vid.description}
+                </p>
               </div>
             </div>
-            <div style={{ padding: '24px' }}>
-              <h4 style={{ 
-                fontFamily: 'var(--font-serif)', 
-                color: 'var(--color-deep-forest-dark)', 
-                fontSize: '18px', 
-                fontWeight: 'bold', 
-                lineHeight: '1.4', 
-                marginBottom: '10px' 
-              }}>
-                {vid.title}
-              </h4>
-              <p style={{ color: 'var(--ink-soft)', fontSize: '13px', lineHeight: '1.5' }}>
-                {vid.description}
-              </p>
-            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <div className="text-center py-12 text-[#867463] col-span-full">No featured videos available.</div>
+      )}
     </div>
     
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '44px' }}>
@@ -1095,6 +1077,7 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <CustomCursor />
       {/* Brand Entrance Preloader Overlay */}
       <div className={`preloader-overlay ${showPreloader ? 'active' : 'fade-out'}`}>
         <div className="preloader-content">

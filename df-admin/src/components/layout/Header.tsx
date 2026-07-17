@@ -36,10 +36,12 @@ export const Header: React.FC = () => {
       case 'enquiries': return { title: 'General Enquiries & Media Desk', desc: 'Respond to press pass requests, sponsor inquiries, and devotee questions' };
       case 'gallery': return { title: 'Gallery Management Panel', desc: 'Add new photographs, manage categories, and update promotional gallery' };
       case 'events': return { title: 'Events & Activities Organizer', desc: 'Manage event highlights, add new YouTube coverage videos, and log spiritual/community seva' };
+      case 'settings': return { title: 'Site Settings', desc: 'Configure global settings for the promotional website' };
+      default: return { title: 'Dhara Divine Awards Dashboard', desc: 'Admin Portal' };
     }
   };
 
-  const headerInfo = getTabTitle();
+  const headerInfo = getTabTitle() || { title: 'Dashboard', desc: '' };
 
   return (
     <header className="sticky top-0 z-20 bg-[#FDFBF8]/90 dark:bg-[#121310]/90 backdrop-blur-md border-b border-[#EAE8E3] dark:border-[#2E302A] px-4 sm:px-8 py-4 sm:py-5 shadow-sm transition-colors duration-300">

@@ -1399,6 +1399,18 @@ a.bg-forest-teal:hover svg {
   }
 }
 
+/* Hide default cursor everywhere */
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
 
-
-
+/* Restore on touch/mobile devices */
+@media (pointer: coarse) {
+  *,
+  *::before,
+  *::after {
+    cursor: auto !important;
+  }
+}

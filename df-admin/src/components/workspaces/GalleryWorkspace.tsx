@@ -14,9 +14,15 @@ export const GalleryWorkspace: React.FC = () => {
   const [category, setCategory] = useState<string>('Award Ceremony');
   const [caption, setCaption] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
+  const [priority, setPriority] = useState<number>(0);
+  const [featured, setFeatured] = useState<boolean>(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
-  const categories = ['All', 'Award Ceremony', 'Guest Dignitaries', 'Community Seva'];
-  const modalCategories = ['Award Ceremony', 'Guest Dignitaries', 'Community Seva'];
+  const standardCategories = ['Highlights', '1. Spiritual Piller', '2. Institution/Organizations', '3. Individuals/Professionals', '4. Grass Route Eminents', '5. Community Seva'];
+  const uniqueCategories = Array.from(new Set([...standardCategories, ...gallery.map(img => img.category).filter(Boolean)]));
+  
+  const categories = ['All', ...uniqueCategories];
+  const modalCategories = uniqueCategories;
 
   const filteredGallery = gallery.filter(img => {
     const matchesCategory = selectedCategory === 'All' || img.category === selectedCategory;
@@ -32,7 +38,10 @@ export const GalleryWorkspace: React.FC = () => {
     if (src.startsWith('http') || src.startsWith('/uploads') || src.startsWith('data:')) {
       return src;
     }
-    return `/images/Devine Awards images/${src}`;
+    if (src.startsWith('/images/')) {
+      return `http://localhost:5173${src}`;
+    }
+    return `http://localhost:5173/images/Devine Awards images/${src}`;
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,17 +82,44 @@ export const GalleryWorkspace: React.FC = () => {
       return;
     }
 
-    await addGalleryImage({
-      src: imageUrl,
-      category,
-      caption
-    });
+    if (editingId) {
+      // Assuming AppContext has updateGalleryImage
+      // (will implement if not)
+      await updateGalleryImage(editingId, {
+        src: imageUrl,
+        category,
+        caption,
+        priority,
+        featured
+      });
+    } else {
+      await addGalleryImage({
+        src: imageUrl,
+        category,
+        caption,
+        priority,
+        featured
+      });
+    }
 
     // Reset and close
     setCaption('');
     setImageUrl('');
     setCategory('Award Ceremony');
+    setPriority(0);
+    setFeatured(false);
+    setEditingId(null);
     setShowAddModal(false);
+  };
+
+  const handleEditClick = (img: any) => {
+    setEditingId(img.id);
+    setImageUrl(img.src);
+    setCategory(img.category);
+    setCaption(img.caption);
+    setPriority(img.priority || 0);
+    setFeatured(img.featured || false);
+    setShowAddModal(true);
   };
 
   const handleDelete = async (id: string, captionStr: string) => {
@@ -105,7 +141,15 @@ export const GalleryWorkspace: React.FC = () => {
           </p>
         </div>
         <button
-          onClick={() => setShowAddModal(true)}
+          onClick={() => {
+            setEditingId(null);
+            setCaption('');
+            setImageUrl('');
+            setCategory('Award Ceremony');
+            setPriority(0);
+            setFeatured(false);
+            setShowAddModal(true);
+          }}
           className="bg-[#401C0C] hover:bg-[#5C2913] dark:bg-[#5C2913] dark:hover:bg-[#5C2913] text-white rounded-xl text-xs font-semibold px-4 py-2.5 flex items-center gap-1.5 cursor-pointer transition-all self-start sm:self-center shadow-sm"
         >
           <Plus size={16} /> Add Gallery Image
@@ -175,8 +219,15 @@ export const GalleryWorkspace: React.FC = () => {
                   {img.caption}
                 </p>
                 <div className="pt-2 flex justify-between items-center text-[10px] text-[#867463] font-mono">
-                  <span>ID: {img.id}</span>
+                  <span>Priority: {img.priority || 0}</span>
+                  {img.featured && <span className="text-[#D9762E] font-bold">★ On Home Page</span>}
                 </div>
+                <button
+                  onClick={() => handleEditClick(img)}
+                  className="mt-2 w-full py-1.5 text-xs text-center border border-[#EAE8E3] rounded-lg hover:bg-neutral-50 transition-colors"
+                >
+                  Edit
+                </button>
               </div>
             </div>
           ))
@@ -230,27 +281,10 @@ export const GalleryWorkspace: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
-                  Image Source *
+                  Image URL (Google Drive or External) *
                 </label>
                 
-                {/* File Upload Selector */}
-                <div className="flex items-center gap-3 mb-2">
-                  <label className="flex-1 flex items-center justify-center gap-2 border border-dashed border-[#C9A646]/50 hover:border-[#401C0C] bg-[#F5F3EE]/50 dark:bg-[#242622]/50 hover:bg-[#F5F3EE] rounded-xl p-3 text-xs cursor-pointer text-[#534436] dark:text-[#D1D5DB] transition-all">
-                    <Upload size={14} className="text-[#C9A646]" />
-                    <span>{uploading ? 'Uploading...' : 'Choose File to Upload'}</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileUpload}
-                      className="hidden"
-                      disabled={uploading}
-                    />
-                  </label>
-                </div>
 
-                <div className="text-center text-[10px] text-[#867463] mb-2 font-mono">
-                  — OR ENTER DIRECT URL —
-                </div>
 
                 <input
                   type="text"
@@ -260,6 +294,36 @@ export const GalleryWorkspace: React.FC = () => {
                   className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#401C0C] dark:focus:border-[#FFD27F] transition-all"
                 />
               </div>
+
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
+                    Priority (Lower is first)
+                  </label>
+                  <input
+                    type="number"
+                    value={priority}
+                    onChange={(e) => setPriority(parseInt(e.target.value) || 0)}
+                    className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#401C0C] transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 pt-2 pb-1">
+                <input
+                  type="checkbox"
+                  id="featuredCheckbox"
+                  checked={featured}
+                  onChange={(e) => setFeatured(e.target.checked)}
+                  className="w-4 h-4 text-[#401C0C] bg-[#F5F3EE] dark:bg-[#242622] border-[#C9A646] rounded focus:ring-[#D9762E] focus:ring-2 cursor-pointer"
+                />
+                <label htmlFor="featuredCheckbox" className="text-xs font-semibold text-[#1B1C19] dark:text-[#F3F4F6] cursor-pointer">
+                  Show on Home Page
+                </label>
+              </div>
+              <p className="text-[10px] text-[#867463] dark:text-[#9CA3AF] ml-6 mt-[-8px]">
+                Checking this will feature the image prominently on the main website's homepage.
+              </p>
 
               {imageUrl && (
                 <div className="pt-2">

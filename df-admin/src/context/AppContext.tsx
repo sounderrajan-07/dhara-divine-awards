@@ -15,7 +15,7 @@ import {
   initialActivityLogs
 } from '../data/mockData';
 
-export type TabType = 'overview' | 'nominations' | 'donations' | 'delegates' | 'volunteers' | 'enquiries' | 'gallery' | 'events';
+export type TabType = 'overview' | 'nominations' | 'donations' | 'delegates' | 'volunteers' | 'enquiries' | 'gallery' | 'events' | 'settings';
 
 interface AppContextType {
   currentTab: TabType;
@@ -36,6 +36,7 @@ interface AppContextType {
   staff: StaffMember[];
   gallery: any[];
   events: any[];
+  siteConfig: any;
   
   // Actions
   updateNominationStatus: (id: string, status: VettingStatus, jury?: string) => Promise<void>;
@@ -48,10 +49,13 @@ interface AppContextType {
   deleteActivityLog: (id: string) => Promise<void>;
   
   // Gallery & Events Actions
-  addGalleryImage: (img: { src: string; category: string; caption: string }) => Promise<void>;
+  addGalleryImage: (img: { src: string; category: string; caption: string; priority?: number; featured?: boolean }) => Promise<void>;
+  updateGalleryImage: (id: string, img: { src: string; category: string; caption: string; priority?: number; featured?: boolean }) => Promise<void>;
   deleteGalleryImage: (id: string) => Promise<void>;
   addEvent: (ev: { type: string; category: string; title: string; image: string; description: string; youtubeId?: string; duration?: string }) => Promise<void>;
+  updateEvent: (id: string, ev: any) => Promise<void>;
   deleteEvent: (id: string) => Promise<void>;
+  updateSiteConfig: (config: any) => Promise<void>;
   
   // Search
   globalSearchQuery: string;
@@ -80,6 +84,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [staff] = useState<StaffMember[]>(mockStaff);
   const [gallery, setGallery] = useState<any[]>([]);
   const [events, setEvents] = useState<any[]>([]);
+  const [siteConfig, setSiteConfig] = useState<any>({ heroVideoUrl: '', heroVideoPoster: '' });
 
   const currentUser = staff.find(s => s.role === currentRole) || staff[0];
 
@@ -98,6 +103,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setActivityLogs(db.activityLogs || []);
         setGallery(db.gallery || []);
         setEvents(db.events || []);
+        
+        // Also fetch config
+        try {
+          const configRes = await fetch('/api/config');
+          if (configRes.ok) {
+            const configData = await configRes.json();
+            setSiteConfig(configData);
+          }
+        } catch(e) {}
       } catch (err) {
         console.error("Failed to load backend DB:", err);
         setNominations([]);
@@ -309,6 +323,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const updateGalleryImage = async (id: string, imgData: any) => {
+    try {
+      const res = await fetch('/api/gallery', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, ...imgData, user: currentUser.name })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setGallery(data.gallery || []);
+        const dbRes = await fetch('/api/db');
+        const db = await dbRes.json();
+        setActivityLogs(db.activityLogs || []);
+      }
+    } catch (err) {
+      console.error("Failed to update gallery image:", err);
+    }
+  };
+
   const deleteGalleryImage = async (id: string) => {
     try {
       const res = await fetch('/api/gallery', {
@@ -348,6 +381,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const updateEvent = async (id: string, eventData: any) => {
+    try {
+      const res = await fetch('/api/events', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, ...eventData, user: currentUser.name })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setEvents(data.events || []);
+        const dbRes = await fetch('/api/db');
+        const db = await dbRes.json();
+        setActivityLogs(db.activityLogs || []);
+      }
+    } catch (err) {
+      console.error("Failed to update event:", err);
+    }
+  };
+
   const deleteEvent = async (id: string) => {
     try {
       const res = await fetch('/api/events', {
@@ -364,6 +416,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       }
     } catch (err) {
       console.error("Failed to delete event:", err);
+    }
+  };
+
+  const updateSiteConfig = async (configData: any) => {
+    try {
+      const res = await fetch('/api/config', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...configData, user: currentUser.name })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSiteConfig(data.config);
+        const dbRes = await fetch('/api/db');
+        const db = await dbRes.json();
+        setActivityLogs(db.activityLogs || []);
+      }
+    } catch (err) {
+      console.error("Failed to update site config:", err);
     }
   };
 
@@ -385,6 +456,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       staff,
       gallery,
       events,
+      siteConfig,
       updateNominationStatus,
       deleteNomination,
       checkInDelegate,
@@ -394,9 +466,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       logActivity,
       deleteActivityLog,
       addGalleryImage,
+      updateGalleryImage,
       deleteGalleryImage,
       addEvent,
+      updateEvent,
       deleteEvent,
+      updateSiteConfig,
       globalSearchQuery,
       setGlobalSearchQuery,
       sidebarOpen,
