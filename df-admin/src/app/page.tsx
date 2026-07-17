@@ -125,26 +125,62 @@ export default function HomeApp() {
   const [homeActiveVideoId, setHomeActiveVideoId] = useState<string | null>(null);
   const [heroVideoMuted, setHeroVideoMuted] = useState(false);
   const heroVideoRef = React.useRef<HTMLVideoElement>(null);
+  const heroObserverRef = React.useRef<IntersectionObserver | null>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
+  // Effect 1: Forcibly pause/mute video whenever tab changes away from home
   useEffect(() => {
     const video = heroVideoRef.current;
-    if (video) {
-      video.muted = heroVideoMuted;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.warn("Unmuted autoplay blocked, falling back to muted autoplay:", error);
-          if (!heroVideoMuted) {
-            setHeroVideoMuted(true);
-            setAutoplayBlocked(true);
-            video.muted = true;
-            video.play().catch(err => console.error("Muted autoplay fallback failed:", err));
-          }
-        });
-      }
+    if (activeTab !== 'home' && video) {
+      video.pause();
+      video.muted = true;
     }
-  }, [heroVideoMuted]);
+  }, [activeTab]);
+
+  // Effect 2: IntersectionObserver for scroll-based play/pause (only on home)
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    // Disconnect any previous observer
+    if (heroObserverRef.current) {
+      heroObserverRef.current.disconnect();
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      const vid = heroVideoRef.current;
+      if (!vid) return;
+
+      if (entry.isIntersecting) {
+        vid.muted = heroVideoMuted;
+        const playPromise = vid.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.warn("Unmuted autoplay blocked, falling back to muted autoplay:", error);
+            if (!heroVideoMuted) {
+              setHeroVideoMuted(true);
+              setAutoplayBlocked(true);
+              vid.muted = true;
+              vid.play().catch(err => console.error("Muted autoplay fallback failed:", err));
+            }
+          });
+        }
+      } else {
+        vid.pause();
+        vid.muted = true;
+      }
+    }, { threshold: 0.05 });
+
+    observer.observe(video);
+    heroObserverRef.current = observer;
+
+    return () => {
+      observer.disconnect();
+      heroObserverRef.current = null;
+    };
+  }, [heroVideoMuted, activeTab]);
 
   useEffect(() => {
     if (!autoplayBlocked) return;
@@ -417,10 +453,16 @@ export default function HomeApp() {
                 position: 'relative'
               }}>
                 <video 
-                  ref={heroVideoRef}
+                  ref={(el) => {
+                    if (!el && heroVideoRef.current) {
+                      heroVideoRef.current.pause();
+                      heroVideoRef.current.muted = true;
+                    }
+                    heroVideoRef.current = el;
+                  }}
                   src="/video/hero section video.mp4" 
                   poster="/images/News/DHARA Divine Awards Ceremony.jpg" 
-                  autoPlay 
+                  autoPlay
                   loop 
                   muted={heroVideoMuted}
                   playsInline 

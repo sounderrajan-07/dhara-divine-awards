@@ -146,25 +146,62 @@ export default function App() {
   const [heroVideoMuted, setHeroVideoMuted] = useState(false);
   const heroVideoRef = React.useRef(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const heroObserverRef = React.useRef(null);
 
+  // Effect 1: Forcibly pause/mute video whenever route changes away from home
+  useEffect(() => {
+    const isHome = location.pathname === '/' || location.pathname === '/home';
+    const video = heroVideoRef.current;
+    if (!isHome && video) {
+      video.pause();
+      video.muted = true;
+    }
+  }, [location.pathname]);
+
+  // Effect 2: IntersectionObserver for scroll-based play/pause (only on home)
   useEffect(() => {
     const video = heroVideoRef.current;
-    if (video) {
-      video.muted = heroVideoMuted;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.warn("Unmuted autoplay blocked, falling back to muted autoplay:", error);
-          if (!heroVideoMuted) {
-            setHeroVideoMuted(true);
-            setAutoplayBlocked(true);
-            video.muted = true;
-            video.play().catch(err => console.error("Muted autoplay fallback failed:", err));
-          }
-        });
-      }
+    if (!video) return;
+
+    // Disconnect any previous observer
+    if (heroObserverRef.current) {
+      heroObserverRef.current.disconnect();
     }
-  }, [heroVideoMuted]);
+
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      const vid = heroVideoRef.current;
+      if (!vid) return;
+
+      if (entry.isIntersecting) {
+        vid.muted = heroVideoMuted;
+        const playPromise = vid.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.warn("Unmuted autoplay blocked, falling back to muted autoplay:", error);
+            if (!heroVideoMuted) {
+              setHeroVideoMuted(true);
+              setAutoplayBlocked(true);
+              vid.muted = true;
+              vid.play().catch(err => console.error("Muted autoplay fallback failed:", err));
+            }
+          });
+        }
+      } else {
+        vid.pause();
+        vid.muted = true;
+      }
+    }, { threshold: 0.05 });
+
+    observer.observe(video);
+    heroObserverRef.current = observer;
+
+    return () => {
+      observer.disconnect();
+      heroObserverRef.current = null;
+    };
+  }, [heroVideoMuted, location.pathname]);
 
   useEffect(() => {
     if (!autoplayBlocked) return;
@@ -432,10 +469,16 @@ export default function App() {
           position: 'relative'
         }}>
           <video 
-            ref={heroVideoRef}
+            ref={(el) => {
+              if (!el && heroVideoRef.current) {
+                heroVideoRef.current.pause();
+                heroVideoRef.current.muted = true;
+              }
+              heroVideoRef.current = el;
+            }}
             src="/video/hero section video.mp4" 
             poster="/images/News/DHARA Divine Awards Ceremony.jpg" 
-            autoPlay 
+            autoPlay
             loop 
             muted={heroVideoMuted}
             playsInline 
