@@ -18,6 +18,7 @@ export default function CustomCursor() {
   const [clicks, setClicks]       = useState([])
   const [isPointer, setIsPointer] = useState(false)
   const [isHidden, setIsHidden]   = useState(false)
+  const [isOnDark, setIsOnDark]   = useState(false)
   const clickIdRef = useRef(0)
 
   useEffect(() => {
@@ -47,9 +48,33 @@ export default function CustomCursor() {
       }
     }
 
+    const getBackgroundColor = (el) => {
+      while (el && el.nodeType === 1) {
+        const bg = window.getComputedStyle(el).backgroundColor;
+        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+          return bg;
+        }
+        el = el.parentElement;
+      }
+      return 'rgb(255, 255, 255)';
+    };
+
+    const getLuminance = (colorStr) => {
+      const match = colorStr.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+      if (!match) return 1;
+      const r = parseInt(match[1]);
+      const g = parseInt(match[2]);
+      const b = parseInt(match[3]);
+      return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    };
+
+    const isDarkColor = (colorStr) => getLuminance(colorStr) < 0.5;
+    const isLightColor = (colorStr) => getLuminance(colorStr) >= 0.5;
+
     const onMouseOver = (e) => {
       const t = e.target
-      const c = window.getComputedStyle(t).cursor
+      const computed = window.getComputedStyle(t)
+      const c = computed.cursor
       setIsPointer(
         c === 'pointer' ||
         t.tagName === 'BUTTON' ||
@@ -58,6 +83,10 @@ export default function CustomCursor() {
         t.closest('a') !== null ||
         t.getAttribute('role') === 'button'
       )
+      
+      const bgColor = getBackgroundColor(t);
+      // It's a dark background if the background color is dark, OR if the text color is light (which implies a dark gradient/image background for contrast)
+      setIsOnDark(isDarkColor(bgColor) || isLightColor(computed.color));
     }
 
     const onLeave = () => setIsHidden(true)
@@ -80,6 +109,9 @@ export default function CustomCursor() {
   if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
     return null
   }
+
+  // Dynamic cursor color based on background
+  const currentCursorColor = isOnDark ? COLORS.clickRing : COLORS.arrow;
 
   return (
     <>
@@ -109,9 +141,10 @@ export default function CustomCursor() {
           animate={{ scale: isPointer ? 0.9 : 1 }}
           transition={{ duration: 0.15 }}
         >
-          <path
+          <motion.path
             d="M 1 1 L 1 22 L 7 16 L 17 16 Z"
-            fill={COLORS.arrow}
+            animate={{ fill: currentCursorColor }}
+            transition={{ duration: 0.2 }}
           />
         </motion.svg>
       </motion.div>
