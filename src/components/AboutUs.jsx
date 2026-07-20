@@ -303,11 +303,18 @@ export default function AboutUs({ siteConfig }) {
               </div>
               
               <div className="flex-shrink-0">
-                <div className="inline-flex items-center gap-3 bg-white/5 border border-[var(--color-saffron-glow)]/35 px-4 py-2.5 rounded-xl">
-                  <Award className="w-5 h-5 text-[var(--color-saffron-glow)]" />
+                <div className="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-[#FFD27F]/30 rounded-2xl px-5 py-3.5 flex items-center gap-4 shadow-lg">
+                  <div className="w-10 h-10 rounded-xl bg-[#FFD27F]/15 border border-[#FFD27F]/30 flex items-center justify-center text-[#FFD27F] shrink-0">
+                    <Award className="w-5 h-5 text-[#FFD27F]" />
+                  </div>
                   <div>
-                    <span className="text-[9px] uppercase tracking-wider font-mono text-neutral-300 block font-bold">Award Value</span>
-                    <span className="text-sm font-bold text-[#FFD27F]"> Supporting 12 Deserving Individuals with Financial Assistance of ₹25,000 Cash Prize & Trophy Each.</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[9px] uppercase tracking-widest font-mono text-[#FFD27F] font-bold">Award Value</span>
+                      <span className="text-[10px] bg-[#FFD27F]/20 text-[#FFD27F] px-2 py-0.5 rounded-full font-bold">12 Honorees</span>
+                    </div>
+                    <div className="text-sm font-bold text-white font-serif mt-0.5">
+                      ₹25,000 Cash Prize &amp; Trophy <span className="text-xs font-normal text-neutral-300 font-sans">(Each Recipient)</span>
+                    </div>
                   </div>
                 </div>
               </div>
