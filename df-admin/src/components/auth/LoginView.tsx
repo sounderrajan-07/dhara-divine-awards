@@ -118,22 +118,6 @@ export default function LoginView() {
             )}
           </button>
         </form>
-
-        {/* Hints / Help */}
-        <div className="bg-[#FDFBF8] dark:bg-[#242622] rounded-2xl p-4 border border-[#EAE8E3] dark:border-[#2E302A] text-[11px] sm:text-xs text-[#867463] dark:text-[#9CA3AF] space-y-1.5">
-          <span className="font-semibold block text-[#1B1C19] dark:text-[#F3F4F6] uppercase tracking-wider font-mono">Demo Access Credentials:</span>
-          <div className="flex justify-between items-center gap-2 border-b border-[#F5F3EE] dark:border-[#2E302A] pb-1.5 font-mono">
-            <span>Username:</span>
-            <span className="font-bold text-[#401C0C] dark:text-[#FFD27F]">admin</span>
-          </div>
-          <div className="flex justify-between items-center gap-2 border-b border-[#F5F3EE] dark:border-[#2E302A] pb-1.5 font-mono">
-            <span>Password:</span>
-            <span className="font-bold text-[#401C0C] dark:text-[#FFD27F]">admin123</span>
-          </div>
-          <p className="text-[10px] text-neutral-400 dark:text-neutral-500 italic mt-1 leading-normal">
-            Note: You can also use any email registered under our mock roster (e.g. vinoth@dhara.org) with any password of 4+ characters.
-          </p>
-        </div>
       </div>
     </div>
   );
