@@ -17,6 +17,7 @@ import MediaCoverage from '@/components/public/MediaCoverage';
 import GeneralEnquiries from '@/components/public/GeneralEnquiries';
 import Navbar from '@/components/public/Navbar';
 import Footer from '@/components/public/Footer';
+import { useApp } from '@/context/AppContext';
 
 // Subdomain components
 import EventRegistration from '@/components/public/EventRegistration';
@@ -118,6 +119,7 @@ const dashboardItems = [
 ];
 
 export default function HomeApp() {
+  const { siteConfig } = useApp();
   const [activeTab, setActiveTab] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dashboardCategory, setDashboardCategory] = useState('seva');
