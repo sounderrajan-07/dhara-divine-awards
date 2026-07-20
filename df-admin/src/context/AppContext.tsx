@@ -36,6 +36,7 @@ interface AppContextType {
   staff: StaffMember[];
   gallery: any[];
   events: any[];
+  news: any[];
   siteConfig: any;
   
   // Actions
@@ -48,13 +49,16 @@ interface AppContextType {
   logActivity: (type: ActivityLog['type'], message: string) => Promise<void>;
   deleteActivityLog: (id: string) => Promise<void>;
   
-  // Gallery & Events Actions
+  // Gallery & Events & News Actions
   addGalleryImage: (img: { src: string; category: string; caption: string; priority?: number; featured?: boolean }) => Promise<void>;
   updateGalleryImage: (id: string, img: { src: string; category: string; caption: string; priority?: number; featured?: boolean }) => Promise<void>;
   deleteGalleryImage: (id: string) => Promise<void>;
   addEvent: (ev: { type: string; category: string; title: string; image: string; description: string; youtubeId?: string; duration?: string }) => Promise<void>;
   updateEvent: (id: string, ev: any) => Promise<void>;
   deleteEvent: (id: string) => Promise<void>;
+  addNews: (item: { title: string; date?: string; image?: string; link?: string; summary?: string }) => Promise<void>;
+  updateNews: (id: string, item: any) => Promise<void>;
+  deleteNews: (id: string) => Promise<void>;
   updateSiteConfig: (config: any) => Promise<void>;
   
   // Search
@@ -84,6 +88,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [staff] = useState<StaffMember[]>(mockStaff);
   const [gallery, setGallery] = useState<any[]>([]);
   const [events, setEvents] = useState<any[]>([]);
+  const [news, setNews] = useState<any[]>([]);
   const [siteConfig, setSiteConfig] = useState<any>({ heroVideoUrl: '', heroVideoPoster: '' });
 
   const currentUser = staff.find(s => s.role === currentRole) || staff[0];
@@ -103,6 +108,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setActivityLogs(db.activityLogs || []);
         setGallery(db.gallery || []);
         setEvents(db.events || []);
+        
+        try {
+          const savedLocal = localStorage.getItem('dhara_dynamic_news');
+          const serverNews = db.news || [];
+          if (savedLocal) {
+            const parsed = JSON.parse(savedLocal);
+            const existingIds = new Set(parsed.map((n: any) => n.id));
+            const missing = serverNews.filter((n: any) => !existingIds.has(n.id));
+            const merged = [...parsed, ...missing];
+            setNews(merged);
+            try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(merged)); } catch (e) {}
+          } else {
+            setNews(serverNews);
+            try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(serverNews)); } catch (e) {}
+          }
+        } catch(e) {
+          setNews(db.news || []);
+        }
         
         // Also fetch config
         try {
@@ -419,6 +442,84 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const addNews = async (item: { title: string; date?: string; image?: string; link?: string; summary?: string }) => {
+    const newItem = {
+      id: `news-${Date.now()}`,
+      title: item.title || 'Untitled News',
+      date: item.date || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+      image: item.image || '/images/News/DHARA Divine Awards Ceremony.jpg',
+      link: item.link || '',
+      summary: item.summary || ''
+    };
+    
+    setNews(prev => {
+      const updated = [newItem, ...prev];
+      try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(updated)); } catch(e){}
+      return updated;
+    });
+
+    try {
+      const res = await fetch('/api/news', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...item, user: currentUser.name })
+      });
+      const data = await res.json();
+      if (data.success && data.news) {
+        setNews(data.news);
+        try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(data.news)); } catch(e){}
+      }
+    } catch (err) {
+      console.error("Failed to add news server-side:", err);
+    }
+  };
+
+  const updateNews = async (id: string, item: any) => {
+    setNews(prev => {
+      const updated = prev.map(n => n.id === id ? { ...n, ...item } : n);
+      try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(updated)); } catch(e){}
+      return updated;
+    });
+
+    try {
+      const res = await fetch('/api/news', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, ...item, user: currentUser.name })
+      });
+      const data = await res.json();
+      if (data.success && data.news) {
+        setNews(data.news);
+        try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(data.news)); } catch(e){}
+      }
+    } catch (err) {
+      console.error("Failed to update news server-side:", err);
+    }
+  };
+
+  const deleteNews = async (id: string) => {
+    setNews(prev => {
+      const updated = prev.filter(n => n.id !== id);
+      try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(updated)); } catch(e){}
+      return updated;
+    });
+
+    try {
+      const res = await fetch('/api/news', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, user: currentUser.name })
+      });
+      const data = await res.json();
+      if (data.success && data.news) {
+        setNews(data.news);
+        try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(data.news)); } catch(e){}
+      }
+    } catch (err) {
+      console.error("Failed to delete news server-side:", err);
+    }
+  };
+
   const updateSiteConfig = async (configData: any) => {
     try {
       const res = await fetch('/api/config', {
@@ -456,6 +557,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       staff,
       gallery,
       events,
+      news,
       siteConfig,
       updateNominationStatus,
       deleteNomination,
@@ -471,6 +573,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       addEvent,
       updateEvent,
       deleteEvent,
+      addNews,
+      updateNews,
+      deleteNews,
       updateSiteConfig,
       globalSearchQuery,
       setGlobalSearchQuery,

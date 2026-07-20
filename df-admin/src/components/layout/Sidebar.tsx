@@ -116,7 +116,7 @@ export const Sidebar: React.FC = () => {
         </div>
 
         {/* Navigation List */}
-        <div className="p-2 lg:p-4 space-y-1.5">
+        <div className="p-2 lg:p-4 space-y-1.5 overflow-y-auto flex-1 custom-scrollbar">
           <div className={`px-3 py-2 text-[11px] font-semibold tracking-wider text-[#867463] dark:text-[#6B7280] uppercase ${
             sidebarOpen ? 'block' : 'hidden lg:block'
           }`}>

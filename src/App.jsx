@@ -25,7 +25,6 @@ import DonorSupport from './components/DonorSupport';
 import CorporateCSR from './components/CorporateCSR';
 import AwardNominations from './components/AwardNominations';
 import ThankYouPage from './components/ThankYouPage';
-import CustomCursor from './components/ui/CustomCursor';
 import { fetchSiteConfig, fetchGallery, fetchEvents, getGoogleDriveDirectLink, API_BASE, staticData } from './utils/api';
 
 const dashboardCategories = [
@@ -473,31 +472,42 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right Video Content */}
-          <div className="hero-video-container flex-1 relative w-full lg:max-w-[50%] rounded-[2rem] overflow-hidden border-2 border-[var(--color-saffron-glow)]/30" style={{ boxShadow: '0 25px 50px -12px rgba(64, 28, 12, 0.4), 0 0 40px rgba(243, 167, 18, 0.2)' }}>
-            <video 
-              ref={heroVideoRef}
-              src="/video/hero section video.mp4" 
-              poster="/images/News/DHARA Divine Awards Ceremony.jpg" 
-              autoPlay
-              loop 
-              muted={heroVideoMuted}
-              playsInline 
-              preload="auto"
-              className="w-full h-full object-cover" 
-              style={{ aspectRatio: '16/9', display: 'block' }}
-            />
-            
-            {/* Mute Toggle Bottom Right */}
-            <button 
-              onClick={() => setHeroVideoMuted(!heroVideoMuted)}
-              className="absolute bottom-5 right-5 z-20 w-11 h-11 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/70 hover:scale-105 transition-all cursor-pointer"
-              title={heroVideoMuted ? "Unmute Video" : "Mute Video"}
-              aria-label={heroVideoMuted ? "Unmute Video" : "Mute Video"}
-            >
-              {heroVideoMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-            </button>
-          </div>
+          {/* Right Video / Media Content */}
+          {siteConfig?.heroMediaOrder === 'image-first' ? (
+            <div className="hero-video-container flex-1 relative w-full lg:max-w-[50%] rounded-[2rem] overflow-hidden border-2 border-[var(--color-saffron-glow)]/30" style={{ boxShadow: '0 25px 50px -12px rgba(64, 28, 12, 0.4), 0 0 40px rgba(243, 167, 18, 0.2)' }}>
+              <img 
+                src={getImageUrl(siteConfig?.heroImageUrl || "/images/News/DHARA Divine Awards Ceremony.jpg")} 
+                alt="Hero Banner" 
+                className="w-full h-full object-cover" 
+                style={{ aspectRatio: '16/9', display: 'block' }}
+              />
+            </div>
+          ) : (
+            <div className="hero-video-container flex-1 relative w-full lg:max-w-[50%] rounded-[2rem] overflow-hidden border-2 border-[var(--color-saffron-glow)]/30" style={{ boxShadow: '0 25px 50px -12px rgba(64, 28, 12, 0.4), 0 0 40px rgba(243, 167, 18, 0.2)' }}>
+              <video 
+                ref={heroVideoRef}
+                src={siteConfig?.heroVideoUrl || "/video/hero section video.mp4"} 
+                poster={getImageUrl(siteConfig?.heroVideoPoster || siteConfig?.heroImageUrl || "/images/News/DHARA Divine Awards Ceremony.jpg")} 
+                autoPlay
+                loop 
+                muted={heroVideoMuted}
+                playsInline 
+                preload="auto"
+                className="w-full h-full object-cover" 
+                style={{ aspectRatio: '16/9', display: 'block' }}
+              />
+              
+              {/* Mute Toggle Bottom Right */}
+              <button 
+                onClick={() => setHeroVideoMuted(!heroVideoMuted)}
+                className="absolute bottom-5 right-5 z-20 w-11 h-11 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/70 hover:scale-105 transition-all cursor-pointer"
+                title={heroVideoMuted ? "Unmute Video" : "Mute Video"}
+                aria-label={heroVideoMuted ? "Unmute Video" : "Mute Video"}
+              >
+                {heroVideoMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+              </button>
+            </div>
+          )}
           
         </div>
       </section>
@@ -940,7 +950,9 @@ export default function App() {
           <div
             key={item.id}
             onClick={() => {
-              if (item.id === 'registration' || item.id === 'highlights') {
+              if (item.id === 'registration') {
+                setActiveTab('register');
+              } else if (item.id === 'highlights') {
                 setActiveTab('events');
               } else if (item.id === 'volunteer') {
                 setActiveTab('volunteer');
@@ -1068,7 +1080,6 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <CustomCursor />
       {/* Brand Entrance Preloader Overlay */}
       <div className={`preloader-overlay ${showPreloader ? 'active' : 'fade-out'}`}>
         <div className="preloader-content">
@@ -1109,9 +1120,9 @@ export default function App() {
           <Route path="/" element={getHomeElement()} />
           <Route path="/home" element={getHomeElement()} />
           
-          <Route path="/about" element={<div className="animate-fade-in"><AboutUs /></div>} />
+          <Route path="/about" element={<div className="animate-fade-in"><AboutUs siteConfig={siteConfig} /></div>} />
           <Route path="/vision" element={<div className="animate-fade-in"><VisionMission /></div>} />
-          <Route path="/founder" element={<div className="animate-fade-in"><FounderMessage /></div>} />
+          <Route path="/founder" element={<div className="animate-fade-in"><FounderMessage siteConfig={siteConfig} /></div>} />
           <Route path="/events" element={<div className="animate-fade-in"><EventsActivities /></div>} />
           <Route path="/gallery" element={<div className="animate-fade-in"><GalleryPage /></div>} />
           <Route path="/news" element={<div className="animate-fade-in"><MediaCoverage onSubmitSuccess={handleFormSuccess} /></div>} />

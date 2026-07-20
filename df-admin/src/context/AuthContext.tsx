@@ -22,7 +22,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
   useEffect(() => {
     // Load auth state from localStorage on mount
     const storedAuth = localStorage.getItem('df_admin_auth');

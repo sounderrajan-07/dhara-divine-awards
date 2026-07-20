@@ -10,14 +10,54 @@
       "pass_tier": "patron",
       "ticket_count": 1,
       "pass_code": "DDA-2026-3923",
-      "checked_in": false,
-      "checkin_time": null,
+      "checked_in": true,
+      "checkin_time": "2026-07-20T06:20:41.388Z",
+      "seat_zone": "Zone B - Seva Row 10"
+    },
+    {
+      "id": "del-1784541884016",
+      "delegate_name": "Soundher S",
+      "email": "soundhersenthil07@gmail.com",
+      "phone": "7397523792",
+      "pass_tier": "premium delegate",
+      "ticket_count": 1,
+      "pass_code": "DDA-2026-4453",
+      "checked_in": true,
+      "checkin_time": "2026-07-20T10:11:13.043Z",
       "seat_zone": "Zone B - Seva Row 10"
     }
   ],
   "volunteers": [],
   "enquiries": [],
   "activityLogs": [
+    {
+      "id": "log-1784542273045",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-4453 (Soundher S)",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784541884016",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "New Delegate pass registered for \"Soundher S\" (Pass: DDA-2026-4453)",
+      "user": "System Callback"
+    },
+    {
+      "id": "log-1784541650526",
+      "timestamp": "Just now",
+      "type": "system",
+      "message": "Admin updated global site configuration",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784528441414",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-3923 (Mohammed Thalha)",
+      "user": "S. Vinoth Ragavendran"
+    },
     {
       "id": "log-1784373962090",
       "timestamp": "Just now",
@@ -1664,16 +1704,178 @@
         }
       ],
       "homeStats": [
-        { "number": "3", "label": "Founding Trustees" },
-        { "number": "40+", "label": "Community Programs" },
-        { "number": "80G", "label": "Tax Exemption" }
+        {
+          "number": "3",
+          "label": "Founding Trustees"
+        },
+        {
+          "number": "40+",
+          "label": "Community Programs"
+        },
+        {
+          "number": "80G",
+          "label": "Tax Exemption"
+        }
       ],
+      "heroImageUrl": "/images/News/DHARA Divine Awards Ceremony.jpg",
+      "heroMediaOrder": "video-first",
       "homeCredentials": [
-        { "prefix": "Indian Trust Act, 1882 — ", "highlight": "Registered" },
-        { "prefix": "80G & 12A — ", "highlight": "Tax Exempt" },
-        { "prefix": "MCA — ", "highlight": "CSR Approved" },
-        { "prefix": "NGO Darpan — ", "highlight": "TN/2024/0473120" }
+        {
+          "prefix": "Indian Trust Act, 1882 — ",
+          "highlight": "Registered"
+        },
+        {
+          "prefix": "80G & 12A — ",
+          "highlight": "Tax Exempt"
+        },
+        {
+          "prefix": "MCA — ",
+          "highlight": "CSR Approved"
+        },
+        {
+          "prefix": "NGO Darpan — ",
+          "highlight": "TN/2024/0473120"
+        }
+      ],
+      "aboutStats": [
+        {
+          "number": "25+",
+          "label": "Completed Projects"
+        },
+        {
+          "number": "10k+",
+          "label": "Lives Touched"
+        },
+        {
+          "number": "80G",
+          "label": "Tax Exemption"
+        }
+      ],
+      "founders": [
+        {
+          "name": "S. Vinoth Ragavendran",
+          "role": "Founder President & Trustee",
+          "bio": "With over two decades of leadership in engineering and construction, Vinoth is actively involved in temple heritage protection, traditional restoration, and legal advocacy for public heritage rights across Tamil Nadu.",
+          "image": "/images/S. Vinoth Ragavendran.jpg",
+          "useDefaultIcon": true,
+          "order": 1
+        },
+        {
+          "name": "P. Ezhumalai",
+          "role": "Agriculturist, Social Worker & Trustee",
+          "bio": "A dedicated agriculturist and progressive dairy farmer, Ezhumalai has spent his life working in public welfare, guiding local community initiatives, and fostering traditional moral values at the grassroot levels.",
+          "image": "/logo/photo_6195100629672333271_y.jpg",
+          "useDefaultIcon": true,
+          "order": 2
+        },
+        {
+          "name": "S. Srividhya",
+          "role": "Chartered Accountant, CS & Trustee",
+          "bio": "A dual-qualified professional (CA and CS) with extensive experience in corporate governance, Srividhya oversees the administrative precision, compliance, and strict financial transparency of the non-profit organization's initiatives.",
+          "image": "/logo/photo_6195100629672333269_y.jpg",
+          "useDefaultIcon": true,
+          "order": 3
+        }
       ]
+    }
+  ],
+  "news": [
+    {
+      "id": "news-vid-1",
+      "title": "Dhara Divine Awards Highlight Video Coverage - Part 1",
+      "date": "20 Jul, 2026",
+      "type": "video",
+      "mediaUrl": "/images/News/WhatsApp Video 2026-07-20 at 3.32.09 PM.mp4",
+      "image": "/images/News/DHARA Divine Awards Ceremony.jpg",
+      "summary": "Special video highlights from the Dhara Divine Awards grand celebration and award presentation ceremony."
+    },
+    {
+      "id": "news-vid-2",
+      "title": "Dhara Divine Awards Keynotes & Felicitation Video",
+      "date": "20 Jul, 2026",
+      "type": "video",
+      "mediaUrl": "/images/News/WhatsApp Video 2026-07-20 at 3.32.31 PM.mp4",
+      "image": "/images/News/Governor of Maharashtra Appreciates DHARA Divine Awards 2025.png",
+      "summary": "Keynote addresses and dignitary guest honors captured live during the award ceremony."
+    },
+    {
+      "id": "news-vid-3",
+      "title": "Grassroots Champions Recognition Ceremony Video",
+      "date": "20 Jul, 2026",
+      "type": "video",
+      "mediaUrl": "/images/News/WhatsApp Video 2026-07-20 at 3.32.31 PM (1).mp4",
+      "image": "/images/News/Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards.jpg",
+      "summary": "Full video coverage of silent grassroots workers being felicitated on stage."
+    },
+    {
+      "id": "news-vid-4",
+      "title": "Divine Awards Cultural & Seva Performance Reel",
+      "date": "20 Jul, 2026",
+      "type": "video",
+      "mediaUrl": "/images/News/WhatsApp Video 2026-07-20 at 3.32.32 PM.mp4",
+      "image": "/images/News/Smt. Vanathi Srinivasan Graces Dhara Divine Awards Ceremony as Chief Guest.jpg",
+      "summary": "Cultural presentations and traditional tributes to the 63 Nayanmars service pillars."
+    },
+    {
+      "id": "news-vid-5",
+      "title": "Dhara Foundations Seva & Spiritual Highlights Video",
+      "date": "20 Jul, 2026",
+      "type": "video",
+      "mediaUrl": "/images/News/WhatsApp Video 2026-07-20 at 3.32.34 PM.mp4",
+      "image": "/images/News/DHARA Divine Awards Ceremony.jpg",
+      "summary": "Short documentary snippet of Dhara Foundations' temple heritage protection and community welfare work."
+    },
+    {
+      "id": "news-img-1",
+      "title": "Dhara Foundations Seva & Divine Awards Moments - Photo Release 1",
+      "date": "20 Jul, 2026",
+      "type": "image",
+      "image": "/images/News/WhatsApp Image 2026-07-20 at 3.32.35 PM.jpeg",
+      "summary": "Special moment captured during the grassroots service initiatives and awards felicitation."
+    },
+    {
+      "id": "news-img-2",
+      "title": "Dhara Foundations Seva & Divine Awards Moments - Photo Release 2",
+      "date": "20 Jul, 2026",
+      "type": "image",
+      "image": "/images/News/WhatsApp Image 2026-07-20 at 3.32.36 PM.jpeg",
+      "summary": "Official press photograph highlighting community service and spiritual legacy work."
+    },
+    {
+      "id": "news-1",
+      "title": "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards",
+      "date": "24 Jan, 2025",
+      "type": "image",
+      "image": "/images/News/Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards.jpg",
+      "link": "https://www.youtube.com/live/qOAbFfB22uI",
+      "summary": "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman was formally invited as a Chief Guest and dignitary to the flagship Dhara Divine Awards Ceremony, recognizing unsung grassroots heroes and NGOs for exemplary humanitarian and cultural service inspired by spiritual values."
+    },
+    {
+      "id": "news-2",
+      "title": "Smt. Vanathi Srinivasan Graces Dhara Divine Awards Ceremony as Chief Guest",
+      "date": "24 Jan, 2025",
+      "type": "image",
+      "image": "/images/News/Smt. Vanathi Srinivasan Graces Dhara Divine Awards Ceremony as Chief Guest.jpg",
+      "link": "https://www.youtube.com/live/qOAbFfB22uI",
+      "summary": "Prominent leader and MLA Smt. Vanathi Srinivasan was invited as a Chief Guest and dignitary to grace the Dhara Divine Awards Ceremony, joining Dhara Foundations to recognize dedicated grassroots champions, philanthropists, and silent social workers performing noble seva."
+    },
+    {
+      "id": "news-3",
+      "title": "Governor of Maharashtra Appreciates DHARA Divine Awards",
+      "date": "31 Aug, 2025",
+      "type": "image",
+      "image": "/images/News/Governor of Maharashtra Appreciates DHARA Divine Awards 2025.png",
+      "link": "https://dharafoundations.in/newsDetails/32",
+      "summary": "His Excellency, the Governor of Maharashtra, expressed deep appreciation for Dhara Foundations' tireless efforts in honoring unsung heroes and promoting cultural revival."
+    },
+    {
+      "id": "news-4",
+      "title": "DHARA Divine Awards Ceremony",
+      "date": "24 Jan, 2025",
+      "type": "image",
+      "image": "/images/News/DHARA Divine Awards Ceremony.jpg",
+      "link": "https://dharafoundations.in/newsDetails/27",
+      "summary": "Felicitation of 63 silent service leaders of Sanatana Dharma at the Chinmaya Heritage Centre in Chetpet, Chennai, in the presence of Madras HC Judge Justice GR Swaminathan."
     }
   ]
 }

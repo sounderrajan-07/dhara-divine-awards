@@ -34,10 +34,14 @@ export async function PUT(request: Request) {
       id: 'global-config',
       heroVideoUrl: body.heroVideoUrl || '',
       heroVideoPoster: body.heroVideoPoster || '',
+      heroImageUrl: body.heroImageUrl || '',
+      heroMediaOrder: body.heroMediaOrder || 'video-first',
       eventYear: body.eventYear || '2026',
       registrationTickets: body.registrationTickets || [],
       homeStats: body.homeStats || [],
-      homeCredentials: body.homeCredentials || []
+      aboutStats: body.aboutStats || [],
+      homeCredentials: body.homeCredentials || [],
+      founders: body.founders || []
     };
 
     if (index === -1) {

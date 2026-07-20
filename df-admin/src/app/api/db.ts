@@ -11,6 +11,7 @@ export interface DatabaseSchema {
   gallery: any[];
   events: any[];
   siteConfig: any[];
+  news?: any[];
 }
 
 const dbPath = path.join(process.cwd(), 'data', 'db.json');
@@ -18,7 +19,9 @@ const dbPath = path.join(process.cwd(), 'data', 'db.json');
 export async function readDb(): Promise<DatabaseSchema> {
   try {
     const data = await fs.readFile(dbPath, 'utf8');
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    if (!parsed.news) parsed.news = [];
+    return parsed;
   } catch (error) {
     console.error("Database read error:", error);
     // If file doesn't exist, return empty scaffold
@@ -31,7 +34,8 @@ export async function readDb(): Promise<DatabaseSchema> {
       activityLogs: [],
       gallery: [],
       events: [],
-      siteConfig: []
+      siteConfig: [],
+      news: []
     };
   }
 }

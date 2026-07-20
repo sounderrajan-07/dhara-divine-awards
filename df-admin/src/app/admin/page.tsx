@@ -15,7 +15,7 @@ import { GalleryWorkspace } from '@/components/workspaces/GalleryWorkspace';
 import { EventsWorkspace } from '@/components/workspaces/EventsWorkspace';
 import { EventConfigWorkspace } from '@/components/workspaces/EventConfigWorkspace';
 import { SettingsWorkspace } from '@/components/workspaces/SettingsWorkspace';
-import LoginPage from './login/page';
+import LoginView from '@/components/auth/LoginView';
 
 const DashboardContent: React.FC = () => {
   const { currentTab } = useApp();
@@ -43,7 +43,7 @@ const AdminPortalInner: React.FC = () => {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <LoginPage />;
+    return <LoginView />;
   }
 
   return (

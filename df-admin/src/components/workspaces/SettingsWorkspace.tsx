@@ -2,49 +2,168 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Settings, Save, Video, BarChart2, ShieldCheck, Plus, Trash2 } from 'lucide-react';
+import { 
+  Settings, Save, Video, BarChart2, ShieldCheck, Plus, Trash2, 
+  Image as ImageIcon, Users, ArrowUpDown, Home, Info, Building2, 
+  CheckCircle2, Newspaper, Edit3, ExternalLink, X, Upload, Calendar
+} from 'lucide-react';
 
 export const SettingsWorkspace: React.FC = () => {
-  const { siteConfig, updateSiteConfig } = useApp();
+  const { siteConfig, updateSiteConfig, news, addNews, updateNews, deleteNews, globalSearchQuery } = useApp();
+  const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'news' | 'trustees' | 'registrations'>('home');
   
+  // Home Section
   const [heroVideoUrl, setHeroVideoUrl] = useState('');
   const [heroVideoPoster, setHeroVideoPoster] = useState('');
+  const [heroImageUrl, setHeroImageUrl] = useState('');
+  const [heroMediaOrder, setHeroMediaOrder] = useState<'video-first' | 'image-first'>('video-first');
   
   const [homeStats, setHomeStats] = useState<{ number: string, label: string }[]>([
     { number: '3', label: 'Founding Trustees' },
     { number: '40+', label: 'Community Programs' },
     { number: '80G', label: 'Tax Exemption' }
   ]);
-  
+
   const [homeCredentials, setHomeCredentials] = useState<{ prefix: string, highlight: string }[]>([
     { prefix: 'Indian Trust Act, 1882 — ', highlight: 'Registered' },
     { prefix: '80G & 12A — ', highlight: 'Tax Exempt' },
     { prefix: 'MCA — ', highlight: 'CSR Approved' },
     { prefix: 'NGO Darpan — ', highlight: 'TN/2024/0473120' }
   ]);
-  
+
+  // About Us Section
+  const [aboutStats, setAboutStats] = useState<{ number: string, label: string }[]>([
+    { number: '25+', label: 'Completed Projects' },
+    { number: '10k+', label: 'Lives Touched' },
+    { number: '80G', label: 'Tax Exemption' }
+  ]);
+
+  const [registrations, setRegistrations] = useState<{ title: string, detail: string, description: string }[]>([
+    {
+      title: "Indian Trust Act, 1882",
+      detail: "Registered Public Non-profit Organization",
+      description: "Formed on 20.11.2024 under the Indian Trust Act 1882 and Indian Income Tax Act 1961 as a public charitable non-profit organization."
+    },
+    {
+      title: "12A Income Tax Exemption",
+      detail: "Reg. No: AAETD8857AE20241",
+      description: "Granted permanent tax-exempt status for legacy charitable and spiritual activities."
+    },
+    {
+      title: "80G Tax Deductions",
+      detail: "Reg. No: AAETD8857AF20241",
+      description: "All individual and corporate donations are eligible for a 50% tax deduction under Section 80G."
+    },
+    {
+      title: "MCA CSR Approved",
+      detail: "Reg. No: CSR00086947",
+      description: "Registered with the Ministry of Corporate Affairs to undertake Section 135 Corporate Social Responsibility programs."
+    },
+    {
+      title: "NGO DARPAN",
+      detail: "ID: TN/2024/0473120",
+      description: "Registered under NITI Aayog's NGO Darpan database for centralized accountability."
+    }
+  ]);
+
+  // Founders Section
+  const [founders, setFounders] = useState<{ name: string, role: string, bio: string, image: string, useDefaultIcon: boolean, order: number }[]>([
+    {
+      name: "S. Vinoth Ragavendran",
+      role: "Founder President & Trustee",
+      bio: "With over two decades of leadership in engineering and construction, Vinoth is actively involved in temple heritage protection, traditional restoration, and legal advocacy for public heritage rights across Tamil Nadu.",
+      image: "/images/S. Vinoth Ragavendran.jpg",
+      useDefaultIcon: true,
+      order: 1
+    },
+    {
+      name: "P. Ezhumalai",
+      role: "Agriculturist, Social Worker & Trustee",
+      bio: "A dedicated agriculturist and progressive dairy farmer, Ezhumalai has spent his life working in public welfare, guiding local community initiatives, and fostering traditional moral values at the grassroot levels.",
+      image: "/logo/photo_6195100629672333271_y.jpg",
+      useDefaultIcon: true,
+      order: 2
+    },
+    {
+      name: "S. Srividhya",
+      role: "Chartered Accountant, CS & Trustee",
+      bio: "A dual-qualified professional (CA and CS) with extensive experience in corporate governance, Srividhya oversees the administrative precision, compliance, and strict financial transparency of the non-profit organization's initiatives.",
+      image: "/logo/photo_6195100629672333269_y.jpg",
+      useDefaultIcon: true,
+      order: 3
+    }
+  ]);
+
+  // News Modal State inside Site Settings
+  const [showNewsModal, setShowNewsModal] = useState<boolean>(false);
+  const [editingNewsId, setEditingNewsId] = useState<string | null>(null);
+  const [newsTitle, setNewsTitle] = useState<string>('');
+  const [newsDate, setNewsDate] = useState<string>('');
+  const [newsType, setNewsType] = useState<'image' | 'video'>('image');
+  const [newsMediaUrl, setNewsMediaUrl] = useState<string>('');
+  const [newsImage, setNewsImage] = useState<string>('');
+  const [newsLink, setNewsLink] = useState<string>('');
+  const [newsSummary, setNewsSummary] = useState<string>('');
+  const [uploadingImage, setUploadingImage] = useState<boolean>(false);
+
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (siteConfig) {
       setHeroVideoUrl(siteConfig.heroVideoUrl || '');
       setHeroVideoPoster(siteConfig.heroVideoPoster || '');
+      setHeroImageUrl(siteConfig.heroImageUrl || '');
+      setHeroMediaOrder(siteConfig.heroMediaOrder || 'video-first');
+
       if (siteConfig.homeStats && siteConfig.homeStats.length > 0) {
         setHomeStats(siteConfig.homeStats);
+      }
+      if (siteConfig.aboutStats && siteConfig.aboutStats.length > 0) {
+        setAboutStats(siteConfig.aboutStats);
+      }
+      if (siteConfig.founders && siteConfig.founders.length > 0) {
+        setFounders(siteConfig.founders);
       }
       if (siteConfig.homeCredentials && siteConfig.homeCredentials.length > 0) {
         setHomeCredentials(siteConfig.homeCredentials);
       }
+      if (siteConfig.registrations && siteConfig.registrations.length > 0) {
+        setRegistrations(siteConfig.registrations);
+      }
     }
   }, [siteConfig]);
 
-  const handleStatChange = (index: number, field: 'number'|'label', value: string) => {
+  // Filtering news search
+  const filteredNews = news.filter(n => {
+    if (!globalSearchQuery) return true;
+    const q = globalSearchQuery.toLowerCase();
+    return (n.title || '').toLowerCase().includes(q) || (n.summary || '').toLowerCase().includes(q);
+  });
+
+  // Handlers
+  const handleHomeStatChange = (index: number, field: 'number'|'label', value: string) => {
     const newStats = [...homeStats];
     newStats[index][field] = value;
     setHomeStats(newStats);
   };
-  const addStat = () => setHomeStats([...homeStats, { number: '', label: '' }]);
-  const removeStat = (index: number) => setHomeStats(homeStats.filter((_, i) => i !== index));
+  const addHomeStat = () => setHomeStats([...homeStats, { number: '', label: '' }]);
+  const removeHomeStat = (index: number) => setHomeStats(homeStats.filter((_, i) => i !== index));
+
+  const handleAboutStatChange = (index: number, field: 'number'|'label', value: string) => {
+    const newStats = [...aboutStats];
+    newStats[index][field] = value;
+    setAboutStats(newStats);
+  };
+  const addAboutStat = () => setAboutStats([...aboutStats, { number: '', label: '' }]);
+  const removeAboutStat = (index: number) => setAboutStats(aboutStats.filter((_, i) => i !== index));
+
+  const handleFounderChange = (index: number, field: string, value: any) => {
+    const newFounders = [...founders];
+    newFounders[index] = { ...newFounders[index], [field]: value };
+    setFounders(newFounders);
+  };
+  const addFounder = () => setFounders([...founders, { name: '', role: '', bio: '', image: '', useDefaultIcon: true, order: founders.length + 1 }]);
+  const removeFounder = (index: number) => setFounders(founders.filter((_, i) => i !== index));
 
   const handleCredChange = (index: number, field: 'prefix'|'highlight', value: string) => {
     const newCreds = [...homeCredentials];
@@ -54,32 +173,119 @@ export const SettingsWorkspace: React.FC = () => {
   const addCred = () => setHomeCredentials([...homeCredentials, { prefix: '', highlight: '' }]);
   const removeCred = (index: number) => setHomeCredentials(homeCredentials.filter((_, i) => i !== index));
 
+  const handleRegChange = (index: number, field: 'title'|'detail'|'description', value: string) => {
+    const newRegs = [...registrations];
+    newRegs[index][field] = value;
+    setRegistrations(newRegs);
+  };
+  const addReg = () => setRegistrations([...registrations, { title: '', detail: '', description: '' }]);
+  const removeReg = (index: number) => setRegistrations(registrations.filter((_, i) => i !== index));
+
+  // News Handlers
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImage(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      if (data.success && data.url) {
+        setNewsImage(data.url);
+      } else {
+        alert('Upload failed: ' + (data.error || 'Unknown error'));
+      }
+    } catch (err) {
+      console.error('Upload error:', err);
+      alert('Failed to upload image');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleNewsFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsTitle) {
+      alert('Please enter an article title.');
+      return;
+    }
+
+    const payload = {
+      title: newsTitle,
+      date: newsDate || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+      type: newsType,
+      mediaUrl: newsType === 'video' ? newsMediaUrl : undefined,
+      image: newsImage || '/images/News/DHARA Divine Awards Ceremony.jpg',
+      link: newsLink,
+      summary: newsSummary
+    };
+
+    if (editingNewsId) {
+      await updateNews(editingNewsId, payload);
+    } else {
+      await addNews(payload);
+    }
+
+    setNewsTitle('');
+    setNewsDate('');
+    setNewsType('image');
+    setNewsMediaUrl('');
+    setNewsImage('');
+    setNewsLink('');
+    setNewsSummary('');
+    setEditingNewsId(null);
+    setShowNewsModal(false);
+  };
+
+  const openNewsEdit = (item: any) => {
+    setEditingNewsId(item.id);
+    setNewsTitle(item.title || '');
+    setNewsDate(item.date || '');
+    setNewsType(item.type || (item.mediaUrl ? 'video' : 'image'));
+    setNewsMediaUrl(item.mediaUrl || '');
+    setNewsImage(item.image || '');
+    setNewsLink(item.link || '');
+    setNewsSummary(item.summary || '');
+    setShowNewsModal(true);
+  };
+
   const handleSave = async () => {
     setSaving(true);
     await updateSiteConfig({
       ...siteConfig,
       heroVideoUrl,
       heroVideoPoster,
+      heroImageUrl,
+      heroMediaOrder,
       homeStats,
-      homeCredentials
+      aboutStats,
+      founders,
+      homeCredentials,
+      registrations
     });
     setSaving(false);
-    alert('Settings saved successfully!');
+    alert('Site settings updated successfully!');
   };
 
   return (
     <div className="space-y-6 pb-12 animate-fade-in">
       {/* Header Panel */}
       <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center flex-wrap gap-4">
           <div>
             <h2 className="font-serif text-2xl font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2">
-              <Settings className="text-[#D9762E]" /> Site Settings
+              <Settings className="text-[#D9762E]" /> Site Settings & Content Control
             </h2>
             <p className="text-xs text-[#867463] dark:text-[#9CA3AF] mt-1">
-              Configure global settings for the promotional website.
+              Configure dynamic media, impact statistics, news articles, founder trustees, and legal registrations.
             </p>
           </div>
+
           <button
             onClick={handleSave}
             disabled={saving}
@@ -88,135 +294,674 @@ export const SettingsWorkspace: React.FC = () => {
             <Save size={18} /> {saving ? 'Saving...' : 'Save All Settings'}
           </button>
         </div>
+
+        {/* Section Navigation Sub-Tabs */}
+        <div className="flex items-center gap-2 pt-6 border-t border-[#F5F3EE] dark:border-[#2E302A] mt-6 flex-wrap">
+          <button
+            onClick={() => setActiveSubTab('home')}
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeSubTab === 'home'
+                ? 'bg-[#401C0C] text-white shadow-md'
+                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+            }`}
+          >
+            <Home size={16} /> Home Section Settings
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('about')}
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeSubTab === 'about'
+                ? 'bg-[#401C0C] text-white shadow-md'
+                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+            }`}
+          >
+            <Info size={16} /> About Us Section Settings
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('news')}
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeSubTab === 'news'
+                ? 'bg-[#401C0C] text-white shadow-md'
+                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+            }`}
+          >
+            <Newspaper size={16} /> News Section Settings ({news.length})
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('trustees')}
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeSubTab === 'trustees'
+                ? 'bg-[#401C0C] text-white shadow-md'
+                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+            }`}
+          >
+            <Users size={16} /> Trustees & Founders ({founders.length})
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('registrations')}
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeSubTab === 'registrations'
+                ? 'bg-[#401C0C] text-white shadow-md'
+                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+            }`}
+          >
+            <ShieldCheck size={16} /> Trust Registrations ({registrations.length})
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-6">
-          <h3 className="font-serif text-xl font-bold flex items-center gap-2">
-            <Video className="text-[#C9A646]" size={20} /> Home Page Banner Video
-          </h3>
-          
-          <div>
-            <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
-              Hero Video URL (MP4)
-            </label>
-            <input
-              type="text"
-              value={heroVideoUrl}
-              onChange={(e) => setHeroVideoUrl(e.target.value)}
-              placeholder="e.g. /videos/Dhara award final promo.mp4 OR https://..."
-              className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
-            />
-            <p className="text-[10px] text-[#867463] mt-1">
-              Provide a direct link to an MP4 video file. This plays on the home page hero section.
-            </p>
+      {/* SUB TAB 1: HOME SECTION */}
+      {activeSubTab === 'home' && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Hero Media Controls */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5">
+            <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+              <Video className="text-[#C9A646]" size={20} /> Hero Section Media & Display Order
+            </h3>
+
+            <div>
+              <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5 flex items-center gap-1.5">
+                <ArrowUpDown size={14} className="text-[#D9762E]" /> Media Order (Which comes 1st?)
+              </label>
+              <select
+                value={heroMediaOrder}
+                onChange={(e) => setHeroMediaOrder(e.target.value as any)}
+                className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
+              >
+                <option value="video-first">Video 1st (Banner Video plays first, Image secondary)</option>
+                <option value="image-first">Image 1st (Hero Banner Image shown first, Video secondary)</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
+                Hero Video URL (MP4 / WebM / Link)
+              </label>
+              <input
+                type="text"
+                value={heroVideoUrl}
+                onChange={(e) => setHeroVideoUrl(e.target.value)}
+                placeholder="e.g. /video/hero section video.mp4"
+                className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5 flex items-center gap-1.5">
+                <ImageIcon size={14} className="text-[#D9762E]" /> Hero Banner Image URL
+              </label>
+              <input
+                type="text"
+                value={heroImageUrl}
+                onChange={(e) => setHeroImageUrl(e.target.value)}
+                placeholder="e.g. /images/News/DHARA Divine Awards Ceremony.jpg"
+                className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
-              Video Poster Image URL (Optional)
-            </label>
-            <input
-              type="text"
-              value={heroVideoPoster}
-              onChange={(e) => setHeroVideoPoster(e.target.value)}
-              placeholder="e.g. /images/poster.jpg OR https://..."
-              className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
-            />
-            <p className="text-[10px] text-[#867463] mt-1">
-              Image shown while the video is loading.
-            </p>
+          {/* Home Stats */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5">
+            <div className="flex justify-between items-center">
+              <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+                <BarChart2 className="text-[#C9A646]" size={20} /> Home Page Stats & Impact Highlights
+              </h3>
+              <button onClick={addHomeStat} className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold">
+                <Plus size={14} /> Add Stat
+              </button>
+            </div>
+            
+            <div className="space-y-3">
+              {homeStats.map((stat, index) => (
+                <div key={index} className="flex gap-2 items-center p-2.5 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-xl">
+                  <div className="w-28">
+                    <input
+                      type="text"
+                      value={stat.number}
+                      onChange={(e) => handleHomeStatChange(index, 'number', e.target.value)}
+                      placeholder="e.g. 3"
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded-lg p-2 text-xs font-bold text-center"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <input
+                      type="text"
+                      value={stat.label}
+                      onChange={(e) => handleHomeStatChange(index, 'label', e.target.value)}
+                      placeholder="e.g. Founding Trustees"
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded-lg p-2 text-xs"
+                    />
+                  </div>
+                  <button onClick={() => removeHomeStat(index)} className="p-2 text-red-400 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30">
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Credentials Strip */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5 lg:col-span-2">
+            <div className="flex justify-between items-center">
+              <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+                <ShieldCheck className="text-[#C9A646]" size={20} /> Home Glassmorphic Trust Credentials Banner
+              </h3>
+              <button onClick={addCred} className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold">
+                <Plus size={14} /> Add Credential Item
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {homeCredentials.map((cred, index) => (
+                <div key={index} className="flex gap-2 items-start p-3 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-xl">
+                  <div className="flex-1 space-y-2">
+                    <div>
+                      <label className="block text-[10px] uppercase tracking-wider text-[#867463] mb-1">Prefix Text</label>
+                      <input
+                        type="text"
+                        value={cred.prefix}
+                        onChange={(e) => handleCredChange(index, 'prefix', e.target.value)}
+                        placeholder="e.g. Indian Trust Act, 1882 —"
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2 py-1 text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] uppercase tracking-wider text-[#867463] mb-1">Highlighted Badge</label>
+                      <input
+                        type="text"
+                        value={cred.highlight}
+                        onChange={(e) => handleCredChange(index, 'highlight', e.target.value)}
+                        placeholder="e.g. Registered"
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2 py-1 text-xs font-bold text-[#D9762E]"
+                      />
+                    </div>
+                  </div>
+                  <button onClick={() => removeCred(index)} className="p-2 mt-4 text-red-400 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30">
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        
-        <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-6">
-          <div className="flex justify-between items-center">
-            <h3 className="font-serif text-xl font-bold flex items-center gap-2">
-              <BarChart2 className="text-[#C9A646]" size={20} /> Home Page Stats
-            </h3>
-            <button onClick={addStat} className="text-[#D9762E] hover:text-[#C9A646] p-1 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E]">
-              <Plus size={16} />
+      )}
+
+      {/* SUB TAB 2: ABOUT US SECTION */}
+      {activeSubTab === 'about' && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5">
+            <div className="flex justify-between items-center">
+              <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+                <BarChart2 className="text-[#C9A646]" size={20} /> About Us Milestone Values & Impact Statistics
+              </h3>
+              <button onClick={addAboutStat} className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold">
+                <Plus size={14} /> Add Stat
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {aboutStats.map((stat, index) => (
+                <div key={index} className="flex gap-2 items-center p-3 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-xl">
+                  <div className="w-24">
+                    <input
+                      type="text"
+                      value={stat.number}
+                      onChange={(e) => handleAboutStatChange(index, 'number', e.target.value)}
+                      placeholder="e.g. 25+"
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded-lg p-2 text-xs font-bold text-center"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <input
+                      type="text"
+                      value={stat.label}
+                      onChange={(e) => handleAboutStatChange(index, 'label', e.target.value)}
+                      placeholder="e.g. COMPLETED PROJECTS"
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded-lg p-2 text-xs"
+                    />
+                  </div>
+                  <button onClick={() => removeAboutStat(index)} className="p-2 text-red-400 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30">
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SUB TAB 3: NEWS SECTION SETTINGS */}
+      {activeSubTab === 'news' && (
+        <div className="space-y-6">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <h3 className="font-serif text-xl font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+                <Newspaper className="text-[#D9762E]" size={20} /> Dynamic News Articles Management
+              </h3>
+              <p className="text-xs text-[#867463] dark:text-[#9CA3AF] mt-1">
+                Articles published here update dynamically in real-time on the promotional website news section.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setEditingNewsId(null);
+                setNewsTitle('');
+                setNewsDate('');
+                setNewsImage('');
+                setNewsLink('');
+                setNewsSummary('');
+                setShowNewsModal(true);
+              }}
+              className="px-4 py-2.5 rounded-xl bg-[#D9762E] hover:bg-[#b85e1b] text-white text-xs font-bold flex items-center gap-2 shadow-md transition-all cursor-pointer shrink-0"
+            >
+              <Plus size={16} /> Publish New Article
             </button>
           </div>
-          
-          <div className="space-y-3">
-            {homeStats.map((stat, index) => (
-              <div key={index} className="flex gap-2 items-start">
-                <div className="w-20">
-                  <input
-                    type="text"
-                    value={stat.number}
-                    onChange={(e) => handleStatChange(index, 'number', e.target.value)}
-                    placeholder="Num"
-                    className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C]"
-                  />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredNews.length === 0 ? (
+              <div className="col-span-full py-16 text-center bg-white dark:bg-[#1B1C19] rounded-3xl border border-dashed border-[#E4E2DD] dark:border-[#30312E] text-xs text-[#867463] italic">
+                No news articles found. Click "Publish New Article" to add one.
+              </div>
+            ) : (
+              filteredNews.map(n => (
+                <div 
+                  key={n.id}
+                  className="bg-white dark:bg-[#1B1C19] rounded-3xl border border-[#EAE8E3] dark:border-[#30312E] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="relative h-48 bg-slate-900 overflow-hidden">
+                      <img 
+                        src={n.image || '/images/News/DHARA Divine Awards Ceremony.jpg'} 
+                        alt={n.title}
+                        className="w-full h-full object-cover"
+                        onError={(e: any) => {
+                          e.target.onerror = null;
+                          e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";
+                        }}
+                      />
+                      <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-[#FFD27F] text-[10px] font-mono px-2.5 py-1 rounded-lg border border-white/20">
+                        {n.date}
+                      </div>
+                    </div>
+
+                    <div className="p-5 space-y-2">
+                      <h3 className="font-serif font-bold text-base text-[#1B1C19] dark:text-[#F3F4F6] line-clamp-2 leading-snug">
+                        {n.title}
+                      </h3>
+                      <p className="text-xs text-[#867463] dark:text-[#9CA3AF] line-clamp-3 leading-relaxed">
+                        {n.summary}
+                      </p>
+                      {n.link && (
+                        <a 
+                          href={n.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] text-[#D9762E] hover:underline font-mono pt-1"
+                        >
+                          <ExternalLink size={12} /> View Source Link
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="p-4 border-t border-[#F5F3EE] dark:border-[#2E302A] bg-[#FAF8F5] dark:bg-[#151613] flex items-center justify-between">
+                    <span className="text-[10px] text-[#867463] font-mono">{n.id}</span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => openNewsEdit(n)}
+                        className="p-2 rounded-xl bg-white dark:bg-[#242622] text-[#401C0C] dark:text-[#FFD27F] border border-[#E4E2DD] dark:border-[#30312E] hover:bg-[#F5F3EE] transition-all cursor-pointer"
+                        title="Edit Article"
+                      >
+                        <Edit3 size={14} />
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (confirm(`Are you sure you want to delete article "${n.title}"?`)) {
+                            deleteNews(n.id);
+                          }
+                        }}
+                        className="p-2 rounded-xl bg-red-500/10 text-red-600 hover:bg-red-500 hover:text-white transition-all cursor-pointer"
+                        title="Delete Article"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    value={stat.label}
-                    onChange={(e) => handleStatChange(index, 'label', e.target.value)}
-                    placeholder="Label (e.g. Founding Trustees)"
-                    className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C]"
-                  />
+              ))
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* SUB TAB 4: TRUSTEES & FOUNDERS */}
+      {activeSubTab === 'trustees' && (
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5">
+          <div className="flex justify-between items-center">
+            <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+              <Users className="text-[#C9A646]" size={20} /> Founders & Board of Trustees Profiles
+            </h3>
+            <button onClick={addFounder} className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold">
+              <Plus size={14} /> Add Trustee Profile
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {founders.map((founder, index) => (
+              <div key={index} className="p-5 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center border-b border-[#EAE8E3] dark:border-[#30312E] pb-2">
+                    <span className="text-xs font-bold font-mono text-[#D9762E]">Trustee #{index + 1}</span>
+                    <button onClick={() => removeFounder(index)} className="p-1 text-red-400 hover:text-red-500 rounded">
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Name</label>
+                    <input
+                      type="text"
+                      value={founder.name}
+                      onChange={(e) => handleFounderChange(index, 'name', e.target.value)}
+                      placeholder="e.g. S. Vinoth Ragavendran"
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Role / Designation</label>
+                    <input
+                      type="text"
+                      value={founder.role}
+                      onChange={(e) => handleFounderChange(index, 'role', e.target.value)}
+                      placeholder="e.g. Founder President & Trustee"
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Photo Image Path / URL</label>
+                    <input
+                      type="text"
+                      value={founder.image}
+                      onChange={(e) => handleFounderChange(index, 'image', e.target.value)}
+                      placeholder="e.g. /images/S. Vinoth Ragavendran.jpg"
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-1">
+                    <input
+                      type="checkbox"
+                      id={`useDefaultIcon-${index}`}
+                      checked={founder.useDefaultIcon}
+                      onChange={(e) => handleFounderChange(index, 'useDefaultIcon', e.target.checked)}
+                      className="rounded border-[#D9CBB0] text-[#401C0C]"
+                    />
+                    <label htmlFor={`useDefaultIcon-${index}`} className="text-xs text-[#867463] cursor-pointer">
+                      Use Default Avatar Fallback
+                    </label>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Bio Summary</label>
+                    <textarea
+                      value={founder.bio}
+                      onChange={(e) => handleFounderChange(index, 'bio', e.target.value)}
+                      rows={3}
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs resize-none"
+                    />
+                  </div>
                 </div>
-                <button onClick={() => removeStat(index)} className="p-2 text-red-400 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30">
-                  <Trash2 size={16} />
-                </button>
               </div>
             ))}
           </div>
-          <p className="text-[10px] text-[#867463]">
-            These statistics are displayed in large bold text on the home page below the hero text.
-          </p>
         </div>
-        
-        <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-6 lg:col-span-2">
+      )}
+
+      {/* SUB TAB 5: TRUST REGISTRATIONS */}
+      {activeSubTab === 'registrations' && (
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5">
           <div className="flex justify-between items-center">
-            <h3 className="font-serif text-xl font-bold flex items-center gap-2">
-              <ShieldCheck className="text-[#C9A646]" size={20} /> Credentials Strip
+            <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+              <ShieldCheck className="text-[#C9A646]" size={20} /> Legal Registrations & Non-Profit Certifications
             </h3>
-            <button onClick={addCred} className="text-[#D9762E] hover:text-[#C9A646] p-1 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E]">
-              <Plus size={16} />
+            <button onClick={addReg} className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold">
+              <Plus size={14} /> Add Certification
             </button>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {homeCredentials.map((cred, index) => (
-              <div key={index} className="flex gap-2 items-start p-3 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-xl">
-                <div className="flex-1 space-y-2">
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-wider text-[#867463] mb-1">Prefix Text</label>
-                    <input
-                      type="text"
-                      value={cred.prefix}
-                      onChange={(e) => handleCredChange(index, 'prefix', e.target.value)}
-                      placeholder="e.g. Indian Trust Act, 1882 —"
-                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2 py-1 text-xs"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-wider text-[#867463] mb-1">Highlighted Text</label>
-                    <input
-                      type="text"
-                      value={cred.highlight}
-                      onChange={(e) => handleCredChange(index, 'highlight', e.target.value)}
-                      placeholder="e.g. Registered"
-                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2 py-1 text-xs font-bold"
-                    />
-                  </div>
+            {registrations.map((reg, index) => (
+              <div key={index} className="p-4 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3">
+                <div className="flex justify-between items-center border-b border-[#EAE8E3] dark:border-[#30312E] pb-2">
+                  <span className="text-xs font-bold font-mono text-[#D9762E]">Certification #{index + 1}</span>
+                  <button onClick={() => removeReg(index)} className="p-1 text-red-400 hover:text-red-500 rounded">
+                    <Trash2 size={14} />
+                  </button>
                 </div>
-                <button onClick={() => removeCred(index)} className="p-2 mt-4 text-red-400 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30">
-                  <Trash2 size={16} />
-                </button>
+
+                <div>
+                  <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Act / Authority Title</label>
+                  <input
+                    type="text"
+                    value={reg.title}
+                    onChange={(e) => handleRegChange(index, 'title', e.target.value)}
+                    placeholder="e.g. 12A Income Tax Exemption"
+                    className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs font-bold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Registration Number / Detail Badge</label>
+                  <input
+                    type="text"
+                    value={reg.detail}
+                    onChange={(e) => handleRegChange(index, 'detail', e.target.value)}
+                    placeholder="e.g. Reg. No: AAETD8857AE20241"
+                    className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Description / Benefit</label>
+                  <textarea
+                    value={reg.description}
+                    onChange={(e) => handleRegChange(index, 'description', e.target.value)}
+                    rows={2}
+                    className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs resize-none"
+                  />
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-[10px] text-[#867463]">
-            This controls the floating glassmorphic banner containing the trust registration details across the home page.
-          </p>
         </div>
-      </div>
+      )}
+
+      {/* ADD / EDIT NEWS MODAL */}
+      {showNewsModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl animate-scale-up my-8">
+            <div className="flex items-center justify-between border-b border-[#F5F3EE] dark:border-[#2E302A] pb-4">
+              <h3 className="font-serif text-xl font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2">
+                <Newspaper className="text-[#D9762E]" /> {editingNewsId ? 'Edit News Article' : 'Publish Dynamic News Article'}
+              </h3>
+              <button 
+                onClick={() => setShowNewsModal(false)}
+                className="p-1.5 rounded-xl text-[#867463] hover:text-[#1B1C19] hover:bg-[#F5F3EE] dark:hover:bg-[#242622] cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleNewsFormSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1">
+                  Article Title *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={newsTitle}
+                  onChange={(e) => setNewsTitle(e.target.value)}
+                  placeholder="e.g. Dhara Divine Awards Honored by Union Minister..."
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] bg-[#FBF9F4] dark:bg-[#242622] text-sm text-[#1B1C19] dark:text-white focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1.5">
+                  Media Coverage Format Type
+                </label>
+                <div className="flex items-center gap-6 bg-[#F5F3EE] dark:bg-[#242622] p-3 rounded-xl border border-[#E4E2DD] dark:border-[#30312E]">
+                  <label className="flex items-center gap-2 text-xs font-bold text-[#1B1C19] dark:text-white cursor-pointer">
+                    <input
+                      type="radio"
+                      name="newsType"
+                      value="image"
+                      checked={newsType === 'image'}
+                      onChange={() => setNewsType('image')}
+                      className="text-[#D9762E]"
+                    />
+                    📷 Photo Article / Press Image
+                  </label>
+                  <label className="flex items-center gap-2 text-xs font-bold text-[#1B1C19] dark:text-white cursor-pointer">
+                    <input
+                      type="radio"
+                      name="newsType"
+                      value="video"
+                      checked={newsType === 'video'}
+                      onChange={() => setNewsType('video')}
+                      className="text-[#D9762E]"
+                    />
+                    🎥 Video Coverage / Reel MP4
+                  </label>
+                </div>
+              </div>
+
+              {newsType === 'video' && (
+                <div>
+                  <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1">
+                    Video MP4 File Path / URL *
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="text"
+                      required
+                      value={newsMediaUrl}
+                      onChange={(e) => setNewsMediaUrl(e.target.value)}
+                      placeholder="e.g. /images/News/WhatsApp Video 2026-07-20 at 3.32.09 PM.mp4"
+                      className="flex-1 px-4 py-2.5 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] bg-[#FBF9F4] dark:bg-[#242622] text-sm text-[#1B1C19] dark:text-white focus:outline-none focus:border-[#D9762E]"
+                    />
+                    <label className="px-3.5 py-2.5 rounded-xl bg-[#F5F3EE] dark:bg-[#242622] text-[#401C0C] dark:text-[#FFD27F] font-bold text-xs hover:bg-[#EAE8E3] cursor-pointer flex items-center gap-1.5 shrink-0 border border-[#E4E2DD] dark:border-[#30312E]">
+                      <Upload size={14} /> Upload Video
+                      <input 
+                        type="file" 
+                        accept="video/*,.mp4,.mov,.webm" 
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          setUploadingImage(true);
+                          try {
+                            const formData = new FormData();
+                            formData.append('file', file);
+                            const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                            const data = await res.json();
+                            if (data.success && data.url) setNewsMediaUrl(data.url);
+                          } catch(err) { alert('Upload failed'); }
+                          finally { setUploadingImage(false); }
+                        }} 
+                        className="hidden" 
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1">
+                    Publication Date
+                  </label>
+                  <input
+                    type="text"
+                    value={newsDate}
+                    onChange={(e) => setNewsDate(e.target.value)}
+                    placeholder="e.g. 24 Jan, 2025"
+                    className="w-full px-4 py-2.5 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] bg-[#FBF9F4] dark:bg-[#242622] text-sm text-[#1B1C19] dark:text-white focus:outline-none focus:border-[#D9762E]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1">
+                    Source Link (Optional)
+                  </label>
+                  <input
+                    type="url"
+                    value={newsLink}
+                    onChange={(e) => setNewsLink(e.target.value)}
+                    placeholder="https://..."
+                    className="w-full px-4 py-2.5 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] bg-[#FBF9F4] dark:bg-[#242622] text-sm text-[#1B1C19] dark:text-white focus:outline-none focus:border-[#D9762E]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1">
+                  Article Cover Image
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="text"
+                    value={newsImage}
+                    onChange={(e) => setNewsImage(e.target.value)}
+                    placeholder="/images/News/... or http://..."
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] bg-[#FBF9F4] dark:bg-[#242622] text-sm text-[#1B1C19] dark:text-white focus:outline-none focus:border-[#D9762E]"
+                  />
+                  <label className="px-3.5 py-2.5 rounded-xl bg-[#F5F3EE] dark:bg-[#242622] text-[#401C0C] dark:text-[#FFD27F] font-bold text-xs hover:bg-[#EAE8E3] cursor-pointer flex items-center gap-1.5 shrink-0 border border-[#E4E2DD] dark:border-[#30312E]">
+                    <Upload size={14} /> {uploadingImage ? 'Uploading...' : 'Upload'}
+                    <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1">
+                  Summary / Excerpt
+                </label>
+                <textarea
+                  rows={4}
+                  value={newsSummary}
+                  onChange={(e) => setNewsSummary(e.target.value)}
+                  placeholder="Provide a short summary of the news article..."
+                  className="w-full px-4 py-2.5 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] bg-[#FBF9F4] dark:bg-[#242622] text-sm text-[#1B1C19] dark:text-white focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#F5F3EE] dark:border-[#2E302A]">
+                <button
+                  type="button"
+                  onClick={() => setShowNewsModal(false)}
+                  className="px-4 py-2.5 rounded-xl bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] text-xs font-bold hover:bg-[#EAE8E3] cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-xl bg-[#401C0C] text-white text-xs font-bold hover:bg-[#5C2913] cursor-pointer shadow-md"
+                >
+                  {editingNewsId ? 'Update Article' : 'Publish Article'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

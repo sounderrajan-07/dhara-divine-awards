@@ -1,30 +1,37 @@
 import React from 'react';
 import { Quote, Sparkles, User } from 'lucide-react';
 
-export default function FounderMessage() {
-  const founders = [
+export default function FounderMessage({ siteConfig }) {
+  const defaultFounders = [
     {
       name: "S. Vinoth Ragavendran",
       role: "Founder President & Trustee",
       bio: "With over two decades of leadership in engineering and construction, Vinoth is actively involved in temple heritage protection, traditional restoration, and legal advocacy for public heritage rights across Tamil Nadu.",
       image: "/images/S. Vinoth Ragavendran.jpg",
-      useDefaultIcon: true
+      useDefaultIcon: true,
+      order: 1
     },
     {
       name: "P. Ezhumalai",
       role: "Agriculturist, Social Worker & Trustee",
       bio: "A dedicated agriculturist and progressive dairy farmer, Ezhumalai has spent his life working in public welfare, guiding local community initiatives, and fostering traditional moral values at the grassroot levels.",
       image: "/logo/photo_6195100629672333271_y.jpg",
-      useDefaultIcon: true
+      useDefaultIcon: true,
+      order: 2
     },
     {
       name: "S. Srividhya",
       role: "Chartered Accountant, CS & Trustee",
       bio: "A dual-qualified professional (CA and CS) with extensive experience in corporate governance, Srividhya oversees the administrative precision, compliance, and strict financial transparency of the non-profit organization's initiatives.",
       image: "/logo/photo_6195100629672333269_y.jpg",
-      useDefaultIcon: true
+      useDefaultIcon: true,
+      order: 3
     }
   ];
+
+  const founders = (siteConfig?.founders && siteConfig.founders.length > 0)
+    ? [...siteConfig.founders].sort((a, b) => (a.order || 0) - (b.order || 0))
+    : defaultFounders;
 
   return (
     <div className="py-16 px-6 md:px-12 max-w-7xl mx-auto w-full space-y-16">

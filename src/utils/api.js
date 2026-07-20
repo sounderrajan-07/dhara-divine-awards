@@ -4,7 +4,7 @@ export const staticData = dbData;
 
 export const API_BASE = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://localhost:3000'
-  : 'https://dhara-divineawardsadmin.vercel.app';
+  : (import.meta.env.VITE_API_BASE || 'https://dhara-divineawardsadmin.vercel.app');
 
 /**
  * Helper to submit form data to the backend.
@@ -80,6 +80,35 @@ export async function fetchEvents() {
     console.error('Failed to fetch events, using bundled static data:', err);
     return dbData.events || [];
   }
+}
+
+/**
+ * Fetches news articles from the backend.
+ */
+export async function fetchNews() {
+  const defaultItems = dbData.news || [];
+
+  // 1. Check local dynamic store and merge missing seed items (videos/photos)
+  try {
+    const local = localStorage.getItem('dhara_dynamic_news');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        const existingIds = new Set(parsed.map(item => item.id));
+        const missingDefaults = defaultItems.filter(item => !existingIds.has(item.id));
+        if (missingDefaults.length > 0) {
+          const merged = [...parsed, ...missingDefaults];
+          try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(merged)); } catch (e) {}
+          return merged;
+        }
+        return parsed;
+      }
+    }
+  } catch (e) {}
+
+  // 2. Fallback to bundled seed data
+  try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(defaultItems)); } catch (e) {}
+  return defaultItems;
 }
 
 /**

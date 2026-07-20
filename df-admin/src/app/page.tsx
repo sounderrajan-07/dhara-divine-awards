@@ -322,11 +322,11 @@ export default function HomeApp() {
   const getActiveView = () => {
     switch (activeTab) {
       case 'about':
-        return <div className="animate-fade-in"><AboutUs /></div>;
+        return <div className="animate-fade-in"><AboutUs siteConfig={siteConfig} /></div>;
       case 'vision':
         return <div className="animate-fade-in"><VisionMission /></div>;
       case 'founder':
-        return <div className="animate-fade-in"><FounderMessage /></div>;
+        return <div className="animate-fade-in"><FounderMessage siteConfig={siteConfig} /></div>;
       case 'events':
         return <div className="animate-fade-in"><EventsActivities /></div>;
       case 'gallery':

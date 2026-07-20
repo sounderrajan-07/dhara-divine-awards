@@ -1,64 +1,31 @@
-import React, { useState } from 'react';
-import { FileDown, Newspaper, Camera, Mail, Phone, User, Landmark, Send, CheckCircle, Calendar, ExternalLink } from 'lucide-react';
-import { submitForm } from '../utils/api';
+import React, { useState, useEffect } from 'react';
+import { FileDown, Newspaper, Camera, Mail, Phone, User, Landmark, Send, CheckCircle, Calendar, ExternalLink, Video } from 'lucide-react';
+import { submitForm, fetchNews } from '../utils/api';
 
 export default function MediaCoverage({ onSubmitSuccess }) {
   const [activeSubTab, setActiveSubTab] = useState('news');
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    outlet: '',
-    email: '',
-    phone: '',
-    idNumber: '',
-    coverageType: 'online',
-    message: ''
-  });
+  const [mediaTypeFilter, setMediaTypeFilter] = useState('all');
+  const [newsArticles, setNewsArticles] = useState([]);
 
-  const newsArticles = [
-    {
-      title: "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards",
-      date: "24 Jan, 2025",
-      image: "/images/News/Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards.jpg",
-      link: "https://www.youtube.com/live/qOAbFfB22uI",
-      summary: "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman was formally invited as a Chief Guest and dignitary to the flagship Dhara Divine Awards Ceremony, recognizing unsung grassroots heroes and NGOs for exemplary humanitarian and cultural service inspired by spiritual values."
-    },
-    {
-      title: "Smt. Vanathi Srinivasan Graces Dhara Divine Awards Ceremony as Chief Guest",
-      date: "24 Jan, 2025",
-      image: "/images/News/Smt. Vanathi Srinivasan Graces Dhara Divine Awards Ceremony as Chief Guest.jpg",
-      link: "https://www.youtube.com/live/qOAbFfB22uI",
-      summary: "Prominent leader and MLA Smt. Vanathi Srinivasan was invited as a Chief Guest and dignitary to grace the Dhara Divine Awards Ceremony, joining Dhara Foundations to recognize dedicated grassroots champions, philanthropists, and silent social workers performing noble seva."
-    },
-    {
-      title: "Governor of Maharashtra Appreciates DHARA Divine Awards",
-      date: "31 Aug, 2025",
-      image: "/images/News/Governor of Maharashtra Appreciates DHARA Divine Awards 2025.png",
-      link: "https://dharafoundations.in/newsDetails/32",
-      summary: "His Excellency, the Governor of Maharashtra, expressed deep appreciation for Dhara Foundations' tireless efforts in honoring unsung heroes and promoting cultural revival."
-    },
-    {
-      title: "DHARA Divine Awards Ceremony",
-      date: "24 Jan, 2025",
-      image: "/images/News/DHARA Divine Awards Ceremony.jpg",
-      link: "https://dharafoundations.in/newsDetails/27",
-      summary: "Felicitation of 63 silent service leaders of Sanatana Dharma at the Chinmaya Heritage Centre in Chetpet, Chennai, in the presence of Madras HC Judge Justice GR Swaminathan."
-    },
-    {
-      title: "Dhara Divine Awards News Coverage in Dinamalar",
-      date: "25 Jan, 2025",
-      image: "/images/Devine Awards images/News in dhina malar 3.jpg",
-      link: "https://www.youtube.com/live/qOAbFfB22uI",
-      summary: "Comprehensive press and print media coverage in Dinamalar highlighting the prestigious awards ceremony held at Chinmaya Heritage Centre to honor 63 grassroots leaders."
-    },
-    {
-      title: "Felicitation Moments at Dhara Divine Awards 2025",
-      date: "24 Jan, 2025",
-      image: "/images/Devine Awards images/Devine Awars Moment 105.jpg",
-      link: "https://www.youtube.com/live/qOAbFfB22uI",
-      summary: "Relive the inspiring moments of award presentations and stage honors celebrating the grassroots champions and silent workers at the flagship Dhara Divine Awards."
-    }
-  ];
+  useEffect(() => {
+    const loadNews = () => {
+      fetchNews().then(data => {
+        if (data && data.length > 0) {
+          setNewsArticles(data);
+        }
+      });
+    };
+
+    loadNews();
+
+    window.addEventListener('focus', loadNews);
+    window.addEventListener('storage', loadNews);
+
+    return () => {
+      window.removeEventListener('focus', loadNews);
+      window.removeEventListener('storage', loadNews);
+    };
+  }, []);
 
   const pressKits = [
     {
@@ -165,42 +132,123 @@ export default function MediaCoverage({ onSubmitSuccess }) {
         </button>
       </div>
 
-      {/* News Tab Content */}
+      {/* News Media Sub-Filter Tabs */}
       {activeSubTab === 'news' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 animate-fade-in">
-          {newsArticles.map((art, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-3xl border border-[#D9CBB0]/60 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group h-full"
+        <div className="space-y-8 animate-fade-in">
+          <div className="flex items-center justify-center gap-2 flex-wrap bg-[#F5F3EE] p-1.5 rounded-2xl max-w-md mx-auto border border-[#D9CBB0]/40">
+            <button
+              onClick={() => setMediaTypeFilter('all')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                mediaTypeFilter === 'all'
+                  ? 'bg-[#401C0C] text-white shadow-sm'
+                  : 'text-[#534436] hover:text-[#401C0C]'
+              }`}
             >
-              <div className="relative overflow-hidden bg-white shrink-0" style={{ aspectRatio: '3/4' }}>
-                <img
-                  src={encodeURI(art.image)}
-                  alt={art.title}
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-103"
-                />
-                <div className="absolute top-3 left-3 bg-[var(--color-deep-forest)] text-[var(--color-saffron-glow)] px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow">
-                  Press Release
-                </div>
-              </div>
+              All News & Media ({newsArticles.length})
+            </button>
+            <button
+              onClick={() => setMediaTypeFilter('image')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                mediaTypeFilter === 'image'
+                  ? 'bg-[#401C0C] text-white shadow-sm'
+                  : 'text-[#534436] hover:text-[#401C0C]'
+              }`}
+            >
+              <Newspaper size={14} /> Newspaper Coverage ({newsArticles.filter(n => n.type !== 'video').length})
+            </button>
+            <button
+              onClick={() => setMediaTypeFilter('video')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                mediaTypeFilter === 'video'
+                  ? 'bg-[#401C0C] text-white shadow-sm'
+                  : 'text-[#534436] hover:text-[#401C0C]'
+              }`}
+            >
+              <Video size={14} /> Video Coverage ({newsArticles.filter(n => n.type === 'video' || n.mediaUrl).length})
+            </button>
+          </div>
 
-              <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-[var(--color-primary-accent)] font-bold">
-                    <Calendar className="w-3.5 h-3.5 text-[var(--color-saffron-glow-dark)]" />
-                    <span>{art.date}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {newsArticles
+              .filter(art => {
+                if (mediaTypeFilter === 'image') return art.type !== 'video';
+                if (mediaTypeFilter === 'video') return art.type === 'video' || !!art.mediaUrl;
+                return true;
+              })
+              .map((art, idx) => {
+                const isVideo = art.type === 'video' || !!art.mediaUrl;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white rounded-3xl border border-[#D9CBB0]/60 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group h-full"
+                  >
+                    {isVideo ? (
+                      <div className="relative overflow-hidden bg-black shrink-0" style={{ aspectRatio: '16/9' }}>
+                        <video
+                          controls
+                          preload="metadata"
+                          poster={art.image}
+                          src={art.mediaUrl || art.image}
+                          className="w-full h-full object-contain"
+                        />
+                        <div className="absolute top-3 left-3 bg-[#D9762E] text-white px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1">
+                          <Video size={12} /> Video Coverage
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="relative overflow-hidden bg-white shrink-0" style={{ aspectRatio: '16/9' }}>
+                        <img
+                          src={encodeURI(art.image)}
+                          alt={art.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";
+                          }}
+                        />
+                        <div className="absolute top-3 left-3 bg-[var(--color-deep-forest)] text-[var(--color-saffron-glow)] px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1">
+                          <Newspaper size={12} /> Newspaper Coverage
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-[10px] font-mono text-[var(--color-primary-accent)] font-bold">
+                          <div className="flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5 text-[var(--color-saffron-glow-dark)]" />
+                            <span>{art.date}</span>
+                          </div>
+                          {isVideo && (
+                            <span className="text-[10px] bg-[#D9762E]/10 text-[#D9762E] px-2 py-0.5 rounded-full font-sans font-bold">
+                              Playable Video
+                            </span>
+                          )}
+                        </div>
+
+                        <h4 className="font-bold text-base text-[var(--color-deep-forest-dark)] font-serif leading-snug group-hover:text-[var(--color-primary-accent)] transition-colors line-clamp-2">
+                          {art.title}
+                        </h4>
+                        <p className="text-xs text-[var(--ink-soft)] leading-relaxed font-sans line-clamp-3">
+                          {art.summary}
+                        </p>
+                      </div>
+
+                      {art.link && (
+                        <a
+                          href={art.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs text-[#D9762E] hover:underline font-bold pt-2 border-t border-neutral-100"
+                        >
+                          <ExternalLink size={14} /> Read Full Report / Watch Source
+                        </a>
+                      )}
+                    </div>
                   </div>
-
-                  <h4 className="font-bold text-sm text-[var(--color-deep-forest-dark)] font-serif leading-snug group-hover:text-[var(--color-primary-accent)] transition-colors line-clamp-2">
-                    {art.title}
-                  </h4>
-                  <p className="text-[11px] text-[var(--ink-soft)] leading-relaxed font-sans line-clamp-3">
-                    {art.summary}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+                );
+              })}
+          </div>
         </div>
       )}
 

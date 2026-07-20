@@ -1,7 +1,12 @@
 import React from 'react';
 import { Award, ShieldCheck, HeartHandshake, History, FileText, CheckCircle2, Globe, BookOpen, Flame, Compass } from 'lucide-react';
 
-export default function AboutUs() {
+export default function AboutUs({ siteConfig }) {
+  const milestoneStats = (siteConfig?.aboutStats && siteConfig.aboutStats.length > 0) ? siteConfig.aboutStats : [
+    { number: "25+", label: "Completed Projects" },
+    { number: "10k+", label: "Lives Touched" },
+    { number: "80G", label: "Tax Exemption" }
+  ];
   const registrations = [
     {
       title: "Indian Trust Act, 1882",
@@ -142,18 +147,12 @@ export default function AboutUs() {
           <div className="bg-white rounded-3xl border border-[#D9CBB0]/40 p-6 space-y-4 shadow-sm hover:shadow-md hover:border-[#C9A646]/60 transition-all duration-300 group cursor-pointer">
             <h4 className="text-xs font-mono font-bold text-[var(--color-primary-accent)] uppercase tracking-wider group-hover:text-[var(--color-accent)] transition-colors duration-200">Verifiable Milestones</h4>
             <div className="grid grid-cols-3 gap-4 text-center divide-x divide-[#D9CBB0]/40">
-              <div className="hover:scale-105 transition-transform duration-200">
-                <span className="text-2xl font-bold text-[var(--color-deep-forest-dark)] block">25+</span>
-                <span className="text-[10px] text-neutral-500 uppercase font-bold tracking-wider font-mono">Completed Projects</span>
-              </div>
-              <div className="pl-4 hover:scale-105 transition-transform duration-200">
-                <span className="text-2xl font-bold text-[var(--color-deep-forest-dark)] block">10k+</span>
-                <span className="text-[10px] text-neutral-500 uppercase font-bold tracking-wider font-mono">Lives Touched</span>
-              </div>
-              <div className="pl-4 hover:scale-105 transition-transform duration-200">
-                <span className="text-2xl font-bold text-[var(--color-deep-forest-dark)] block">80G</span>
-                <span className="text-[10px] text-neutral-500 uppercase font-bold tracking-wider font-mono">Tax Exemption</span>
-              </div>
+              {milestoneStats.map((stat, idx) => (
+                <div key={idx} className={`${idx > 0 ? 'pl-4 ' : ''}hover:scale-105 transition-transform duration-200`}>
+                  <span className="text-2xl font-bold text-[var(--color-deep-forest-dark)] block">{stat.number}</span>
+                  <span className="text-[10px] text-neutral-500 uppercase font-bold tracking-wider font-mono">{stat.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
