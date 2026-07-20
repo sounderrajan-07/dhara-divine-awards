@@ -262,7 +262,7 @@ export default function AboutUs({ siteConfig }) {
                   "Celebrating the Unspoken Celebrities"
                 </h5>
                 <p className="text-xs font-semibold text-[#FFD27F] bg-white/10 p-2.5 rounded-xl border border-white/10">
-                  Supporting 12 Deserving Individuals with Financial Assistance of ₹25,000 Each.
+                  Supporting 12 Deserving Individuals with Financial Assistance of ₹25,000 Cash Prize & Trophy Each.
                 </p>
                 <p className="text-xs text-neutral-300 leading-relaxed font-sans">
                   The event celebrates those whose actions are guided by values, purpose, and a deep commitment to humanity every year.
