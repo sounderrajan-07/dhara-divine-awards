@@ -356,11 +356,11 @@ export const EnquiriesWorkspace: React.FC = () => {
                 className="bg-white dark:bg-[#1B1C19] rounded-3xl border border-[#EAE8E3] dark:border-[#30312E] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="relative h-48 bg-slate-900 overflow-hidden">
+                  <div className="relative h-48 bg-[#121310] overflow-hidden flex items-center justify-center p-1">
                     <img 
                       src={n.image || '/images/News/DHARA Divine Awards Ceremony.jpg'} 
                       alt={n.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       onError={(e: any) => {
                         e.target.onerror = null;
                         e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";

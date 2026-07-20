@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { FileDown, Newspaper, Camera, Mail, Phone, User, Landmark, Send, CheckCircle, Calendar, ExternalLink, Video } from 'lucide-react';
+import { FileDown, Newspaper, Camera, Mail, Phone, User, Landmark, Send, CheckCircle, Calendar, ExternalLink, Video, ZoomIn, X } from 'lucide-react';
 import { submitForm, fetchNews } from '../utils/api';
 
 export default function MediaCoverage({ onSubmitSuccess }) {
   const [activeSubTab, setActiveSubTab] = useState('news');
   const [mediaTypeFilter, setMediaTypeFilter] = useState('all');
   const [newsArticles, setNewsArticles] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const loadNews = () => {
@@ -196,18 +197,26 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                         </div>
                       </div>
                     ) : (
-                      <div className="relative overflow-hidden bg-white shrink-0" style={{ aspectRatio: '16/9' }}>
+                      <div 
+                        className="relative overflow-hidden bg-[#121310] shrink-0 flex items-center justify-center p-2 cursor-pointer group/img" 
+                        style={{ minHeight: '280px', maxHeight: '380px' }}
+                        onClick={() => setSelectedImage(art)}
+                        title="Click to view full image"
+                      >
                         <img
                           src={encodeURI(art.image)}
                           alt={art.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="w-full h-full max-h-[360px] object-contain transition-transform duration-500 group-hover/img:scale-105"
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";
                           }}
                         />
-                        <div className="absolute top-3 left-3 bg-[var(--color-deep-forest)] text-[var(--color-saffron-glow)] px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1">
+                        <div className="absolute top-3 left-3 bg-[var(--color-deep-forest)] text-[var(--color-saffron-glow)] px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1 z-10">
                           <Newspaper size={12} /> Newspaper Coverage
+                        </div>
+                        <div className="absolute bottom-3 right-3 bg-black/75 text-white text-[10px] px-2.5 py-1 rounded-lg opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1 font-mono font-bold z-10">
+                          <ZoomIn size={12} /> Full Image
                         </div>
                       </div>
                     )}
@@ -406,6 +415,38 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                 Submit Accreditation
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Full-Screen Lightbox Modal for Uncut Newspaper Image Viewing */}
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-8 animate-fade-in" onClick={() => setSelectedImage(null)}>
+          <div className="relative max-w-5xl w-full max-h-[90vh] bg-[#121310] border border-white/20 rounded-3xl overflow-hidden flex flex-col p-4 sm:p-6 space-y-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div>
+                <h4 className="font-serif font-bold text-lg text-white line-clamp-1">{selectedImage.title}</h4>
+                <p className="text-xs text-[var(--color-saffron-glow)] font-mono">{selectedImage.date}</p>
+              </div>
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="flex-1 overflow-auto flex items-center justify-center min-h-0 bg-black/50 rounded-2xl p-2">
+              <img 
+                src={encodeURI(selectedImage.image)} 
+                alt={selectedImage.title} 
+                className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
+              />
+            </div>
+            {selectedImage.summary && (
+              <p className="text-xs text-neutral-300 leading-relaxed font-sans line-clamp-2 pt-1">
+                {selectedImage.summary}
+              </p>
+            )}
           </div>
         </div>
       )}
