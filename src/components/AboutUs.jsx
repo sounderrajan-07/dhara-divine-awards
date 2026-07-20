@@ -261,9 +261,7 @@ export default function AboutUs({ siteConfig }) {
                 <h5 className="text-xl font-bold text-[#FFD27F] font-serif">
                   "Celebrating the Unspoken Celebrities"
                 </h5>
-                <p className="text-xs font-semibold text-[#FFD27F] bg-white/10 p-2.5 rounded-xl border border-white/10">
-                  Supporting 12 Deserving Individuals with Financial Assistance of ₹25,000 Cash Prize & Trophy Each.
-                </p>
+               
                 <p className="text-xs text-neutral-300 leading-relaxed font-sans">
                   The event celebrates those whose actions are guided by values, purpose, and a deep commitment to humanity every year.
                 </p>
@@ -309,7 +307,7 @@ export default function AboutUs({ siteConfig }) {
                   <Award className="w-5 h-5 text-[var(--color-saffron-glow)]" />
                   <div>
                     <span className="text-[9px] uppercase tracking-wider font-mono text-neutral-300 block font-bold">Award Value</span>
-                    <span className="text-sm font-bold text-[#FFD27F]">₹25,000 Cash Prize &amp; Trophy</span>
+                    <span className="text-sm font-bold text-[#FFD27F]"> Supporting 12 Deserving Individuals with Financial Assistance of ₹25,000 Cash Prize & Trophy Each.</span>
                   </div>
                 </div>
               </div>
