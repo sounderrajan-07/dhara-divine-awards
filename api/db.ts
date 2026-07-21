@@ -66,15 +66,15 @@ export async function readDb(): Promise<DatabaseSchema> {
         events,
         siteConfig
       ] = await Promise.all([
-        Nomination.find({}).lean(),
-        Donation.find({}).lean(),
-        Delegate.find({}).lean(),
-        Volunteer.find({}).lean(),
-        Enquiry.find({}).lean(),
-        ActivityLog.find({}).lean(),
-        Gallery.find({}).lean(),
-        Event.find({}).lean(),
-        SiteConfig.find({}).lean()
+        (Nomination as any).find({}).lean(),
+        (Donation as any).find({}).lean(),
+        (Delegate as any).find({}).lean(),
+        (Volunteer as any).find({}).lean(),
+        (Enquiry as any).find({}).lean(),
+        (ActivityLog as any).find({}).lean(),
+        (Gallery as any).find({}).lean(),
+        (Event as any).find({}).lean(),
+        (SiteConfig as any).find({}).lean()
       ]);
 
       const totalDocs = nominations.length + donations.length + delegates.length + enquiries.length + gallery.length;
@@ -150,15 +150,15 @@ export async function writeDb(data: DatabaseSchema): Promise<void> {
   if (mongoAvailable) {
     try {
       await Promise.all([
-        ...data.nominations.map(item => Nomination.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.donations.map(item => Donation.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.delegates.map(item => Delegate.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.volunteers.map(item => Volunteer.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.enquiries.map(item => Enquiry.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.activityLogs.map(item => ActivityLog.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.gallery.map(item => Gallery.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.events.map(item => Event.findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.siteConfig.map(item => SiteConfig.findOneAndUpdate({ id: item.id }, item, { upsert: true }))
+        ...data.nominations.map(item => (Nomination as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.donations.map(item => (Donation as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.delegates.map(item => (Delegate as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.volunteers.map(item => (Volunteer as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.enquiries.map(item => (Enquiry as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.activityLogs.map(item => (ActivityLog as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.gallery.map(item => (Gallery as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.events.map(item => (Event as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.siteConfig.map(item => (SiteConfig as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
       ]);
       return;
     } catch (err) {
