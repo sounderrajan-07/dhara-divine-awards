@@ -38,10 +38,8 @@ export const GalleryWorkspace: React.FC = () => {
     if (src.startsWith('http') || src.startsWith('/uploads') || src.startsWith('data:')) {
       return src;
     }
-    if (src.startsWith('/images/')) {
-      return src;
-    }
-    return `/images/Devine Awards images/${src}`;
+    const url = src.startsWith('/images/') ? src : `/images/Devine Awards images/${src}`;
+    return encodeURI(url);
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

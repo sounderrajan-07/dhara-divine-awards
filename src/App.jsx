@@ -178,13 +178,14 @@ export default function App() {
   const getImageUrl = (src) => {
     if (!src) return '';
     const processedSrc = getGoogleDriveDirectLink(src);
-    if (processedSrc.startsWith('http://') || processedSrc.startsWith('https://') || processedSrc.startsWith('/uploads') || processedSrc.startsWith('data:') || processedSrc.startsWith('/images/')) {
-      if (processedSrc.startsWith('/uploads')) {
-        return `${API_BASE}${processedSrc}`;
-      }
-      return processedSrc;
+    let url = processedSrc;
+    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/uploads') && !url.startsWith('data:') && !url.startsWith('/images/')) {
+      url = `/images/Devine Awards images/${url}`;
     }
-    return `/images/Devine Awards images/${processedSrc}`;
+    if (url.startsWith('/uploads')) {
+      url = `${API_BASE}${url}`;
+    }
+    return encodeURI(url);
   };
 
   // Effect 1: Forcibly pause/mute video whenever route changes away from home
