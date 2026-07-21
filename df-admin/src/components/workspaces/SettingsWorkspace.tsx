@@ -88,6 +88,8 @@ export const SettingsWorkspace: React.FC = () => {
     timings: 'Monday - Saturday: 9:00 AM - 6:00 PM IST'
   });
 
+  const [razorpayKeyId, setRazorpayKeyId] = useState('');
+
   const [registrations, setRegistrations] = useState<{ title: string, detail: string, description: string }[]>([
     {
       title: "Indian Trust Act, 1882",
@@ -179,6 +181,12 @@ export const SettingsWorkspace: React.FC = () => {
       }
       if (siteConfig.registrations && siteConfig.registrations.length > 0) {
         setRegistrations(siteConfig.registrations);
+      }
+
+      if (siteConfig.razorpayConfig && siteConfig.razorpayConfig.keyId) {
+        setRazorpayKeyId(siteConfig.razorpayConfig.keyId);
+      } else if (siteConfig.donorConfig && siteConfig.donorConfig.razorpayKeyId) {
+        setRazorpayKeyId(siteConfig.donorConfig.razorpayKeyId);
       }
 
       if (siteConfig.donorConfig) {
@@ -359,10 +367,14 @@ export const SettingsWorkspace: React.FC = () => {
       homeCredentials,
       registrations,
       registrationTickets: parsedTickets,
+      razorpayConfig: {
+        keyId: razorpayKeyId
+      },
       donorConfig: {
         presets: donorPresets,
         bankDetails,
-        taxExemptText
+        taxExemptText,
+        razorpayKeyId
       },
       eventRegConfig: {
         eventYear: siteConfig?.eventYear || '2026',
@@ -650,6 +662,39 @@ export const SettingsWorkspace: React.FC = () => {
       {/* SUB TAB: SUBDOMAINS & DYNAMIC FORMS CONTROL */}
       {activeSubTab === 'subdomains' && (
         <div className="space-y-6">
+          {/* Razorpay Gateway Settings */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+                <ShieldCheck className="text-[#D9762E]" size={20} /> Razorpay Payment Gateway Configuration
+              </h3>
+              <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
+                razorpayKeyId.startsWith('rzp_')
+                  ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
+                  : 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
+              }`}>
+                {razorpayKeyId.startsWith('rzp_live') ? '● Live Gateway Active' : razorpayKeyId.startsWith('rzp_test') ? '● Test Key Active' : '● Action Required'}
+              </span>
+            </div>
+            
+            <p className="text-xs text-[#867463] dark:text-[#9CA3AF]">
+              Enter your official Razorpay Key ID from your Razorpay Dashboard (API Keys &amp; Webhooks). This key powers payments on the Donate page and Event Registration pass booking.
+            </p>
+
+            <div>
+              <label className="block text-xs font-bold text-[#401C0C] dark:text-[#F3F4F6] mb-1">
+                Razorpay Key ID (e.g. rzp_test_XXXXXXXXXXXXXX or rzp_live_XXXXXXXXXXXXXX)
+              </label>
+              <input
+                type="text"
+                value={razorpayKeyId}
+                onChange={(e) => setRazorpayKeyId(e.target.value)}
+                placeholder="rzp_test_1234567890abcdef"
+                className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm font-mono focus:outline-none focus:border-[#401C0C]"
+              />
+            </div>
+          </div>
+
           {/* Donate Page Settings */}
           <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5">
             <div className="flex justify-between items-center">

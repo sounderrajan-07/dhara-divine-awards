@@ -110,8 +110,10 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
       // Step 2: Open Razorpay Checkout Modal
       const displayName = formData.anonymous ? 'Anonymous Donor' : formData.name;
 
+      const activeKey = siteConfig?.razorpayConfig?.keyId || siteConfig?.donorConfig?.razorpayKeyId || (import.meta.env.VITE_RAZORPAY_KEY_ID ? import.meta.env.VITE_RAZORPAY_KEY_ID : orderRes.key_id);
+
       openRazorpayCheckout({
-        key_id: orderRes.key_id,
+        key_id: activeKey,
         order_id: orderRes.order_id,
         amount: orderRes.amount,
         currency: orderRes.currency,
