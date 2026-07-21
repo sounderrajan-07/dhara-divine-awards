@@ -22,7 +22,8 @@ export async function POST(request: Request) {
       specialNotes = ''
     } = body;
 
-    const keySecret = process.env.RAZORPAY_KEY_SECRET || 'test_dhara_secret_key';
+    const rawSecret = process.env.RAZORPAY_KEY_SECRET || 'test_dhara_secret_key';
+    const keySecret = rawSecret.trim();
 
     let isValidSignature = true;
     if (razorpay_order_id && razorpay_payment_id && razorpay_signature && keySecret !== 'test_dhara_secret_key') {

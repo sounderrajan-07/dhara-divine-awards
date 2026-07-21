@@ -35,14 +35,25 @@ export async function openRazorpayCheckout({
     return;
   }
 
+  // Real Razorpay Order IDs created via API start with "order_" followed by alphanumeric string (e.g. order_PtX8w2yZ9kL1aM)
+  const isServerOrderId = Boolean(
+    order_id && 
+    typeof order_id === 'string' && 
+    order_id.startsWith('order_') && 
+    !order_id.includes('local') && 
+    !order_id.includes('demo') && 
+    !order_id.includes('sim') &&
+    !order_id.includes(' ')
+  );
+
   const options = {
-    key: key_id || 'rzp_test_dhara_demo',
+    key: key_id && key_id.trim() !== '' ? key_id.trim() : 'rzp_test_dhara_demo',
     amount: amount, // in paise
     currency: currency,
     name: name,
     description: description,
     image: image,
-    order_id: order_id,
+    ...(isServerOrderId ? { order_id } : {}),
     handler: function (response) {
       if (onSuccess) {
         onSuccess(response);

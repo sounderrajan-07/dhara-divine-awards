@@ -8,7 +8,7 @@ Write-Host "`n[1/3] Staging files..." -ForegroundColor Yellow
 git add .
 
 Write-Host "[2/3] Creating commit..." -ForegroundColor Yellow
-git commit -m "Make all subdomain & main page contents dynamic from admin; Integrate Razorpay payments for Donate and Event Registration pages"
+git commit -m "Fix Razorpay order_id lookup error on Vercel deployment; sanitize environment variables"
 
 # 2. Pushing to Default Origin Remote
 Write-Host "`n[3/3] Pushing to default remote (origin)..." -ForegroundColor Yellow
@@ -23,9 +23,9 @@ if (Test-Path "df-admin\.git") {
     Write-Host "`nStaging and committing df-admin repository..." -ForegroundColor Yellow
     Push-Location "df-admin"
     git add .
-    git commit -m "Add Razorpay endpoints (/api/razorpay/create-order, verify-payment), expand site config API, and add Subdomains Control panel to Settings workspace"
+    git commit -m "Fix Razorpay order_id lookup and trim env variables in create-order & verify-payment API routes"
     git push
     Pop-Location
 }
 
-Write-Host "`nSuccessfully pushed all changes to https://github.com/sounderrajan-07/dhara-divine-awards.git!" -ForegroundColor Green
+Write-Host "`nSuccessfully pushed fix to GitHub!" -ForegroundColor Green

@@ -9,14 +9,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Valid payment amount is required' }, { status: 400 });
     }
 
-    const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_dhara_demo';
-    const keySecret = process.env.RAZORPAY_KEY_SECRET || 'test_dhara_secret_key';
+    const rawKeyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
+    const rawKeySecret = process.env.RAZORPAY_KEY_SECRET || '';
+
+    const keyId = rawKeyId.trim() || 'rzp_test_dhara_demo';
+    const keySecret = rawKeySecret.trim() || 'test_dhara_secret_key';
 
     const amountInPaise = Math.round(Number(amount) * 100);
     const orderReceipt = receipt || `rcpt_${Date.now()}`;
 
-    // If using real Razorpay credentials (non-demo)
-    if (keyId !== 'rzp_test_dhara_demo' && keySecret !== 'test_dhara_secret_key') {
+    // If using real/test Razorpay credentials configured in environment variables
+    if (keyId !== 'rzp_test_dhara_demo' && keySecret !== 'test_dhara_secret_key' && keyId.length > 5) {
       try {
         const auth = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
         const response = await fetch('https://api.razorpay.com/v1/orders', {
@@ -37,7 +40,7 @@ export async function POST(request: Request) {
           const order = await response.json();
           return NextResponse.json({
             success: true,
-            order_id: order.id,
+            order_id: order.id, // Real Razorpay order ID (e.g. order_PtX8w2...)
             amount: order.amount,
             currency: order.currency,
             key_id: keyId,
@@ -49,21 +52,22 @@ export async function POST(request: Request) {
               'Access-Control-Allow-Headers': 'Content-Type, Authorization'
             }
           });
+        } else {
+          const errorText = await response.text();
+          console.error('Razorpay API error response:', response.status, errorText);
         }
       } catch (err) {
-        console.warn('Razorpay API request failed, falling back to test mode order creation', err);
+        console.warn('Razorpay API request failed:', err);
       }
     }
 
-    // Fallback/Demo test order generator
-    const testOrderId = `order_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-
+    // Fallback/Demo mode (When API order creation is not available or keys are demo)
     return NextResponse.json({
       success: true,
-      order_id: testOrderId,
+      order_id: undefined, // Omit order_id in test mode so Razorpay SDK opens client-side payment
       amount: amountInPaise,
       currency: currency.toUpperCase(),
-      key_id: keyId,
+      key_id: keyId.startsWith('rzp_') ? keyId : 'rzp_test_dhara_demo',
       receipt: orderReceipt,
       isTestMode: true
     }, {
