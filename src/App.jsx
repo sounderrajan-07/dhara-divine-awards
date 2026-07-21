@@ -254,11 +254,7 @@ export default function App() {
   const [showInstallBtn, setShowInstallBtn] = useState(false);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
 
-  useEffect(() => {
-    if (location.pathname === '/admin' || location.pathname.startsWith('/admin/') || location.pathname === '/login') {
-      window.location.href = 'https://dhara-admin-bice.vercel.app';
-    }
-  }, [location.pathname]);
+
 
   useEffect(() => {
     // Register Service Worker

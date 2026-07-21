@@ -10,7 +10,7 @@ Write-Host "`n[1/4] Staging files..." -ForegroundColor Yellow
 git add .
 
 Write-Host "[2/4] Creating commit..." -ForegroundColor Yellow
-git commit -m "Make all subdomain & main page contents dynamic from admin; Integrate Razorpay payments for Donate and Event Registration pages"
+git commit -m "Unified single-project architecture: /admin page route, root serverless API, and cleaned structure"
 
 # 2. Pushing to Default Origin Remote
 Write-Host "`n[3/4] Pushing to default remote (origin)..." -ForegroundColor Yellow
@@ -23,15 +23,5 @@ git push https://github.com/sounderrajan-07/dhara-divine-awards.git HEAD:main
 # 4. Pushing to target repo 2: projectsatriowings/dharadivineawards.git
 Write-Host "Pushing to https://github.com/projectsatriowings/dharadivineawards.git..." -ForegroundColor Yellow
 git push https://github.com/projectsatriowings/dharadivineawards.git HEAD:main
-
-# 5. If df-admin has its own git repo
-if (Test-Path "df-admin\.git") {
-    Write-Host "`nStaging and committing df-admin repository..." -ForegroundColor Yellow
-    Push-Location "df-admin"
-    git add .
-    git commit -m "Add Razorpay endpoints and admin settings"
-    git push
-    Pop-Location
-}
 
 Write-Host "`nSuccessfully pushed changes to all GitHub repositories!" -ForegroundColor Green

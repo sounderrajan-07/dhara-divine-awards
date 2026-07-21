@@ -41,7 +41,7 @@ const events = [...section1Videos, ...section3Videos].map((v, i) => ({
   featured: i < 3 // first 3 on home page
 }));
 
-const dbPath = './df-admin/data/db.json';
+const dbPath = './data/db.json';
 const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 
 db.gallery = gallery;

@@ -1,4 +1,4 @@
-import dbData from '../../df-admin/data/db.json';
+import dbData from '../../data/db.json';
 
 export const staticData = dbData;
 

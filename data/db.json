@@ -1,0 +1,472 @@
+{
+  "nominations": [],
+  "donations": [],
+  "delegates": [
+    {
+      "id": "del-1784627610527",
+      "delegate_name": "Soundher S",
+      "email": "soundhersenthil07@gmail.com",
+      "phone": "7397523792",
+      "organization": "AMS",
+      "interest": "Education",
+      "specialNotes": "nothing",
+      "pass_tier": "Patron Pass",
+      "ticket_count": 1,
+      "pass_code": "DDA-2026-8316",
+      "checked_in": true,
+      "payment_status": "PAID",
+      "payment_id": "pay_TG6snLUP06QpjW",
+      "order_id": "order_TG6sWiUJ6HhXiO",
+      "amount": 5000,
+      "created_at": "2026-07-21T09:53:30.527Z",
+      "checkin_time": "2026-07-21T09:56:11.809Z"
+    },
+    {
+      "id": "del-1784609882969",
+      "delegate_name": "Soundher S",
+      "email": "soundhersenthil07@gmail.com",
+      "phone": "7397523792",
+      "organization": "Dhara ",
+      "interest": "Social Service",
+      "specialNotes": "nothing",
+      "pass_tier": "Premium Delegate",
+      "ticket_count": 1,
+      "pass_code": "DDA-2026-7471",
+      "checked_in": true,
+      "payment_status": "PAID",
+      "payment_id": "pay_TG1qZqQQtmBJ9l",
+      "order_id": "order_TG1q7HCYkdT97N",
+      "amount": 3000,
+      "created_at": "2026-07-21T04:58:02.968Z",
+      "checkin_time": "2026-07-21T09:00:33.880Z"
+    },
+    {
+      "id": "del-1784373962090",
+      "delegate_name": "Mohammed Thalha",
+      "email": "mohammedthalha177@gmail.com",
+      "phone": "+916381265681",
+      "pass_tier": "patron",
+      "ticket_count": 1,
+      "pass_code": "DDA-2026-3923",
+      "checked_in": true,
+      "checkin_time": "2026-07-20T06:20:41.388Z",
+      "seat_zone": "Zone B - Seva Row 10"
+    },
+    {
+      "id": "del-1784541884016",
+      "delegate_name": "Soundher S",
+      "email": "soundhersenthil07@gmail.com",
+      "phone": "7397523792",
+      "pass_tier": "premium delegate",
+      "ticket_count": 1,
+      "pass_code": "DDA-2026-4453",
+      "checked_in": true,
+      "checkin_time": "2026-07-20T10:11:13.043Z",
+      "seat_zone": "Zone B - Seva Row 10"
+    },
+    {
+      "id": "del-1784609884378",
+      "delegate_name": "Soundher S",
+      "email": "soundhersenthil07@gmail.com",
+      "phone": "7397523792",
+      "pass_tier": "premium delegate",
+      "ticket_count": 1,
+      "pass_code": "DDA-2026-8138",
+      "checked_in": true,
+      "checkin_time": "2026-07-21T09:00:37.528Z",
+      "seat_zone": "Zone B - Seva Row 10"
+    },
+    {
+      "id": "del-1784627616185",
+      "delegate_name": "Soundher S",
+      "email": "soundhersenthil07@gmail.com",
+      "phone": "7397523792",
+      "pass_tier": "patron",
+      "ticket_count": 1,
+      "pass_code": "DDA-2026-7948",
+      "checked_in": true,
+      "checkin_time": "2026-07-21T09:57:13.717Z",
+      "seat_zone": "Zone B - Seva Row 10"
+    }
+  ],
+  "volunteers": [],
+  "enquiries": [],
+  "activityLogs": [
+    {
+      "id": "log-1784627833726",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-7948 (Soundher S)",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784627771810",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-8316 (Soundher S)",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784627616186",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "New Delegate pass registered for \"Soundher S\" (Pass: DDA-2026-7948)",
+      "user": "System Callback"
+    },
+    {
+      "id": "log-1784627610527",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "New Delegate pass booked with Razorpay for \"Soundher S\" (Pass: DDA-2026-8316)",
+      "user": "Razorpay Payment Gateway"
+    },
+    {
+      "id": "log-1784624437528",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-8138 (Soundher S)",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784624433881",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-7471 (Soundher S)",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784609884378",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "New Delegate pass registered for \"Soundher S\" (Pass: DDA-2026-8138)",
+      "user": "System Callback"
+    },
+    {
+      "id": "log-1784609882969",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "New Delegate pass booked with Razorpay for \"Soundher S\" (Pass: DDA-2026-7471)",
+      "user": "Razorpay Payment Gateway"
+    },
+    {
+      "id": "log-1784542273045",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-4453 (Soundher S)",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784541884016",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "New Delegate pass registered for \"Soundher S\" (Pass: DDA-2026-4453)",
+      "user": "System Callback"
+    },
+    {
+      "id": "log-1784541650526",
+      "timestamp": "Just now",
+      "type": "system",
+      "message": "Admin updated global site configuration",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784528441414",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "Gate check-in success for pass DDA-2026-3923 (Mohammed Thalha)",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784373962090",
+      "timestamp": "Just now",
+      "type": "checkin",
+      "message": "New Delegate pass registered for \"Mohammed Thalha\" (Pass: DDA-2026-3923)",
+      "user": "System Callback"
+    },
+    {
+      "id": "log-1784373900763",
+      "timestamp": "Just now",
+      "type": "system",
+      "message": "Admin updated global site configuration",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784373868384",
+      "timestamp": "Just now",
+      "type": "system",
+      "message": "Admin updated global site configuration",
+      "user": "S. Vinoth Ragavendran"
+    },
+    {
+      "id": "log-1784373243635",
+      "timestamp": "Just now",
+      "type": "system",
+      "message": "Admin updated global site configuration",
+      "user": "S. Vinoth Ragavendran"
+    }
+  ],
+  "gallery": [
+    {
+      "id": "home-img-0",
+      "src": "/images/Devine Awards images/devine awrds-57.jpg",
+      "category": "Guest Dignitaries",
+      "caption": "Grand Assembly of Chief Guests & Spiritual Dignitaries",
+      "priority": 100,
+      "featured": true
+    },
+    {
+      "id": "home-img-1",
+      "src": "/images/Home section/Hon'ble Justice Shri T.N Vallinayagam(Rtd).jpg",
+      "category": "Guest Dignitaries",
+      "caption": "Hon'ble Justice Shri T.N. Vallinayagam (Rtd.)",
+      "priority": 99,
+      "featured": true
+    },
+    {
+      "id": "home-img-2",
+      "src": "/images/Home section/Hon'ble justice Shri G.R Swaminathan  Avl..jpg",
+      "category": "Guest Dignitaries",
+      "caption": "Hon'ble Justice Shri G.R. Swaminathan Avl.",
+      "priority": 98,
+      "featured": true
+    },
+    {
+      "id": "home-img-3",
+      "src": "/images/Home section/Shri.N.Gopalaswami IAS(Rtd).jpg",
+      "category": "Guest Dignitaries",
+      "caption": "Shri N. Gopalaswami IAS (Rtd.)",
+      "priority": 97,
+      "featured": true
+    },
+    {
+      "id": "home-img-4",
+      "src": "/images/Home section/Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal.jpg",
+      "category": "Spiritual Pillars",
+      "caption": "Sri Sendalangara Shenbaga Mannar Sampath Kumara Ramanuja Jeeyar Swamigal",
+      "priority": 96,
+      "featured": true
+    },
+    {
+      "id": "home-img-5",
+      "src": "/images/Home section/Sri la Sri Thirunavukkarasu Desika Parmacharya Swamigal.jpg",
+      "category": "Spiritual Pillars",
+      "caption": "Sri la Sri Thirunavukkarasu Desika Paramacharya Swamigal",
+      "priority": 95,
+      "featured": true
+    },
+    {
+      "id": "home-img-6",
+      "src": "/images/Home section/Dhara Divine Moment.jpeg",
+      "category": "Guest Dignitaries",
+      "caption": "Shri S. Vinoth Ragavendran M.E. - Founder & President",
+      "priority": 94,
+      "featured": true
+    }
+  ],
+  "events": [
+    {
+      "id": "ev-vid-3",
+      "title": "Hon'ble Justice (Retd.) Thiru T.N. Vallinayagam",
+      "type": "video",
+      "category": "Madras HC Judge",
+      "youtubeId": "J6BvffQ1ZKQ",
+      "featured": true,
+      "priority": 100
+    },
+    {
+      "id": "ev-vid-4",
+      "title": "Yatheeswar Raja - Spiritual Music Director",
+      "type": "video",
+      "category": "Spiritual Music",
+      "youtubeId": "IILqWheG9f4",
+      "featured": true,
+      "priority": 99
+    },
+    {
+      "id": "home-vid-2",
+      "youtubeId": "1T_SGxOs-CY",
+      "title": "Mahout Receiving an Award",
+      "description": "Felicitation ceremony of Temple Mahout recognizing their dedication and service to sacred temple elephants.",
+      "category": "Temple Seva",
+      "type": "video",
+      "priority": 98,
+      "featured": true
+    },
+    {
+      "id": "home-vid-3",
+      "youtubeId": "oEsIdHha5uw",
+      "title": "Dr. Rajeswari Ramachandran",
+      "description": "Keynote address and award presentation honoring Dr. Rajeswari Ramachandran's charitable services.",
+      "category": "Social Welfare",
+      "type": "video",
+      "priority": 97,
+      "featured": true
+    },
+    {
+      "id": "home-vid-4",
+      "youtubeId": "VONlv_X9Aro",
+      "title": "Traditional Sports Coach",
+      "description": "Honoring traditional coaches for reviving and instructing ancient sports and martial arts.",
+      "category": "Heritage Sports",
+      "type": "video",
+      "priority": 96,
+      "featured": true
+    },
+    {
+      "id": "home-vid-5",
+      "youtubeId": "3FQgwocLBnQ",
+      "title": "CA Prabakaran",
+      "description": "Professional governance perspective and felicitation of CA Prabakaran for supporting social trusts.",
+      "category": "Financial Seva",
+      "type": "video",
+      "priority": 95,
+      "featured": true
+    }
+  ],
+  "siteConfig": [
+    {
+      "id": "global-config",
+      "heroVideoUrl": "",
+      "heroVideoPoster": "",
+      "eventYear": "2026",
+      "registrationTickets": [
+        {
+          "id": "delegate",
+          "name": "Delegate Pass",
+          "price": "₹1,500",
+          "description": "Access to main awards ceremony and youth plenary sessions.",
+          "features": [
+            "Seva Pass Entry",
+            "Satvik Dinner",
+            "Preferred Seating",
+            "Delegate Kit",
+            "Networking Access",
+            "Event Souvenir"
+          ]
+        },
+        {
+          "id": "premium",
+          "name": "Premium Delegate",
+          "price": "₹3,000",
+          "description": "Full delegate access to the awards, exhibitions, and networking lounge.",
+          "features": [
+            "Premium Row Seating",
+            "Satvik Dinner",
+            "Souvenir Kit",
+            "Priority Registration",
+            "Recorded Sessions",
+            "Networking Access",
+            "Event Souvenir"
+          ]
+        },
+        {
+          "id": "patron",
+          "name": "Patron Pass",
+          "price": "₹5,000",
+          "description": "Exclusive access to VIP networking, front-row seating, and private dinner.",
+          "features": [
+            "Reserved VIP Seating",
+            "Satvik Dinner",
+            "Meet & Greet with Dignitaries",
+            "Networking Access",
+            "Event Souvenir"
+          ]
+        }
+      ],
+      "homeStats": [
+        {
+          "number": "3",
+          "label": "Founding Trustees"
+        },
+        {
+          "number": "40+",
+          "label": "Community Programs"
+        },
+        {
+          "number": "80G",
+          "label": "Tax Exemption"
+        }
+      ],
+      "heroImageUrl": "/images/News/DHARA Divine Awards Ceremony.jpg",
+      "heroMediaOrder": "video-first",
+      "homeCredentials": [
+        {
+          "prefix": "Indian Trust Act, 1882 — ",
+          "highlight": "Registered"
+        },
+        {
+          "prefix": "80G & 12A — ",
+          "highlight": "Tax Exempt"
+        },
+        {
+          "prefix": "MCA — ",
+          "highlight": "CSR Approved"
+        },
+        {
+          "prefix": "NGO Darpan — ",
+          "highlight": "TN/2024/0473120"
+        }
+      ],
+      "aboutStats": [
+        {
+          "number": "25+",
+          "label": "Completed Projects"
+        },
+        {
+          "number": "10k+",
+          "label": "Lives Touched"
+        },
+        {
+          "number": "80G",
+          "label": "Tax Exemption"
+        }
+      ],
+      "founders": [
+        {
+          "name": "S. Vinoth Ragavendran",
+          "role": "Founder President & Trustee",
+          "bio": "With over two decades of leadership in engineering and construction, Vinoth is actively involved in temple heritage protection, traditional restoration, and legal advocacy for public heritage rights across Tamil Nadu.",
+          "image": "/images/S. Vinoth Ragavendran.jpg",
+          "useDefaultIcon": true,
+          "order": 1
+        },
+        {
+          "name": "P. Ezhumalai",
+          "role": "Agriculturist, Social Worker & Trustee",
+          "bio": "A dedicated agriculturist and progressive dairy farmer, Ezhumalai has spent his life working in public welfare, guiding local community initiatives, and fostering traditional moral values at the grassroot levels.",
+          "image": "/logo/photo_6195100629672333271_y.jpg",
+          "useDefaultIcon": true,
+          "order": 2
+        },
+        {
+          "name": "S. Srividhya",
+          "role": "Chartered Accountant, CS & Trustee",
+          "bio": "A dual-qualified professional (CA and CS) with extensive experience in corporate governance, Srividhya oversees the administrative precision, compliance, and strict financial transparency of the non-profit organization's initiatives.",
+          "image": "/logo/photo_6195100629672333269_y.jpg",
+          "useDefaultIcon": true,
+          "order": 3
+        }
+      ]
+    }
+  ],
+  "news": [
+    {
+      "id": "news-vid-1",
+      "title": "Dhara Divine Awards Highlight Video Coverage - Part 1",
+      "date": "20 Jul, 2026",
+      "type": "video",
+      "mediaUrl": "/images/News/WhatsApp Video 2026-07-20 at 3.32.09 PM.mp4",
+      "image": "/images/News/DHARA Divine Awards Ceremony.jpg",
+      "summary": "Special video highlights from the Dhara Divine Awards grand celebration and award presentation ceremony."
+    },
+    {
+      "id": "news-1",
+      "title": "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards",
+      "date": "24 Jan, 2025",
+      "type": "image",
+      "image": "/images/News/Hon'ble Union Finance Minister Smt. Nirmala Sitharaman Invited as Chief Guest for Dhara Divine Awards.jpg",
+      "link": "https://www.youtube.com/live/qOAbFfB22uI",
+      "summary": "Hon'ble Union Finance Minister Smt. Nirmala Sitharaman was formally invited as a Chief Guest and dignitary to the flagship Dhara Divine Awards Ceremony, recognizing unsung grassroots heroes and NGOs for exemplary humanitarian and cultural service inspired by spiritual values."
+    }
+  ]
+}
