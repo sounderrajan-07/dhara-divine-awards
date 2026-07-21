@@ -84,7 +84,10 @@ export default function EventRegistration({ onSubmitSuccess, siteConfig }) {
       }
 
       // Step 2: Open Razorpay Checkout Modal
-      const activeKey = siteConfig?.razorpayConfig?.keyId || siteConfig?.donorConfig?.razorpayKeyId || (import.meta.env.VITE_RAZORPAY_KEY_ID ? import.meta.env.VITE_RAZORPAY_KEY_ID : orderRes.key_id);
+      const envKey = import.meta.env.VITE_RAZORPAY_KEY_ID || import.meta.env.RAZORPAY_KEY_ID || import.meta.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+      const activeKey = (envKey && envKey.trim())
+        ? envKey.trim()
+        : (siteConfig?.razorpayConfig?.keyId || siteConfig?.donorConfig?.razorpayKeyId || orderRes.key_id);
 
       openRazorpayCheckout({
         key_id: activeKey,
