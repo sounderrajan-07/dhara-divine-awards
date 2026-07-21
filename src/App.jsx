@@ -135,7 +135,7 @@ export default function App() {
   // Derive activeTab state from current location pathname
   const activeTab = (() => {
     const path = location.pathname.replace('/', '').toLowerCase();
-    if (['about', 'vision', 'founder', 'events', 'gallery', 'news', 'contact', 'register', 'sponsor', 'volunteer', 'donate', 'csr', 'nomination', 'media', 'highlights', 'enquiry', 'thankyou'].includes(path)) {
+    if (['about', 'vision', 'founder', 'events', 'gallery', 'news', 'contact', 'register', 'sponsor', 'volunteer', 'donate', 'csr', 'nomination', 'media', 'highlights', 'enquiry', 'thankyou', 'admin'].includes(path)) {
       return path;
     }
     return 'home';

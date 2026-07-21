@@ -62,7 +62,7 @@ export const GalleryWorkspace: React.FC = () => {
     } catch (err) {
       console.error(err);
       alert('Upload failed');
-    } fontinally {
+    } finally {
       setUploading(false);
     }
   };
