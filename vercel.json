@@ -2,15 +2,15 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://dhara-divineawardsadmin.vercel.app/api/:path*"
+      "destination": "https://dhara-admin-bice.vercel.app/api/:path*"
     },
     {
       "source": "/admin/:path*",
-      "destination": "https://dhara-divineawardsadmin.vercel.app/admin/:path*"
+      "destination": "https://dhara-admin-bice.vercel.app/admin/:path*"
     },
     {
       "source": "/admin",
-      "destination": "https://dhara-divineawardsadmin.vercel.app/admin"
+      "destination": "https://dhara-admin-bice.vercel.app/admin"
     },
     {
       "source": "/((?!api|admin|assets|.*\\..*).*)",
