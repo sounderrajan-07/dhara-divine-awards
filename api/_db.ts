@@ -1,15 +1,15 @@
 import fs from 'fs/promises';
 import path from 'path';
 import mongoose from 'mongoose';
-import Nomination from './models/Nomination.js';
-import Donation from './models/Donation.js';
-import Delegate from './models/Delegate.js';
-import Volunteer from './models/Volunteer.js';
-import Enquiry from './models/Enquiry.js';
-import Event from './models/Event.js';
-import Gallery from './models/Gallery.js';
-import SiteConfig from './models/SiteConfig.js';
-import ActivityLog from './models/ActivityLog.js';
+import Nomination from './_models/Nomination.js';
+import Donation from './_models/Donation.js';
+import Delegate from './_models/Delegate.js';
+import Volunteer from './_models/Volunteer.js';
+import Enquiry from './_models/Enquiry.js';
+import Event from './_models/Event.js';
+import Gallery from './_models/Gallery.js';
+import SiteConfig from './_models/SiteConfig.js';
+import ActivityLog from './_models/ActivityLog.js';
 
 export interface DatabaseSchema {
   nominations: any[];

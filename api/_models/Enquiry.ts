@@ -7,8 +7,8 @@ export interface IEnquiry extends Document {
   phone: string;
   subject: string;
   message: string;
-  type: 'media' | 'sponsorship_enquiry' | 'general';
-  status: 'new' | 'in_progress' | 'resolved';
+  type: 'general' | 'press' | 'sponsorship';
+  status: 'new' | 'read' | 'replied' | 'archived';
   created_at: string;
   organization?: string;
 }
@@ -20,8 +20,8 @@ const EnquirySchema: Schema = new Schema({
   phone: { type: String, default: '' },
   subject: { type: String, required: true },
   message: { type: String, required: true },
-  type: { type: String, enum: ['media', 'sponsorship_enquiry', 'general'], default: 'general' },
-  status: { type: String, enum: ['new', 'in_progress', 'resolved'], default: 'new' },
+  type: { type: String, enum: ['general', 'press', 'sponsorship'], default: 'general' },
+  status: { type: String, enum: ['new', 'read', 'replied', 'archived'], default: 'new' },
   created_at: { type: String, default: () => new Date().toISOString() },
   organization: { type: String }
 });

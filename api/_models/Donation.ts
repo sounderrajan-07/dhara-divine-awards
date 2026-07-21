@@ -13,22 +13,26 @@ export interface IDonation extends Document {
   sponsorship_tier?: string;
   receipt_sent: boolean;
   payment_status: 'pending' | 'success' | 'failed';
+  payment_id?: string;
+  order_id?: string;
   created_at: string;
 }
 
 const DonationSchema: Schema = new Schema({
   id: { type: String, required: true, unique: true },
   type: { type: String, enum: ['individual', 'corporate'], required: true },
-  name: { type: String, default: 'Anonymous Donor' },
+  name: { type: String, required: true },
   email: { type: String, default: '' },
   phone: { type: String, default: '' },
   amount: { type: Number, required: true },
-  seva_domain: { type: String, required: true },
-  pan: { type: String, default: '' },
+  seva_domain: { type: String, default: 'General Fund' },
+  pan: { type: String },
   is_anonymous: { type: Boolean, default: false },
   sponsorship_tier: { type: String },
   receipt_sent: { type: Boolean, default: false },
-  payment_status: { type: String, enum: ['pending', 'success', 'failed'], default: 'success' },
+  payment_status: { type: String, enum: ['pending', 'success', 'failed'], default: 'pending' },
+  payment_id: { type: String },
+  order_id: { type: String },
   created_at: { type: String, default: () => new Date().toISOString() }
 });
 
