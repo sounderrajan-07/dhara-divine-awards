@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { 
   Settings, Save, Video, BarChart2, ShieldCheck, Plus, Trash2, 
   Image as ImageIcon, Users, ArrowUpDown, Home, Info, Building2, 
-  CheckCircle2, Newspaper, Edit3, ExternalLink, X, Upload, Calendar, Trophy, HelpCircle
+  CheckCircle2, Newspaper, Edit3, ExternalLink, X, Upload, Calendar, Trophy, HelpCircle, Award
 } from 'lucide-react';
 
 export const SettingsWorkspace: React.FC = () => {
