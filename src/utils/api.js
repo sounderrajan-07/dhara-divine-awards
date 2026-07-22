@@ -82,33 +82,17 @@ export async function fetchEvents() {
   }
 }
 
-/**
- * Fetches news articles from the backend.
- */
 export async function fetchNews() {
-  const defaultItems = dbData.news || [];
-
-  // 1. Check local dynamic store and merge missing seed items (videos/photos)
   try {
-    const local = localStorage.getItem('dhara_dynamic_news');
-    if (local) {
-      const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        const existingIds = new Set(parsed.map(item => item.id));
-        const missingDefaults = defaultItems.filter(item => !existingIds.has(item.id));
-        if (missingDefaults.length > 0) {
-          const merged = [...parsed, ...missingDefaults];
-          try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(merged)); } catch (e) {}
-          return merged;
-        }
-        return parsed;
-      }
-    }
-  } catch (e) {}
-
-  // 2. Fallback to bundled seed data
-  try { localStorage.setItem('dhara_dynamic_news', JSON.stringify(defaultItems)); } catch (e) {}
-  return defaultItems;
+    const res = await fetch(`${API_BASE}/api/news`);
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    return data;
+  } catch (err) {
+    console.error('Failed to fetch news, using local fallback:', err);
+    return dbData.news || [];
+  }
 }
 
 /**
