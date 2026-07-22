@@ -81,7 +81,7 @@ export const DonationsWorkspace: React.FC = () => {
               ))}
             </div>
 
-            <div className="flex items-center gap-2 bg-[#F5F3EE] dark:bg-[#242622] p-1 rounded-xl border border-[#E4E2DD] dark:border-[#30312E]">
+            <div className="flex items-center gap-2 bg-[#F5F3EE] dark:bg-[#242622] p-1 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] flex-wrap">
               <button
                 onClick={() => setSelectedType('all')}
                 className={`px-3 py-1 text-xs rounded-lg transition-all cursor-pointer ${selectedType === 'all' ? 'bg-white dark:bg-[#1B1C19] font-bold shadow-sm text-[#401C0C] dark:text-[#FFD27F]' : 'text-[#867463]'}`}

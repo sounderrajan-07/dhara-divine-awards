@@ -81,7 +81,7 @@ export const VolunteersWorkspace: React.FC = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 bg-[#F5F3EE] dark:bg-[#242622] p-1 rounded-xl border border-[#E4E2DD] dark:border-[#30312E]">
+          <div className="flex items-center gap-2 bg-[#F5F3EE] dark:bg-[#242622] p-1 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] flex-wrap">
             {statuses.map(st => (
               <button
                 key={st}

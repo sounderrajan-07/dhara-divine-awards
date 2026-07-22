@@ -43,10 +43,10 @@ export const Header: React.FC = () => {
   const headerInfo = getTabTitle() || { title: 'Dashboard', desc: '' };
 
   return (
-    <header className="sticky top-0 z-20 bg-[#FDFBF8]/90 dark:bg-[#121310]/90 backdrop-blur-md border-b border-[#EAE8E3] dark:border-[#2E302A] px-4 sm:px-8 py-4 sm:py-5 shadow-sm transition-colors duration-300">
-      <div className="flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-20 bg-[#FDFBF8]/90 dark:bg-[#121310]/90 backdrop-blur-md border-b border-[#EAE8E3] dark:border-[#2E302A] px-3 sm:px-8 py-3.5 sm:py-5 shadow-sm transition-colors duration-300">
+      <div className="flex items-center justify-between gap-2 sm:gap-6">
         {/* Left: Hamburger & Page Title & Context */}
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
           {/* Hamburger Menu Toggle for Mobile */}
           <button
             onClick={() => setSidebarOpen(true)}
@@ -57,17 +57,17 @@ export const Header: React.FC = () => {
           </button>
           
           <div className="min-w-0">
-            <h1 className="text-[15px] sm:text-xl font-bold font-serif text-[#1B1C19] dark:text-[#F3F4F6] tracking-tight flex items-center gap-2 leading-tight">
+            <h1 className="text-[14px] sm:text-xl font-bold font-serif text-[#1B1C19] dark:text-[#F3F4F6] tracking-tight flex items-center gap-2 leading-tight">
               {headerInfo.title}
             </h1>
-            <p className="text-[10px] sm:text-xs text-[#867463] dark:text-[#9CA3AF] font-medium mt-0.5 leading-normal max-w-xl">
+            <p className="hidden sm:block text-[10px] sm:text-xs text-[#867463] dark:text-[#9CA3AF] font-medium mt-0.5 leading-normal max-w-xl">
               {headerInfo.desc}
             </p>
           </div>
         </div>
 
         {/* Right: Notifications, Theme Switcher & User */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2.5 sm:gap-5">
 
 
           {/* Notifications Bell */}
@@ -82,7 +82,7 @@ export const Header: React.FC = () => {
 
             {/* Notifications Dropdown */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-[#1B1C19] rounded-2xl shadow-xl border border-[#EAE8E3] dark:border-[#30312E] py-2 z-50 animate-fade-in">
+              <div className="fixed sm:absolute inset-x-4 sm:inset-x-auto sm:right-0 mt-2 sm:w-80 bg-white dark:bg-[#1B1C19] rounded-2xl shadow-xl border border-[#EAE8E3] dark:border-[#30312E] py-2 z-50 animate-fade-in">
                 <div className="px-4 py-2 border-b border-[#F5F3EE] dark:border-[#2E302A] flex items-center justify-between">
                   <span className="font-serif font-bold text-xs text-[#1B1C19] dark:text-[#F3F4F6]">Real-time Telemetry Feed</span>
                   <span className="text-[10px] bg-[#401C0C] text-white px-2 py-0.5 rounded-full font-mono">Live</span>
@@ -107,7 +107,7 @@ export const Header: React.FC = () => {
           </div>
 
           {/* User Profile Pill */}
-          <div className="flex items-center gap-4 pl-4 border-l border-[#EAE8E3] dark:border-[#2E302A]">
+          <div className="flex items-center gap-2.5 sm:gap-4 pl-2.5 sm:pl-4 border-l border-[#EAE8E3] dark:border-[#2E302A]">
             <img 
               src={currentUser.avatar} 
               alt={currentUser.name} 
@@ -125,7 +125,7 @@ export const Header: React.FC = () => {
             <button
               onClick={logout}
               title={`Sign out (${authUser?.username || 'admin'})`}
-              className="p-2 rounded-xl text-[#867463] hover:text-[#D9762E] hover:bg-[#F5F3EE] dark:hover:bg-[#242622] transition-colors cursor-pointer ml-1"
+              className="p-2 rounded-xl text-[#867463] hover:text-[#D9762E] hover:bg-[#F5F3EE] dark:hover:bg-[#242622] transition-colors cursor-pointer ml-0 sm:ml-1"
             >
               <LogOut size={16} />
             </button>
