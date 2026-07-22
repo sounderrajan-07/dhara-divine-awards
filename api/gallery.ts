@@ -11,9 +11,72 @@ export default async function handler(req: any, res: any) {
 
   if (req.method === 'GET') {
     try {
-      const db = await readDb();
-      return res.status(200).json(db.gallery || []);
+      // Run self-healing migration check dynamically
+      let db = await readDb();
+      if (!db.gallery || db.gallery.length <= 50) {
+        const fs = await import('fs');
+        const path = await import('path');
+        const galleryPagePath = path.join(process.cwd(), 'src', 'components', 'GalleryPage.jsx');
+        if (fs.existsSync(galleryPagePath)) {
+          const content = fs.readFileSync(galleryPagePath, 'utf8');
+          const startIdx = content.indexOf('const defaultGalleryImages = [');
+          if (startIdx !== -1) {
+            const sectionStartIdx = content.indexOf('{', startIdx + 30);
+            const endIdx = content.indexOf('];', sectionStartIdx);
+            if (sectionStartIdx !== -1 && endIdx !== -1) {
+              const sectionImagesText = content.substring(sectionStartIdx, endIdx).trim();
+              const sectionImages = eval('[' + sectionImagesText + ']');
+              const highlightImages = [
+                ...Array.from({ length: 46 }, (_, i) => `/images/Highlights1/Dhara Divine Awards - Highlight  (${i + 1}).png`),
+                ...[
+                  ...Array.from({ length: 53 }, (_, i) => i + 1),
+                  55, 56, 57, 58, 59,
+                  67, 68, 69, 70, 71, 72, 73, 74,
+                  76, 77, 78, 79, 80, 81, 82,
+                  ...Array.from({ length: 44 }, (_, i) => i + 84)
+                ].map(num => `/images/Highlights1/Dhara Divine Awards - Highlight (${num}).png`),
+                ...Array.from({ length: 15 }, (_, i) => `/images/Highlights1/E Dhara Divine Awards - Highlight  (${i + 43}).png`)
+              ];
+              const highlights = highlightImages.map((src, idx) => ({
+                src,
+                category: 'Highlights',
+                caption: 'Dhara Divine Awards - Moments',
+                isHighlight: true
+              }));
+              const allDefaultImages = [...highlights, ...sectionImages];
+              const galleryDbList = allDefaultImages.map((img, idx) => {
+                let idPrefix = img.category === 'Highlights' ? 'gal-high-' : 'gal-sec-';
+                return {
+                  id: idPrefix + idx + '-' + Math.floor(Math.random() * 100000),
+                  src: img.src,
+                  category: img.category,
+                  caption: img.caption.replace(/Moments\s+\d+/, 'Moments').trim(),
+                  priority: idx,
+                  featured: img.category === 'Highlights' && idx < 9
+                };
+              });
+              const existingSrcs = new Set((db.gallery || []).map((img: any) => img.src));
+              const newImages = galleryDbList.filter(img => !existingSrcs.has(img.src));
+              if (newImages.length > 0) {
+                db.gallery = [...(db.gallery || []), ...newImages];
+                await writeDb(db);
+              }
+            }
+          }
+        }
+      }
+      
+      // Clean up moment captions with numbers in the return list
+      const finalGallery = (db.gallery || []).map((img: any) => {
+        if (img.category === 'Highlights' && /Moments\s+\d+/.test(img.caption)) {
+          return { ...img, caption: 'Dhara Divine Awards - Moments' };
+        }
+        return img;
+      });
+
+      return res.status(200).json(finalGallery);
     } catch (error) {
+      console.error('Failed to read gallery in API:', error);
       return res.status(500).json({ error: 'Failed to read gallery' });
     }
   }

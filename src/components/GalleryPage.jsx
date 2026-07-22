@@ -351,6 +351,15 @@ export default function GalleryPage() {
     return cat;
   };
 
+  const cleanCaption = (caption) => {
+    if (!caption) return '';
+    // Strip trailing numbers/indices from default moments and highlight captions
+    if (caption.startsWith('Dhara Divine Awards - Moments') || caption.startsWith('Dhara Divine Awards - Highlight')) {
+      return 'Dhara Divine Awards - Moments';
+    }
+    return caption;
+  };
+
   const [galleryImages, setGalleryImages] = useState(() => 
     defaultGalleryImages.map(img => ({ ...img, category: cleanCategory(img.category) }))
   );
@@ -363,12 +372,16 @@ export default function GalleryPage() {
       const data = await fetchGallery();
       if (data && data.length > 0) {
         const cleanedData = data.map(img => ({ ...img, category: cleanCategory(img.category) }));
+        setGalleryImages(cleanedData); // Only use database images!
+      } else {
+        // Fallback to hardcoded defaults if DB is empty or offline
         const cleanedDefaults = defaultGalleryImages.map(img => ({ ...img, category: cleanCategory(img.category) }));
-        setGalleryImages([...cleanedData, ...cleanedDefaults]);
+        setGalleryImages(cleanedDefaults);
       }
     };
     loadGallery();
   }, []);
+
 
   const getImageUrl = (src) => {
     if (!src) return '';
@@ -530,11 +543,11 @@ export default function GalleryPage() {
                     onClick={() => openLightbox(img)}
                     className="bg-white rounded-3xl border border-[#D9CBB0]/60 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
                   >
-                    <div className={`h-56 relative overflow-hidden ${img.src === 'devine awrds-57.jpg' || img.src === 'devine awrds-37.jpg' || img.src.includes('Section') || img.src.includes('Highlights') ? 'bg-[#281006]' : 'bg-[#F4EFE6]'}`}>
+                    <div className="h-56 relative overflow-hidden bg-[#281006]">
                       <img
                         src={getImageUrl(img.src)}
                         alt={img.caption}
-                        className={`w-full h-full ${img.src === 'devine awrds-57.jpg' || img.src === 'devine awrds-37.jpg' || img.src.includes('Section') || img.src.includes('Highlights') ? 'object-contain object-center' : 'object-cover object-top'} group-hover:scale-105 transition-transform duration-500`}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                         onError={(e) => {
                           e.target.onerror = null;
@@ -551,7 +564,7 @@ export default function GalleryPage() {
 
                     <div className="p-4 flex-1 flex flex-col justify-between">
                       <p className="text-xs font-sans font-bold text-[var(--color-deep-forest-dark)] line-clamp-2 leading-relaxed">
-                        {img.caption}
+                        {cleanCaption(img.caption)}
                       </p>
                     </div>
                   </div>
@@ -628,7 +641,7 @@ export default function GalleryPage() {
                 {filteredImages[lightboxIndex].category} • {lightboxIndex + 1} of {filteredImages.length}
               </span>
               <p className="text-base sm:text-lg font-serif">
-                {filteredImages[lightboxIndex].caption}
+                {cleanCaption(filteredImages[lightboxIndex].caption)}
               </p>
             </div>
           </div>

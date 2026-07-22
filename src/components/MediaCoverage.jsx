@@ -7,6 +7,7 @@ export default function MediaCoverage({ onSubmitSuccess }) {
   const [mediaTypeFilter, setMediaTypeFilter] = useState('all');
   const [newsArticles, setNewsArticles] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
     const loadNews = () => {
@@ -184,15 +185,27 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                     className="bg-white rounded-3xl border border-[#D9CBB0]/60 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group h-full"
                   >
                     {isVideo ? (
-                      <div className="relative overflow-hidden bg-black shrink-0" style={{ aspectRatio: '16/9' }}>
-                        <video
-                          controls
-                          preload="metadata"
-                          poster={art.image}
-                          src={art.mediaUrl || art.image}
-                          className="w-full h-full object-contain"
+                      <div 
+                        className="relative overflow-hidden bg-[#121310] shrink-0 flex items-center justify-center p-2 cursor-pointer group/img" 
+                        style={{ minHeight: '280px', maxHeight: '380px' }}
+                        onClick={() => setSelectedVideo(art)}
+                        title="Click to play video"
+                      >
+                        <img
+                          src={encodeURI(art.image)}
+                          alt={art.title}
+                          className="w-full h-full max-h-[360px] object-contain transition-transform duration-500 group-hover/img:scale-105"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";
+                          }}
                         />
-                        <div className="absolute top-3 left-3 bg-[#D9762E] text-white px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1">
+                        <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover/img:bg-black/50 transition-colors">
+                          <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center group-hover/img:scale-110 transition-transform duration-300 border border-white/30">
+                            <Video className="w-6 h-6 text-[#FFD27F]" fill="#FFD27F" />
+                          </div>
+                        </div>
+                        <div className="absolute top-3 left-3 bg-[#D9762E] text-white px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1 z-10">
                           <Video size={12} /> Video Coverage
                         </div>
                       </div>
@@ -445,6 +458,39 @@ export default function MediaCoverage({ onSubmitSuccess }) {
             {selectedImage.summary && (
               <p className="text-xs text-neutral-300 leading-relaxed font-sans line-clamp-2 pt-1">
                 {selectedImage.summary}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Full-Screen Video Player Lightbox Modal */}
+      {selectedVideo && (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-8 animate-fade-in" onClick={() => setSelectedVideo(null)}>
+          <div className="relative max-w-4xl w-full bg-[#121310] border border-white/20 rounded-3xl overflow-hidden flex flex-col p-4 sm:p-6 space-y-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div>
+                <h4 className="font-serif font-bold text-lg text-white line-clamp-1">{selectedVideo.title}</h4>
+                <p className="text-xs text-[var(--color-saffron-glow)] font-mono">{selectedVideo.date}</p>
+              </div>
+              <button 
+                onClick={() => setSelectedVideo(null)}
+                className="p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="flex-1 flex items-center justify-center min-h-0 bg-black rounded-2xl p-2 relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+              <video 
+                controls 
+                autoPlay
+                src={selectedVideo.mediaUrl} 
+                className="w-full h-full object-contain rounded-lg shadow-2xl"
+              />
+            </div>
+            {selectedVideo.summary && (
+              <p className="text-xs text-neutral-300 leading-relaxed font-sans line-clamp-2 pt-1">
+                {selectedVideo.summary}
               </p>
             )}
           </div>
