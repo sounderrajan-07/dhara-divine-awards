@@ -62,7 +62,8 @@ export const Sidebar: React.FC = () => {
       )}
 
       <aside 
-        className={`bg-[#FBF9F4] dark:bg-[#151613] border-r border-[#EAE8E3] dark:border-[#2E302A] flex flex-col transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.02)] fixed inset-y-0 left-0 z-50 w-72 h-[100dvh] lg:sticky lg:top-0 lg:z-30 lg:translate-x-0 ${
+        style={{ height: 'calc(100dvh / 1.1)' }}
+        className={`bg-[#FBF9F4] dark:bg-[#151613] border-r border-[#EAE8E3] dark:border-[#2E302A] flex flex-col transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.02)] fixed inset-y-0 left-0 z-50 w-72 lg:sticky lg:top-0 lg:z-30 lg:w-72 lg:translate-x-0 ${
           sidebarOpen 
             ? 'translate-x-0' 
             : '-translate-x-full'
