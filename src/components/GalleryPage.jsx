@@ -370,12 +370,16 @@ export default function GalleryPage() {
   useEffect(() => {
     const loadGallery = async () => {
       const data = await fetchGallery();
+      const cleanedDefaults = defaultGalleryImages.map(img => ({ ...img, category: cleanCategory(img.category) }));
       if (data && data.length > 0) {
         const cleanedData = data.map(img => ({ ...img, category: cleanCategory(img.category) }));
-        setGalleryImages(cleanedData); // Only use database images!
+        
+        // Combine default hardcoded images with database-uploaded images, avoiding duplicates
+        const dbSrcs = new Set(cleanedData.map(img => img.src));
+        const filteredDefaults = cleanedDefaults.filter(img => !dbSrcs.has(img.src));
+        
+        setGalleryImages([...filteredDefaults, ...cleanedData]);
       } else {
-        // Fallback to hardcoded defaults if DB is empty or offline
-        const cleanedDefaults = defaultGalleryImages.map(img => ({ ...img, category: cleanCategory(img.category) }));
         setGalleryImages(cleanedDefaults);
       }
     };
