@@ -1,6 +1,24 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Plus, Trash2, X, Edit3, Youtube, Play, Star } from 'lucide-react';
+import { Search, Plus, Trash2, X, Edit3, Play, Star } from 'lucide-react';
+
+const Youtube: React.FC<React.SVGProps<SVGSVGElement> & { size?: number | string }> = ({ size = 24, ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17z" />
+    <polygon points="10 15 15 12 10 9" />
+  </svg>
+);
 
 export const YoutubeWorkspace: React.FC = () => {
   const { events, addEvent, updateEvent, deleteEvent, globalSearchQuery } = useApp();
@@ -86,7 +104,9 @@ export const YoutubeWorkspace: React.FC = () => {
       <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="font-serif text-2xl font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2">
-            <Youtube className="text-[#FF0000]" /> YouTube Video Highlights
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[#FF0000] shrink-0">
+              <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.518 3.5 12 3.5 12 3.5s-7.518 0-9.388.555A3.003 3.003 0 0 0 .502 6.163C0 8.07 0 12 0 12s0 3.93.502 5.837a3.003 3.003 0 0 0 2.11 2.108C4.482 20.5 12 20.5 12 20.5s7.518 0 9.388-.555a3.003 3.003 0 0 0 2.11-2.108C24 15.93 24 12 24 12s0-3.93-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg> YouTube Video Highlights
           </h2>
           <p className="text-xs text-[#867463] dark:text-[#9CA3AF] mt-1">
             Publish and manage video broadcasts, speeches, and devotional recordings on the home page.
@@ -186,7 +206,9 @@ export const YoutubeWorkspace: React.FC = () => {
           <div className="bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl animate-scale-up my-8">
             <div className="flex items-center justify-between border-b border-[#F5F3EE] dark:border-[#2E302A] pb-4">
               <h3 className="font-serif text-xl font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2">
-                <Youtube className="text-[#FF0000]" /> {editingId ? 'Edit YouTube Highlight' : 'Add YouTube Highlight'}
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-[#FF0000] shrink-0">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.518 3.5 12 3.5 12 3.5s-7.518 0-9.388.555A3.003 3.003 0 0 0 .502 6.163C0 8.07 0 12 0 12s0 3.93.502 5.837a3.003 3.003 0 0 0 2.11 2.108C4.482 20.5 12 20.5 12 20.5s7.518 0 9.388-.555a3.003 3.003 0 0 0 2.11-2.108C24 15.93 24 12 24 12s0-3.93-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg> {editingId ? 'Edit YouTube Highlight' : 'Add YouTube Highlight'}
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
