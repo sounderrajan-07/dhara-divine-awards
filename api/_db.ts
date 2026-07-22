@@ -10,6 +10,7 @@ import Event from './_models/Event.js';
 import Gallery from './_models/Gallery.js';
 import SiteConfig from './_models/SiteConfig.js';
 import ActivityLog from './_models/ActivityLog.js';
+import News from './_models/News.js';
 
 export interface DatabaseSchema {
   nominations: any[];
@@ -21,7 +22,7 @@ export interface DatabaseSchema {
   gallery: any[];
   events: any[];
   siteConfig: any[];
-  news?: any[];
+  news: any[];
 }
 
 const DEFAULT_MONGO_URI = 'mongodb+srv://soundhers38_db_user:MbGcn2fyLnReShxx@cluster0.yripibj.mongodb.net/dhara_db?retryWrites=true&w=majority&appName=Cluster0';
@@ -64,7 +65,8 @@ export async function readDb(): Promise<DatabaseSchema> {
         activityLogs,
         gallery,
         events,
-        siteConfig
+        siteConfig,
+        news
       ] = await Promise.all([
         (Nomination as any).find({}).lean(),
         (Donation as any).find({}).lean(),
@@ -74,15 +76,27 @@ export async function readDb(): Promise<DatabaseSchema> {
         (ActivityLog as any).find({}).lean(),
         (Gallery as any).find({}).lean(),
         (Event as any).find({}).lean(),
-        (SiteConfig as any).find({}).lean()
+        (SiteConfig as any).find({}).lean(),
+        (News as any).find({}).lean()
       ]);
 
-      const totalDocs = nominations.length + donations.length + delegates.length + enquiries.length + gallery.length;
+      const totalDocs = nominations.length + donations.length + delegates.length + enquiries.length + gallery.length + news.length;
       if (totalDocs === 0) {
         console.log("MongoDB Atlas is empty. Auto-seeding initial data from db.json...");
         const fileData = await readLocalDbFile();
         await seedMongoFromLocal(fileData);
         return fileData;
+      }
+
+      // Self-healing: Seed news if MongoDB has no news documents
+      let finalNews = news;
+      if (news.length === 0) {
+        const fileData = await readLocalDbFile();
+        if (fileData.news && fileData.news.length > 0) {
+          console.log("MongoDB news is empty. Auto-seeding news articles from db.json...");
+          await News.insertMany(fileData.news, { ordered: false }).catch(() => {});
+          finalNews = fileData.news;
+        }
       }
 
       return {
@@ -95,7 +109,7 @@ export async function readDb(): Promise<DatabaseSchema> {
         gallery,
         events,
         siteConfig,
-        news: []
+        news: finalNews
       };
     } catch (err) {
       console.error("Failed to read from MongoDB, trying local file fallback:", err);
@@ -138,6 +152,7 @@ async function seedMongoFromLocal(data: DatabaseSchema) {
     if (data.gallery?.length) await Gallery.insertMany(data.gallery, { ordered: false }).catch(() => {});
     if (data.events?.length) await Event.insertMany(data.events, { ordered: false }).catch(() => {});
     if (data.siteConfig?.length) await SiteConfig.insertMany(data.siteConfig, { ordered: false }).catch(() => {});
+    if (data.news?.length) await News.insertMany(data.news, { ordered: false }).catch(() => {});
     console.log("Auto-seeding to MongoDB Atlas completed!");
   } catch (err) {
     console.error("Error auto-seeding MongoDB:", err);
@@ -158,7 +173,8 @@ export async function writeDb(data: DatabaseSchema): Promise<void> {
         ...data.activityLogs.map(item => (ActivityLog as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
         ...data.gallery.map(item => (Gallery as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
         ...data.events.map(item => (Event as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.siteConfig.map(item => (SiteConfig as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
+        ...data.siteConfig.map(item => (SiteConfig as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...data.news.map(item => (News as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
       ]);
       return;
     } catch (err) {
