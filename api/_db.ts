@@ -88,22 +88,33 @@ export async function readDb(): Promise<DatabaseSchema> {
         return fileData;
       }
 
-      // Self-healing: Sync news articles from db.json to MongoDB if any are missing or updated
+      // Self-healing: Sync news articles from db.json to MongoDB (including additions, updates, and deletions)
       let finalNews = news;
       const fileData = await readLocalDbFile();
-      const needsSync = fileData.news && (
-        news.length < fileData.news.length ||
-        fileData.news.some((fn: any) => {
+      if (fileData.news) {
+        // 1. Delete articles in MongoDB that are no longer in db.json
+        const localIds = new Set(fileData.news.map((n: any) => n.id));
+        const itemsToDelete = news.filter((n: any) => !localIds.has(n.id));
+        if (itemsToDelete.length > 0) {
+          console.log("Deleting removed news articles from MongoDB...");
+          await Promise.all(
+            itemsToDelete.map((item: any) => (News as any).deleteOne({ id: item.id }))
+          );
+        }
+
+        // 2. Sync any missing or updated articles from db.json
+        const needsSync = news.length !== fileData.news.length || fileData.news.some((fn: any) => {
           const dbItem = news.find((n: any) => n.id === fn.id);
-          return !dbItem || dbItem.rotate !== fn.rotate;
-        })
-      );
-      if (needsSync) {
-        console.log("Syncing news articles from db.json to MongoDB...");
-        await Promise.all(
-          fileData.news.map((item: any) => (News as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
-        );
-        finalNews = await (News as any).find({}).lean();
+          return !dbItem || dbItem.rotate !== fn.rotate || dbItem.title !== fn.title || dbItem.mediaUrl !== fn.mediaUrl;
+        });
+
+        if (needsSync || itemsToDelete.length > 0) {
+          console.log("Syncing news articles from db.json to MongoDB...");
+          await Promise.all(
+            fileData.news.map((item: any) => (News as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
+          );
+          finalNews = await (News as any).find({}).lean();
+        }
       }
 
       return {
