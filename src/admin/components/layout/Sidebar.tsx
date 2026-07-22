@@ -62,8 +62,7 @@ export const Sidebar: React.FC = () => {
       )}
 
       <aside 
-        style={{ height: '100vh' }}
-        className={`bg-[#FBF9F4] dark:bg-[#151613] border-r border-[#EAE8E3] dark:border-[#2E302A] flex flex-col transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.02)] fixed inset-y-0 left-0 z-50 w-72 lg:sticky lg:top-0 lg:z-30 lg:translate-x-0 ${
+        className={`bg-[#FBF9F4] dark:bg-[#151613] border-r border-[#EAE8E3] dark:border-[#2E302A] flex flex-col transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.02)] fixed inset-y-0 left-0 z-50 w-72 h-[100dvh] lg:sticky lg:top-0 lg:z-30 lg:translate-x-0 ${
           sidebarOpen 
             ? 'translate-x-0' 
             : '-translate-x-full'
@@ -114,7 +113,7 @@ export const Sidebar: React.FC = () => {
         </div>
 
         {/* Navigation List */}
-        <div className="p-2 lg:p-4 space-y-1.5 overflow-y-auto flex-1 custom-scrollbar">
+        <div className="p-2 lg:p-4 pb-12 space-y-1.5 overflow-y-auto flex-1 custom-scrollbar">
           <div className={`px-3 py-2 text-[11px] font-semibold tracking-wider text-[#867463] dark:text-[#6B7280] uppercase ${
             sidebarOpen ? 'block' : 'hidden lg:block'
           }`}>
