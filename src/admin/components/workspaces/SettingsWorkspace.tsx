@@ -684,119 +684,148 @@ export const SettingsWorkspace: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-12 animate-fade-in">
-      {/* Header Panel */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm">
-        <div className="flex justify-between items-center flex-wrap gap-4">
+    <div className="pb-12 animate-fade-in">
+      <div className="flex flex-col lg:flex-row gap-8 items-start">
+        {/* Left Side: Navigation Sidebar */}
+        <div className="w-full lg:w-72 shrink-0 bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] p-5 rounded-3xl shadow-sm space-y-6 lg:sticky lg:top-24">
           <div>
-            <h2 className="font-serif text-2xl font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2">
-              <Settings className="text-[#D9762E]" /> Site Settings & Content Control
+            <h2 className="font-serif text-lg font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Settings className="text-[#D9762E]" size={20} /> Settings Control
             </h2>
-            <p className="text-xs text-[#867463] dark:text-[#9CA3AF] mt-1">
-              Configure dynamic media, impact statistics, news articles, founder trustees, and legal registrations.
+            <p className="text-[10px] text-[#867463] dark:text-[#9CA3AF] mt-1 leading-relaxed">
+              Configure dynamic media, impact counters, news, trustees, sponsorships, and CSR credentials.
             </p>
           </div>
 
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="bg-[#401C0C] hover:bg-[#5C2913] text-white rounded-xl text-sm font-semibold px-8 py-3 flex items-center gap-2 cursor-pointer shadow-sm transition-all"
-          >
-            <Save size={18} /> {saving ? 'Saving...' : 'Save All Settings'}
-          </button>
+          {/* Section Navigation Sub-Tabs */}
+          <div className="flex lg:flex-col overflow-x-auto lg:overflow-visible gap-2 pb-3 lg:pb-0 scrollbar-none border-b lg:border-b-0 border-[#F5F3EE] dark:border-[#2E302A]">
+            <button
+              onClick={() => setActiveSubTab('home')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'home'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Home size={15} /> Home Page Settings
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab('about')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'about'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Info size={15} /> About Us Settings
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab('subdomains')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'subdomains'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Building2 size={15} /> Subdomains Control
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab('news')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'news'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Newspaper size={15} /> News & Press ({news.length})
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab('trustees')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'trustees'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Users size={15} /> Trustees/Founders ({founders.length})
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab('registrations')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'registrations'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <ShieldCheck size={15} /> Legal Certificates ({registrations.length})
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab('sponsors')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'sponsors'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Trophy size={15} /> Sponsors Control
+            </button>
+
+            <button
+              onClick={() => setActiveSubTab('csr')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'csr'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Briefcase size={15} /> CSR Partnerships
+            </button>
+          </div>
+
+          {/* Desktop Left Sidebar Save Button */}
+          <div className="hidden lg:block pt-4 border-t border-[#F5F3EE] dark:border-[#2E302A]">
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="w-full bg-[#401C0C] hover:bg-[#5C2913] text-white rounded-xl text-xs font-semibold py-3 flex items-center justify-center gap-2 cursor-pointer shadow-sm transition-all"
+            >
+              <Save size={14} /> {saving ? 'Saving...' : 'Save All Settings'}
+            </button>
+          </div>
         </div>
 
-        {/* Section Navigation Sub-Tabs */}
-        <div className="flex items-center gap-2 pt-6 border-t border-[#F5F3EE] dark:border-[#2E302A] mt-6 flex-wrap">
-          <button
-            onClick={() => setActiveSubTab('home')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'home'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <Home size={16} /> Home Section Settings
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('about')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'about'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <Info size={16} /> About Us Section Settings
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('subdomains')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'subdomains'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <Building2 size={16} /> Subdomains & Dynamic Forms Control
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('news')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'news'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <Newspaper size={16} /> News Section Settings ({news.length})
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('trustees')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'trustees'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <Users size={16} /> Trustees & Founders ({founders.length})
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('registrations')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'registrations'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <ShieldCheck size={16} /> Trust Registrations ({registrations.length})
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('sponsors')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'sponsors'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <Trophy size={16} /> Sponsorships Control
-          </button>
-
-          <button
-            onClick={() => setActiveSubTab('csr')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-              activeSubTab === 'csr'
-                ? 'bg-[#401C0C] text-white shadow-md'
-                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
-            }`}
-          >
-            <Briefcase size={16} /> CSR Partnerships
-          </button>
-        </div>
-      </div>
+        {/* Right Side: Active Workspace Form Panel */}
+        <div className="flex-1 w-full space-y-6">
+          {/* Header Action Panel (shows active tab title, desc and Mobile Save button!) */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm flex justify-between items-center flex-wrap gap-4">
+            <div>
+              <span className="text-[9px] font-bold font-mono text-[#D9762E] uppercase tracking-wider">Active Workspace Control</span>
+              <h3 className="font-serif text-lg font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2 mt-0.5">
+                {activeSubTab === 'home' && <><Home className="text-[#C9A646]" size={18} /> Home Page Settings</>}
+                {activeSubTab === 'about' && <><Info className="text-[#C9A646]" size={18} /> About Us Settings</>}
+                {activeSubTab === 'subdomains' && <><Building2 className="text-[#C9A646]" size={18} /> Subdomains & Registration Control</>}
+                {activeSubTab === 'news' && <><Newspaper className="text-[#C9A646]" size={18} /> News & Press Articles</>}
+                {activeSubTab === 'trustees' && <><Users className="text-[#C9A646]" size={18} /> Trustees & Founders Directory</>}
+                {activeSubTab === 'registrations' && <><ShieldCheck className="text-[#C9A646]" size={18} /> Legal Certificates & Registrations</>}
+                {activeSubTab === 'sponsors' && <><Trophy className="text-[#C9A646]" size={18} /> Corporate Sponsors Page Settings</>}
+                {activeSubTab === 'csr' && <><Briefcase className="text-[#C9A646]" size={18} /> CSR Partnerships Page Settings</>}
+              </h3>
+            </div>
+            
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="bg-[#401C0C] hover:bg-[#5C2913] text-white rounded-xl text-xs font-semibold px-6 py-2.5 flex items-center gap-1.5 cursor-pointer shadow-sm transition-all"
+            >
+              <Save size={14} /> {saving ? 'Saving...' : 'Save Settings'}
+            </button>
+          </div>
 
       {/* SUB TAB 1: HOME SECTION */}
       {activeSubTab === 'home' && (
@@ -2080,8 +2109,18 @@ export const SettingsWorkspace: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+          {/* Bottom Save Changes Panel */}
+          <div className="p-4 bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] rounded-3xl flex justify-end shadow-sm mt-6">
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="bg-[#401C0C] hover:bg-[#5C2913] text-white rounded-xl text-sm font-semibold px-8 py-3.5 flex items-center gap-2 cursor-pointer shadow-sm transition-all w-full sm:w-auto justify-center"
+            >
+              <Save size={18} /> {saving ? 'Saving...' : 'Save Settings Changes'}
+            </button>
+          </div>
+        </div> {/* End of Right Side: Active Workspace Form Panel */}
+      </div> {/* End of flex flex-col lg:flex-row gap-8 items-start */}
 
       {/* ADD / EDIT NEWS MODAL */}
       {showNewsModal && (

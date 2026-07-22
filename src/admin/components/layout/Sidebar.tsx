@@ -63,10 +63,10 @@ export const Sidebar: React.FC = () => {
 
       <aside 
         style={{ height: '100vh' }}
-        className={`bg-[#FBF9F4] dark:bg-[#151613] border-r border-[#EAE8E3] dark:border-[#2E302A] flex flex-col transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.02)] ${
+        className={`bg-[#FBF9F4] dark:bg-[#151613] border-r border-[#EAE8E3] dark:border-[#2E302A] flex flex-col transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.02)] fixed inset-y-0 left-0 z-50 w-72 lg:sticky lg:top-0 lg:z-30 lg:translate-x-0 ${
           sidebarOpen 
-            ? 'fixed inset-y-0 left-0 z-50 w-72' 
-            : 'sticky top-0 z-30 w-16 sm:w-20 lg:w-72'
+            ? 'translate-x-0' 
+            : '-translate-x-full'
         }`}
       >
         {/* Brand Header */}
