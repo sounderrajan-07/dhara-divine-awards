@@ -121,6 +121,7 @@ const dashboardItems = [
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
+  const isAdminPage = location.pathname.startsWith('/admin');
 
   const changeTab = (tab) => {
     if (tab === 'home') {
@@ -1110,14 +1111,16 @@ export default function App() {
         </div>
       </div>
 
-      <Navbar 
-        activeTab={activeTab} 
-        setActiveTab={changeTab} 
-        mobileMenuOpen={mobileMenuOpen} 
-        setMobileMenuOpen={setMobileMenuOpen} 
-        showInstallBtn={showInstallBtn}
-        onInstall={handleInstallClick}
-      />
+      {!isAdminPage && (
+        <Navbar 
+          activeTab={activeTab} 
+          setActiveTab={changeTab} 
+          mobileMenuOpen={mobileMenuOpen} 
+          setMobileMenuOpen={setMobileMenuOpen} 
+          showInstallBtn={showInstallBtn}
+          onInstall={handleInstallClick}
+        />
+      )}
       {/* Main Content Area */}
       <main style={{ flex: '1 0 auto' }}>
         <Routes>
@@ -1150,7 +1153,7 @@ export default function App() {
         </Routes>
       </main>
 
-      <Footer setActiveTab={changeTab} handleNavClick={handleNavClick} />
+      {!isAdminPage && <Footer setActiveTab={changeTab} handleNavClick={handleNavClick} />}
 
       {/* 11. Thank You Confirmation Overlay State */}
       {showThankYou && successData && (

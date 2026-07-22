@@ -73,7 +73,7 @@ export const DelegatesWorkspace: React.FC = () => {
               <span className="text-xs font-semibold text-[#FFD27F] uppercase tracking-wider">
                 Chinmaya Heritage Hall A • Gate Check-in Terminal
               </span>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
+              <h2 className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-white">
                 Quick Pass Verification & Barcode Scanner
               </h2>
             </div>
@@ -118,7 +118,7 @@ export const DelegatesWorkspace: React.FC = () => {
                 {lastScanResult.success ? <CheckCircle2 size={20} className="text-[#FFD27F]" /> : <AlertCircle size={20} className="text-red-400" />}
               </div>
               <div className="flex-1">
-                <h4 className="font-bold text-sm">
+                <h4 className="font-bold text-sm text-white">
                   {lastScanResult.success ? '✓ GATE CHECK-IN SUCCESSFUL!' : '✕ CHECK-IN DENIED / WARNING'}
                 </h4>
                 <p className="text-xs mt-0.5 opacity-90 font-mono">{lastScanResult.message}</p>

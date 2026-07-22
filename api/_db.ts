@@ -88,14 +88,16 @@ export async function readDb(): Promise<DatabaseSchema> {
         return fileData;
       }
 
-      // Self-healing: Seed news if MongoDB has no news documents
+      // Self-healing: Sync news articles from db.json to MongoDB if any are missing
       let finalNews = news;
-      if (news.length === 0) {
-        const fileData = await readLocalDbFile();
-        if (fileData.news && fileData.news.length > 0) {
-          console.log("MongoDB news is empty. Auto-seeding news articles from db.json...");
-          await News.insertMany(fileData.news, { ordered: false }).catch(() => {});
-          finalNews = fileData.news;
+      const fileData = await readLocalDbFile();
+      if (fileData.news && news.length < fileData.news.length) {
+        console.log("Syncing missing news articles from db.json to MongoDB...");
+        const existingIds = new Set(news.map((n: any) => n.id));
+        const missingNews = fileData.news.filter((n: any) => !existingIds.has(n.id));
+        if (missingNews.length > 0) {
+          await News.insertMany(missingNews, { ordered: false }).catch(() => {});
+          finalNews = await (News as any).find({}).lean();
         }
       }
 
