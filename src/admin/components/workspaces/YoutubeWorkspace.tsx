@@ -175,6 +175,7 @@ export const YoutubeWorkspace: React.FC = () => {
                   <Trash2 size={15} />
                 </button>
               </div>
+            </div>
           ))
         )}
       </div>
