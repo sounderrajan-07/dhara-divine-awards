@@ -61,7 +61,7 @@ export const DelegatesWorkspace: React.FC = () => {
   return (
     <div className="space-y-8 pb-12 animate-fade-in">
       {/* Gate Control Command Banner & Quick Check-in Box */}
-      <div className="p-8 rounded-3xl bg-gradient-to-br from-[#1B1C19] via-[#242622] to-[#121310] text-white shadow-xl border border-[#C9A646]/40 relative overflow-hidden">
+      <div className="p-4 sm:p-8 rounded-3xl bg-gradient-to-br from-[#1B1C19] via-[#242622] to-[#121310] text-white shadow-xl border border-[#C9A646]/40 relative overflow-hidden">
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#401C0C]/30 to-transparent pointer-events-none"></div>
 
         <div className="max-w-3xl relative z-10 space-y-6">

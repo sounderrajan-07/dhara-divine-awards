@@ -76,7 +76,7 @@ export const OverviewWorkspace: React.FC = () => {
   return (
     <div className="space-y-8 pb-12 animate-fade-in">
       {/* Top Banner / Welcome Callout */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#401C0C] via-[#5C2913] to-[#5C2913] p-8 text-white shadow-xl shadow-[#401C0C]/15 border border-[#C9A646]/30">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#401C0C] via-[#5C2913] to-[#5C2913] p-4 sm:p-8 text-white shadow-xl shadow-[#401C0C]/15 border border-[#C9A646]/30">
         <div className="absolute -right-10 -bottom-10 w-72 h-72 rounded-full bg-[#C9A646]/10 blur-3xl pointer-events-none"></div>
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="max-w-2xl">

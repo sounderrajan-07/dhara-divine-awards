@@ -19,7 +19,7 @@ const DashboardContent: React.FC = () => {
   const { currentTab } = useApp();
 
   return (
-    <main className="flex-1 bg-[#FDFBF8] dark:bg-[#121310] min-h-screen transition-colors duration-300">
+    <main className="flex-1 min-w-0 w-full bg-[#FDFBF8] dark:bg-[#121310] min-h-screen transition-colors duration-300">
       <Header />
       <div className="p-4 sm:p-8 max-w-[1600px] mx-auto">
         {currentTab === 'overview' && <OverviewWorkspace />}
