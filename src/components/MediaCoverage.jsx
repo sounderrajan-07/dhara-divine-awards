@@ -8,6 +8,15 @@ export default function MediaCoverage({ onSubmitSuccess }) {
   const [newsArticles, setNewsArticles] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    outlet: '',
+    idNumber: '',
+    coverageType: 'print',
+    email: '',
+    phone: '',
+    message: ''
+  });
 
   useEffect(() => {
     const loadNews = () => {
