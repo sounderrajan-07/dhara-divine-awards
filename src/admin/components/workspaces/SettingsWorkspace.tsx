@@ -2109,18 +2109,21 @@ export const SettingsWorkspace: React.FC = () => {
               </div>
             </div>
           </div>
-          {/* Bottom Save Changes Panel */}
-          <div className="p-4 bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] rounded-3xl flex justify-end shadow-sm mt-6">
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="bg-[#401C0C] hover:bg-[#5C2913] text-white rounded-xl text-sm font-semibold px-8 py-3.5 flex items-center gap-2 cursor-pointer shadow-sm transition-all w-full sm:w-auto justify-center"
-            >
-              <Save size={18} /> {saving ? 'Saving...' : 'Save Settings Changes'}
-            </button>
-          </div>
-        </div> {/* End of Right Side: Active Workspace Form Panel */}
-      </div> {/* End of flex flex-col lg:flex-row gap-8 items-start */}
+        </div>
+      )}
+
+      {/* Bottom Save Changes Panel */}
+      <div className="p-4 bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] rounded-3xl flex justify-end shadow-sm mt-6">
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="bg-[#401C0C] hover:bg-[#5C2913] text-white rounded-xl text-sm font-semibold px-8 py-3.5 flex items-center gap-2 cursor-pointer shadow-sm transition-all w-full sm:w-auto justify-center"
+        >
+          <Save size={18} /> {saving ? 'Saving...' : 'Save Settings Changes'}
+        </button>
+      </div>
+    </div> {/* End of Right Side: Active Workspace Form Panel */}
+  </div> {/* End of flex flex-col lg:flex-row gap-8 items-start */}
 
       {/* ADD / EDIT NEWS MODAL */}
       {showNewsModal && (
