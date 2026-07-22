@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Award, Shield, Sparkles, Star, CheckCircle, Mail, Phone, User, 
   Building, Send, Download, Calendar, MapPin, Users, HelpCircle, 
   ChevronDown, ChevronUp, FileText, ArrowRight, Check, Trophy
 } from 'lucide-react';
-import { submitForm } from '../utils/api';
+import { submitForm, fetchSiteConfig } from '../utils/api';
 
 export default function Sponsorship({ onSubmitSuccess }) {
   const [selectedTier, setSelectedTier] = useState('title');
   const [openFaq, setOpenFaq] = useState(null);
+  const [config, setConfig] = useState(null);
   
+  useEffect(() => {
+    fetchSiteConfig().then(data => {
+      if (data && data.sponsorshipConfig) {
+        setConfig(data.sponsorshipConfig);
+      }
+    });
+  }, []);
+
   const [formData, setFormData] = useState({
     companyName: '',
     contactPerson: '',
@@ -20,90 +29,45 @@ export default function Sponsorship({ onSubmitSuccess }) {
     message: ''
   });
 
-  const packages = [
+  const defaultBenefits = [
     {
-      id: 'title',
-      name: 'Title Sponsor',
-      amount: '₹5,00,000+',
-      description: 'Exclusive title branding, keynote speech recognition, and maximum media visibility.',
-      icon: Award,
-      color: 'from-[#D9762E] to-[#F3A712]',
-      borderColor: 'border-[#F3A712]',
-      glowColor: 'rgba(243, 167, 18, 0.2)',
-      bgStyle: 'bg-gradient-to-br from-[#123E36] to-[#052622] text-white',
-      textColor: 'text-white',
-      descColor: 'text-[#D5E5CD]',
-      bulletColor: 'text-[#F3A712]',
-      tag: 'Exclusive Priority',
-      benefits: ["Exclusive naming rights", "Main backdrop prominence", "Keynote address slot", "10 VIP Event passes"]
+      title: "Brand Visibility",
+      desc: "Gain widespread presence across standard, digital, and stage materials.",
+      items: ["Logo on event banners & backdrops", "Website and social media promotions", "Recognition during the award ceremony", "Branding on event print materials"]
     },
     {
-      id: 'platinum',
-      name: 'Platinum Sponsor',
-      amount: '₹2,50,000+',
-      description: 'Main stage panel branding, extensive social promotions, and prominent logo spots.',
-      icon: Sparkles,
-      color: 'from-[#401C0C] to-[#5C2913]',
-      borderColor: 'border-[#401C0C]',
-      glowColor: 'rgba(16, 185, 129, 0.15)',
-      bgStyle: 'bg-white text-[#1F2318]',
-      textColor: 'text-[#1F2318]',
-      descColor: 'text-neutral-500',
-      bulletColor: 'text-[#401C0C]',
-      tag: 'Premium tier',
-      benefits: ["Main stage branding", "AV profile clip slot", "5 VIP Event passes", "Souvenir full-page ad"]
+      title: "Networking Opportunities",
+      desc: "Build strategic relations with social ecosystem leaders and delegates.",
+      items: ["Meet industry & corporate leaders", "Connect with NGOs & social organizations", "Build long-term strategic partnerships", "Interact with government officials & influencers"]
     },
     {
-      id: 'gold',
-      name: 'Gold Sponsor',
-      amount: '₹1,00,000+',
-      description: 'Logo placement on branding collaterals, event recognition, and delegate passes.',
-      icon: Star,
-      color: 'from-yellow-400 to-amber-500',
-      borderColor: 'border-amber-400',
-      glowColor: 'rgba(245, 158, 11, 0.15)',
-      bgStyle: 'bg-white text-[#1F2318]',
-      textColor: 'text-[#1F2318]',
-      descColor: 'text-neutral-500',
-      bulletColor: 'text-amber-500',
-      tag: 'Highly Popular',
-      benefits: ["Logo on standard flyers", "Reception standee slot", "3 VIP Event passes", "Social media mentions"]
-    },
-    {
-      id: 'silver',
-      name: 'Silver Sponsor',
-      amount: '₹50,000+',
-      description: 'Branding placement on previous sponsor walls, digital brochures, and websites.',
-      icon: Shield,
-      color: 'from-neutral-300 to-neutral-400',
-      borderColor: 'border-neutral-300',
-      glowColor: 'rgba(156, 163, 175, 0.1)',
-      bgStyle: 'bg-white text-[#1F2318]',
-      textColor: 'text-[#1F2318]',
-      descColor: 'text-neutral-500',
-      bulletColor: 'text-neutral-500',
-      tag: 'Core Partner',
-      benefits: ["Logo on website scroll", "Event souvenir mention", "2 Delegate passes", "Appreciation certificate"]
-    },
-    {
-      id: 'community',
-      name: 'Community Sponsor',
-      amount: '₹25,000+',
-      description: 'Showcase grassroots community support with appreciation certificate and mention.',
-      icon: Users,
-      color: 'from-blue-400 to-indigo-500',
-      borderColor: 'border-blue-200',
-      glowColor: 'rgba(59, 130, 246, 0.08)',
-      bgStyle: 'bg-white text-[#1F2318]',
-      textColor: 'text-[#1F2318]',
-      descColor: 'text-neutral-500',
-      bulletColor: 'text-blue-500',
-      tag: 'Grassroots Supporter',
-      benefits: ["Brochure listing logo", "Appreciation certificate", "1 Delegate pass", "Group mention on stage"]
+      title: "Corporate Recognition",
+      desc: "Cement corporate social responsibility prestige on a public platform.",
+      items: ["Sponsor appreciation certificates", "Media and press coverage opportunities", "Stage recognition and vocal mentions", "Featured as a social impact partner"]
     }
   ];
 
-  const faqs = [
+  const defaultOpportunities = [
+    { title: "Event Sponsorship", desc: "Support the Divine Awards event directly and gain extensive corporate brand exposure on stage and screens." },
+    { title: "Program Sponsorship", desc: "Sponsor specific rural welfare and educational development projects that align with your organizational goals." },
+    { title: "CSR Collaboration", desc: "Establish long-term structured MoUs for multi-year community upliftment initiatives." },
+    { title: "In-Kind Sponsorship", desc: "Provide essential venue support, refreshments, technology aids, hospitality, printing materials, or gifts for honorees." }
+  ];
+
+  const defaultPreviousSponsors = [
+    { name: "ABC Corporation", role: "Title Sponsor 2025" },
+    { name: "XYZ Foundations", role: "Platinum Sponsor 2025" },
+    { name: "Zenith Tech", role: "Gold Partner 2024" },
+    { name: "Indus Seva Co", role: "Silver Patron 2024" }
+  ];
+
+  const defaultTestimonial = {
+    quote: "Partnering with Dhara Foundations allowed us to route section 135 CSR funds into verified grassroots projects that delivered measurable impact. The accountability and transparency was exemplary.",
+    author: "Shri. R. Ramanathan",
+    designation: "VP Corporate Relations, ABC Corp"
+  };
+
+  const defaultFaqs = [
     {
       q: "Can sponsorship packages be customized?",
       a: "Yes. We can tailor sponsorship packages and benefits specifically according to your organization's business objectives, budget, and geographic preferences."
@@ -121,6 +85,66 @@ export default function Sponsorship({ onSubmitSuccess }) {
       a: "Yes. All formal corporate relationships are documented with signed MoUs, legal sponsorship agreements, and standard GST invoices."
     }
   ];
+
+  const defaultPackages = [
+    {
+      id: 'title',
+      name: 'Title Sponsor',
+      amount: '₹5,00,000+',
+      description: 'Exclusive title branding, keynote speech recognition, and maximum media visibility.',
+      benefits: ["Exclusive naming rights", "Main backdrop prominence", "Keynote address slot", "10 VIP Event passes"]
+    },
+    {
+      id: 'platinum',
+      name: 'Platinum Sponsor',
+      amount: '₹2,50,000+',
+      description: 'Main stage panel branding, extensive social promotions, and prominent logo spots.',
+      benefits: ["Main stage branding", "AV profile clip slot", "5 VIP Event passes", "Souvenir full-page ad"]
+    },
+    {
+      id: 'gold',
+      name: 'Gold Sponsor',
+      amount: '₹1,00,000+',
+      description: 'Logo placement on branding collaterals, event recognition, and delegate passes.',
+      benefits: ["Logo on standard flyers", "Reception standee slot", "3 VIP Event passes", "Social media mentions"]
+    },
+    {
+      id: 'silver',
+      name: 'Silver Sponsor',
+      amount: '₹50,000+',
+      description: 'Branding placement on previous sponsor walls, digital brochures, and websites.',
+      benefits: ["Logo on website scroll", "Event souvenir mention", "2 Delegate passes", "Appreciation certificate"]
+    },
+    {
+      id: 'community',
+      name: 'Community Sponsor',
+      amount: '₹25,000+',
+      description: 'Showcase grassroots community support with appreciation certificate and mention.',
+      benefits: ["Brochure listing logo", "Appreciation certificate", "1 Delegate pass", "Group mention on stage"]
+    }
+  ];
+
+  const packageStyles = {
+    title: { icon: Award, color: 'from-[#D9762E] to-[#F3A712]', borderColor: 'border-[#F3A712]', glowColor: 'rgba(243, 167, 18, 0.2)', bgStyle: 'bg-gradient-to-br from-[#123E36] to-[#052622] text-white', textColor: 'text-white', descColor: 'text-[#D5E5CD]', bulletColor: 'text-[#F3A712]', tag: 'Exclusive Priority' },
+    platinum: { icon: Sparkles, color: 'from-[#401C0C] to-[#5C2913]', borderColor: 'border-[#401C0C]', glowColor: 'rgba(16, 185, 129, 0.15)', bgStyle: 'bg-white text-[#1F2318]', textColor: 'text-[#1F2318]', descColor: 'text-neutral-500', bulletColor: 'text-[#401C0C]', tag: 'Premium tier' },
+    gold: { icon: Star, color: 'from-yellow-400 to-amber-500', borderColor: 'border-amber-400', glowColor: 'rgba(245, 158, 11, 0.15)', bgStyle: 'bg-white text-[#1F2318]', textColor: 'text-[#1F2318]', descColor: 'text-neutral-500', bulletColor: 'text-amber-500', tag: 'Highly Popular' },
+    silver: { icon: Shield, color: 'from-neutral-300 to-neutral-400', borderColor: 'border-neutral-300', glowColor: 'rgba(156, 163, 175, 0.1)', bgStyle: 'bg-white text-[#1F2318]', textColor: 'text-[#1F2318]', descColor: 'text-neutral-500', bulletColor: 'text-neutral-500', tag: 'Core Partner' },
+    community: { icon: Users, color: 'from-blue-400 to-indigo-500', borderColor: 'border-blue-200', glowColor: 'rgba(59, 130, 246, 0.08)', bgStyle: 'bg-white text-[#1F2318]', textColor: 'text-[#1F2318]', descColor: 'text-neutral-500', bulletColor: 'text-blue-500', tag: 'Grassroots Supporter' }
+  };
+
+  const activeBenefits = config?.benefits || defaultBenefits;
+  const activeOpportunities = config?.opportunities || defaultOpportunities;
+  const activePreviousSponsors = config?.previousSponsors || defaultPreviousSponsors;
+  const activeTestimonial = config?.testimonial || defaultTestimonial;
+  const activeFaqs = config?.faqs || defaultFaqs;
+
+  const rawPackages = config?.packages || defaultPackages;
+  const packages = rawPackages.map(pkg => ({
+    ...pkg,
+    ...(packageStyles[pkg.id] || { icon: Award, color: 'from-[#401C0C] to-[#5C2913]', borderColor: 'border-[#401C0C]', glowColor: 'rgba(0,0,0,0.05)', bgStyle: 'bg-white text-[#1F2318]', textColor: 'text-[#1F2318]', descColor: 'text-neutral-500', bulletColor: 'text-[#401C0C]', tag: pkg.tag || 'Sponsor' })
+  }));
+
+  const faqs = activeFaqs;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -253,10 +277,6 @@ export default function Sponsorship({ onSubmitSuccess }) {
             <button onClick={handleScrollToForm} className="btn btn-primary sparkle-shimmer-btn" style={{ padding: '16px 36px', fontSize: '15px' }}>
               Become a Sponsor
             </button>
-            <button onClick={() => handleDownload('Sponsorship Brochure')} className="btn btn-ghost" style={{ borderColor: 'rgba(217, 166, 70, 0.4)', color: '#F9DCA2', padding: '16px 30px' }}>
-              <Download className="w-4 h-4 mr-2" />
-              Download Sponsorship Brochure
-            </button>
             <button onClick={handleContactEmail} className="btn btn-light" style={{ padding: '16px 30px' }}>
               Contact Our Team
             </button>
@@ -383,26 +403,7 @@ export default function Sponsorship({ onSubmitSuccess }) {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
-          {[
-            {
-              title: "Brand Visibility",
-              desc: "Gain widespread presence across standard, digital, and stage materials.",
-              color: 'rgba(217, 166, 70, 0.1)',
-              items: ["Logo on event banners & backdrops", "Website and social media promotions", "Recognition during the award ceremony", "Branding on event print materials"]
-            },
-            {
-              title: "Networking Opportunities",
-              desc: "Build strategic relations with social ecosystem leaders and delegates.",
-              color: 'rgba(64, 28, 12, 0.05)',
-              items: ["Meet industry & corporate leaders", "Connect with NGOs & social organizations", "Build long-term strategic partnerships", "Interact with government officials & influencers"]
-            },
-            {
-              title: "Corporate Recognition",
-              desc: "Cement corporate social responsibility prestige on a public platform.",
-              color: 'rgba(217, 118, 46, 0.08)',
-              items: ["Sponsor appreciation certificates", "Media and press coverage opportunities", "Stage recognition and vocal mentions", "Featured as a social impact partner"]
-            }
-          ].map((benefitGroup, idx) => (
+          {activeBenefits.map((benefitGroup, idx) => (
             <div key={idx} className="premium-interactive-card" style={{ 
               padding: '36px', 
               position: 'relative',
@@ -551,15 +552,7 @@ export default function Sponsorship({ onSubmitSuccess }) {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            { title: "Event Sponsorship", desc: "Support the Divine Awards event directly and gain extensive corporate brand exposure on stage and screens." },
-            { title: "Program Sponsorship", desc: "Sponsor specific rural welfare and educational development projects that align with your organizational goals." },
-            { title: "CSR Collaboration", desc: "Establish long-term structured MoUs for multi-year community upliftment initiatives." },
-            {
-              title: "In-Kind Sponsorship",
-              desc: "Provide essential venue support, refreshments, technology aids, hospitality, printing materials, or gifts for honorees."
-            }
-          ].map((opp, idx) => (
+          {activeOpportunities.map((opp, idx) => (
             <div key={idx} style={{ 
               padding: '30px', 
               borderRadius: '24px', 
@@ -617,103 +610,7 @@ export default function Sponsorship({ onSubmitSuccess }) {
         </div>
       </section>
 
-      {/* 7. Download Resources Center */}
-      <section className="wrap" style={{ marginTop: '100px' }}>
-        <div style={{ 
-          background: '#fff', 
-          border: '1.5px solid rgba(217, 203, 176, 0.45)', 
-          borderRadius: '32px', 
-          padding: '48px',
-          display: 'grid',
-          gridTemplateColumns: '1.15fr 0.85fr',
-          gap: '48px',
-          alignItems: 'center'
-        }} className="grid grid-cols-1 md:grid-cols-2">
-          
-          <div>
-            <span style={{ 
-              color: '#D9762E', 
-              fontFamily: 'var(--font-mono)', 
-              letterSpacing: '1px', 
-              fontSize: '11px',
-              textTransform: 'uppercase',
-              fontWeight: 'bold',
-              display: 'block',
-              marginBottom: '8px'
-            }}>
-              Event Collaterals
-            </span>
-            <h2 style={{ fontFamily: 'var(--font-serif)', color: '#401C0C', fontSize: '32px', marginBottom: '16px', fontWeight: 'bold' }}>
-              Download Resources
-            </h2>
-            <p style={{ color: 'var(--ink-soft)', fontSize: '15px', lineHeight: '1.6', marginBottom: '28px' }}>
-              Retrieve our detailed partnership kits, award categories breakdown, and reports from past celebrations.
-            </p>
-            
-            <div style={{ display: 'grid', gap: '12px' }}>
-              {[
-                "Why Sponsor Divine Awards 2025?",
-                "Reach a diverse audience of leaders and changemakers.",
-                "Demonstrate your commitment to social impact.",
-                "Strengthen your brand reputation.",
-                "Build meaningful community relationships.",
-                "Become part of a mission-driven movement."
-              ].map((bullet, idx) => (
-                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', color: '#1F2318', fontWeight: idx === 0 ? '700' : '500' }}>
-                  {idx > 0 && <Check className="w-4.5 h-4.5 text-[#401C0C] flex-shrink-0" />}
-                  <span>{bullet}</span>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          <div style={{ 
-            background: '#FAF8F4', 
-            borderRadius: '24px', 
-            padding: '36px', 
-            border: '1px solid rgba(217, 203, 176, 0.35)'
-          }}>
-            <h4 style={{ fontFamily: 'var(--font-serif)', color: '#401C0C', fontSize: '18px', fontWeight: 'bold', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Download className="w-5 h-5 text-amber-600" />
-              Resources Files
-            </h4>
-            
-            <div style={{ display: 'grid', gap: '12px' }}>
-              {[
-                { name: "Sponsorship Brochure", size: "3.5 MB" },
-                { name: "Partnership Proposal", size: "2.8 MB" },
-                { name: "Event Presentation Deck", size: "5.1 MB" },
-                { name: "Previous Event Report", size: "6.2 MB" }
-              ].map((file, idx) => (
-                <div 
-                  key={idx} 
-                  onClick={() => handleDownload(file.name)}
-                  style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center', 
-                    padding: '16px 20px', 
-                    background: '#fff', 
-                    borderRadius: '16px', 
-                    cursor: 'pointer',
-                    border: '1px solid rgba(0,0,0,0.05)',
-                    transition: 'all 0.2s',
-                    boxShadow: '0 2px 6px rgba(0,0,0,0.02)'
-                  }}
-                  className="hover:translate-x-1 hover:border-amber-400 hover:shadow-md"
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <FileText className="w-4 h-4 text-neutral-400" />
-                    <span style={{ fontSize: '13.5px', fontWeight: '600', color: 'var(--ink)' }}>{file.name}</span>
-                  </div>
-                  <span style={{ fontSize: '11px', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)' }}>{file.size}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       {/* 8. Sponsorship Process Timeline with Chevron Design */}
       <section style={{ background: '#FAF8F4', padding: '80px 20px', marginTop: '100px', borderTop: '1px solid rgba(0,0,0,0.03)' }}>
@@ -788,12 +685,7 @@ export default function Sponsorship({ onSubmitSuccess }) {
             
             {/* Logos Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-              {[
-                { name: "ABC Corporation", role: "Title Sponsor 2025" },
-                { name: "XYZ Foundations", role: "Platinum Sponsor 2025" },
-                { name: "Zenith Tech", role: "Gold Partner 2024" },
-                { name: "Indus Seva Co", role: "Silver Patron 2024" }
-              ].map((partner, idx) => (
+              {activePreviousSponsors.map((partner, idx) => (
                 <div key={idx} style={{ 
                   background: '#fff', 
                   border: '1px solid rgba(217, 203, 176, 0.35)', 
@@ -820,10 +712,10 @@ export default function Sponsorship({ onSubmitSuccess }) {
               <span style={{ fontSize: '72px', color: 'rgba(217, 166, 70, 0.2)', position: 'absolute', left: '24px', top: '10px', lineHeight: 1 }}>“</span>
               <div style={{ position: 'relative', zIndex: 2 }}>
                 <p style={{ fontStyle: 'italic', color: 'var(--ink)', fontSize: '16.5px', lineHeight: '1.65', marginBottom: '24px' }}>
-                  "Partnering with Dhara Foundations allowed us to contribute meaningfully while increasing our brand's social impact."
+                  "{activeTestimonial.quote}"
                 </p>
                 <h5 style={{ margin: 0, fontSize: '15px', fontWeight: 'bold', color: '#401C0C' }}>
-                  — Corporate Sponsor
+                  — {activeTestimonial.author} {activeTestimonial.designation ? `, ${activeTestimonial.designation}` : ''}
                 </h5>
               </div>
             </div>
