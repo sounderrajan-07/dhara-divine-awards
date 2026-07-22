@@ -3,12 +3,12 @@ import { useApp } from '../../context/AppContext';
 import { 
   Settings, Save, Video, BarChart2, ShieldCheck, Plus, Trash2, 
   Image as ImageIcon, Users, ArrowUpDown, Home, Info, Building2, 
-  CheckCircle2, Newspaper, Edit3, ExternalLink, X, Upload, Calendar
+  CheckCircle2, Newspaper, Edit3, ExternalLink, X, Upload, Calendar, Trophy, HelpCircle
 } from 'lucide-react';
 
 export const SettingsWorkspace: React.FC = () => {
   const { siteConfig, updateSiteConfig, news, addNews, updateNews, deleteNews, globalSearchQuery } = useApp();
-  const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'subdomains' | 'news' | 'trustees' | 'registrations'>('home');
+  const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'subdomains' | 'news' | 'trustees' | 'registrations' | 'sponsors'>('home');
   
   // Home Section
   const [heroVideoUrl, setHeroVideoUrl] = useState('');
@@ -144,6 +144,134 @@ export const SettingsWorkspace: React.FC = () => {
     }
   ]);
 
+  // Sponsorship Settings States
+  const [sponsorshipBenefits, setSponsorshipBenefits] = useState<any[]>([
+    {
+      title: "Brand Visibility",
+      desc: "Gain widespread presence across standard, digital, and stage materials.",
+      items: ["Logo on event banners & backdrops", "Website and social media promotions", "Recognition during the award ceremony", "Branding on event print materials"]
+    },
+    {
+      title: "Networking Opportunities",
+      desc: "Build strategic relations with social ecosystem leaders and delegates.",
+      items: ["Meet industry & corporate leaders", "Connect with NGOs & social organizations", "Build long-term strategic partnerships", "Interact with government officials & influencers"]
+    },
+    {
+      title: "Corporate Recognition",
+      desc: "Cement corporate social responsibility prestige on a public platform.",
+      items: ["Sponsor appreciation certificates", "Media and press coverage opportunities", "Stage recognition and vocal mentions", "Featured as a social impact partner"]
+    }
+  ]);
+
+  const [sponsorshipOpportunities, setSponsorshipOpportunities] = useState<any[]>([
+    { title: "Event Sponsorship", desc: "Support the Divine Awards event directly and gain extensive corporate brand exposure on stage and screens." },
+    { title: "Program Sponsorship", desc: "Sponsor specific rural welfare and educational development projects that align with your organizational goals." },
+    { title: "CSR Collaboration", desc: "Establish long-term structured MoUs for multi-year community upliftment initiatives." },
+    { title: "In-Kind Sponsorship", desc: "Provide essential venue support, refreshments, technology aids, hospitality, printing materials, or gifts for honorees." }
+  ]);
+
+  const [previousSponsors, setPreviousSponsors] = useState<any[]>([
+    { name: "ABC Corporation", role: "Title Sponsor 2025" },
+    { name: "XYZ Foundations", role: "Platinum Sponsor 2025" },
+    { name: "Zenith Tech", role: "Gold Partner 2024" },
+    { name: "Indus Seva Co", role: "Silver Patron 2024" }
+  ]);
+
+  const [testimonial, setTestimonial] = useState({
+    quote: "Partnering with Dhara Foundations allowed us to route section 135 CSR funds into verified grassroots projects that delivered measurable impact. The accountability and transparency was exemplary.",
+    author: "Shri. R. Ramanathan",
+    designation: "VP Corporate Relations, ABC Corp"
+  });
+
+  const [sponsorshipFaqs, setSponsorshipFaqs] = useState<any[]>([
+    {
+      q: "Can sponsorship packages be customized?",
+      a: "Yes. We can tailor sponsorship packages and benefits specifically according to your organization's business objectives, budget, and geographic preferences."
+    },
+    {
+      q: "Will sponsors receive branding benefits?",
+      a: "Yes. Every sponsor level receives corresponding visual and stage recognition, including logo placement, social media mentions, and souvenir advertisement pages."
+    },
+    {
+      q: "Can we sponsor a specific award category?",
+      a: "Absolutely. Category sponsorships (e.g. sponsoring the 'Women Leader' or 'Educator' award) are available. Please note your choice in the inquiry form."
+    },
+    {
+      q: "Do you provide sponsorship agreements and invoices?",
+      a: "Yes. All formal corporate relationships are documented with signed MoUs, legal sponsorship agreements, and standard GST invoices."
+    }
+  ]);
+
+  const [sponsorshipPackages, setSponsorshipPackages] = useState<any[]>([
+    {
+      id: 'title',
+      name: 'Title Sponsor',
+      amount: '₹5,00,000+',
+      description: 'Exclusive title branding, keynote speech recognition, and maximum media visibility.',
+      benefits: ["Exclusive naming rights", "Main backdrop prominence", "Keynote address slot", "10 VIP Event passes"]
+    },
+    {
+      id: 'platinum',
+      name: 'Platinum Sponsor',
+      amount: '₹2,50,000+',
+      description: 'Main stage panel branding, extensive social promotions, and prominent logo spots.',
+      benefits: ["Main stage branding", "AV profile clip slot", "5 VIP Event passes", "Souvenir full-page ad"]
+    },
+    {
+      id: 'gold',
+      name: 'Gold Sponsor',
+      amount: '₹1,00,000+',
+      description: 'Logo placement on branding collaterals, event recognition, and delegate passes.',
+      benefits: ["Logo on standard flyers", "Reception standee slot", "3 VIP Event passes", "Social media mentions"]
+    },
+    {
+      id: 'silver',
+      name: 'Silver Sponsor',
+      amount: '₹50,000+',
+      description: 'Branding placement on previous sponsor walls, digital brochures, and websites.',
+      benefits: ["Logo on website scroll", "Event souvenir mention", "2 Delegate passes", "Appreciation certificate"]
+    },
+    {
+      id: 'community',
+      name: 'Community Sponsor',
+      amount: '₹25,000+',
+      description: 'Showcase grassroots community support with appreciation certificate and mention.',
+      benefits: ["Brochure listing logo", "Appreciation certificate", "1 Delegate pass", "Group mention on stage"]
+    }
+  ]);
+
+  const addPartner = () => {
+    setPreviousSponsors(prev => [...prev, { name: '', role: '' }]);
+  };
+  const removePartner = (index: number) => {
+    setPreviousSponsors(prev => prev.filter((_, i) => i !== index));
+  };
+  const handlePartnerChange = (index: number, field: string, value: string) => {
+    setPreviousSponsors(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item));
+  };
+
+  const addSponsorFaq = () => {
+    setSponsorshipFaqs(prev => [...prev, { q: '', a: '' }]);
+  };
+  const removeSponsorFaq = (index: number) => {
+    setSponsorshipFaqs(prev => prev.filter((_, i) => i !== index));
+  };
+  const handleSponsorFaqChange = (index: number, field: string, value: string) => {
+    setSponsorshipFaqs(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item));
+  };
+
+  const handleOpportunityChange = (index: number, field: string, value: string) => {
+    setSponsorshipOpportunities(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item));
+  };
+
+  const handleBenefitChange = (index: number, field: string, value: any) => {
+    setSponsorshipBenefits(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item));
+  };
+
+  const handlePackageChange = (index: number, field: string, value: any) => {
+    setSponsorshipPackages(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item));
+  };
+
   // News Modal State inside Site Settings
   const [showNewsModal, setShowNewsModal] = useState<boolean>(false);
   const [editingNewsId, setEditingNewsId] = useState<string | null>(null);
@@ -207,6 +335,16 @@ export const SettingsWorkspace: React.FC = () => {
 
       if (siteConfig.generalEnquiriesConfig) {
         setContactInfo(prev => ({ ...prev, ...siteConfig.generalEnquiriesConfig }));
+      }
+
+      if (siteConfig.sponsorshipConfig) {
+        const sc = siteConfig.sponsorshipConfig;
+        if (sc.benefits && sc.benefits.length > 0) setSponsorshipBenefits(sc.benefits);
+        if (sc.opportunities && sc.opportunities.length > 0) setSponsorshipOpportunities(sc.opportunities);
+        if (sc.previousSponsors && sc.previousSponsors.length > 0) setPreviousSponsors(sc.previousSponsors);
+        if (sc.testimonial) setTestimonial(sc.testimonial);
+        if (sc.faqs && sc.faqs.length > 0) setSponsorshipFaqs(sc.faqs);
+        if (sc.packages && sc.packages.length > 0) setSponsorshipPackages(sc.packages);
       }
     }
   }, [siteConfig]);
@@ -378,7 +516,15 @@ export const SettingsWorkspace: React.FC = () => {
         eventYear: siteConfig?.eventYear || '2026',
         tickets: parsedTickets
       },
-      generalEnquiriesConfig: contactInfo
+      generalEnquiriesConfig: contactInfo,
+      sponsorshipConfig: {
+        benefits: sponsorshipBenefits,
+        opportunities: sponsorshipOpportunities,
+        previousSponsors,
+        testimonial,
+        faqs: sponsorshipFaqs,
+        packages: sponsorshipPackages
+      }
     });
     setSaving(false);
     alert('Site settings & subdomain configurations updated successfully!');
@@ -473,6 +619,17 @@ export const SettingsWorkspace: React.FC = () => {
             }`}
           >
             <ShieldCheck size={16} /> Trust Registrations ({registrations.length})
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('sponsors')}
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+              activeSubTab === 'sponsors'
+                ? 'bg-[#401C0C] text-white shadow-md'
+                : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+            }`}
+          >
+            <Trophy size={16} /> Sponsorships Control
           </button>
         </div>
       </div>
@@ -1137,6 +1294,273 @@ export const SettingsWorkspace: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* SUB TAB 6: SPONSORSHIP CONFIGURATION */}
+      {activeSubTab === 'sponsors' && (
+        <div className="space-y-6">
+          {/* Testimonial Quote */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Trophy size={18} className="text-[#D9762E]" /> Sponsor Testimonial Quote
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="md:col-span-3">
+                <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Quote Text</label>
+                <textarea
+                  value={testimonial.quote}
+                  onChange={(e) => setTestimonial(prev => ({ ...prev, quote: e.target.value }))}
+                  rows={3}
+                  className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs resize-none focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Author Name</label>
+                <input
+                  type="text"
+                  value={testimonial.author}
+                  onChange={(e) => setTestimonial(prev => ({ ...prev, author: e.target.value }))}
+                  className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Author Designation & Company</label>
+                <input
+                  type="text"
+                  value={testimonial.designation}
+                  onChange={(e) => setTestimonial(prev => ({ ...prev, designation: e.target.value }))}
+                  className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Previous Partners & Sponsors */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+                <Users size={18} className="text-[#D9762E]" /> Previous Partners & Sponsors
+              </h3>
+              <button
+                type="button"
+                onClick={addPartner}
+                className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold"
+              >
+                <Plus size={14} /> Add Partner
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {previousSponsors.map((partner, index) => (
+                <div key={index} className="p-4 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3 relative">
+                  <button
+                    type="button"
+                    onClick={() => removePartner(index)}
+                    className="absolute top-3 right-3 p-1 text-red-400 hover:text-red-500 rounded"
+                    title="Remove Partner"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                  <span className="text-[10px] font-bold font-mono text-[#D9762E]">Sponsor #{index + 1}</span>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Company / Brand Name</label>
+                      <input
+                        type="text"
+                        value={partner.name}
+                        onChange={(e) => handlePartnerChange(index, 'name', e.target.value)}
+                        placeholder="e.g. ABC Corporation"
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs font-bold focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Sponsorship Role / Tag</label>
+                      <input
+                        type="text"
+                        value={partner.role}
+                        onChange={(e) => handlePartnerChange(index, 'role', e.target.value)}
+                        placeholder="e.g. Title Sponsor 2025"
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Frequently Asked Questions */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+                <HelpCircle className="text-[#D9762E]" size={18} /> Frequently Asked Questions
+              </h3>
+              <button
+                type="button"
+                onClick={addSponsorFaq}
+                className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold"
+              >
+                <Plus size={14} /> Add Question
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              {sponsorshipFaqs.map((faq, index) => (
+                <div key={index} className="p-4 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3 relative">
+                  <button
+                    type="button"
+                    onClick={() => removeSponsorFaq(index)}
+                    className="absolute top-3 right-3 p-1 text-red-400 hover:text-red-500 rounded"
+                    title="Remove FAQ"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                  <span className="text-[10px] font-bold font-mono text-[#D9762E]">FAQ #{index + 1}</span>
+                  <div className="space-y-2">
+                    <div>
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Question</label>
+                      <input
+                        type="text"
+                        value={faq.q}
+                        onChange={(e) => handleSponsorFaqChange(index, 'q', e.target.value)}
+                        placeholder="e.g. Can sponsorship packages be customized?"
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs font-bold focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Answer</label>
+                      <textarea
+                        value={faq.a}
+                        onChange={(e) => handleSponsorFaqChange(index, 'a', e.target.value)}
+                        rows={2}
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs resize-none focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sponsorship Benefits */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Award size={18} className="text-[#D9762E]" /> Sponsorship Benefits (3 Sections)
+            </h3>
+            <div className="grid grid-cols-1 gap-6">
+              {sponsorshipBenefits.map((benefit, index) => (
+                <div key={index} className="p-5 border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3 bg-[#FDFDFD] dark:bg-[#1D1E1B]">
+                  <span className="text-[10px] font-bold font-mono text-[#D9762E]">Benefit Group #{index + 1}</span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Benefit Group Title</label>
+                      <input
+                        type="text"
+                        value={benefit.title}
+                        onChange={(e) => handleBenefitChange(index, 'title', e.target.value)}
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs font-bold focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Benefit Group Subtitle / Short Description</label>
+                      <input
+                        type="text"
+                        value={benefit.desc}
+                        onChange={(e) => handleBenefitChange(index, 'desc', e.target.value)}
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs focus:outline-none"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Detailed Benefits Bullet List (One per line)</label>
+                      <textarea
+                        value={Array.isArray(benefit.items) ? benefit.items.join('\n') : benefit.items || ''}
+                        onChange={(e) => handleBenefitChange(index, 'items', e.target.value.split('\n'))}
+                        rows={4}
+                        placeholder="e.g. Logo on standard flyers&#10;Reception standee slot"
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs resize-none focus:outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Partnership Opportunities */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Settings size={18} className="text-[#D9762E]" /> Partnership Opportunities (4 Models)
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {sponsorshipOpportunities.map((opp, index) => (
+                <div key={index} className="p-4 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3">
+                  <span className="text-[10px] font-bold font-mono text-[#D9762E]">Opportunity Model #{index + 1}</span>
+                  <div>
+                    <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Opportunity Title</label>
+                    <input
+                      type="text"
+                      value={opp.title}
+                      onChange={(e) => handleOpportunityChange(index, 'title', e.target.value)}
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs font-bold focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Description</label>
+                    <textarea
+                      value={opp.desc}
+                      onChange={(e) => handleOpportunityChange(index, 'desc', e.target.value)}
+                      rows={3}
+                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs resize-none focus:outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sponsorship Packages */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Save size={18} className="text-[#D9762E]" /> Sponsorship Package Tiers (5 Packages)
+            </h3>
+            <div className="grid grid-cols-1 gap-6">
+              {sponsorshipPackages.map((pkg, index) => (
+                <div key={index} className="p-5 border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3 bg-[#FDFDFD] dark:bg-[#1D1E1B]">
+                  <span className="text-[10px] font-bold font-mono text-[#D9762E]">{pkg.name} Settings</span>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Price / Amount Bracket</label>
+                      <input
+                        type="text"
+                        value={pkg.amount}
+                        onChange={(e) => handlePackageChange(index, 'amount', e.target.value)}
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs font-bold focus:outline-none"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Package Tagline / Description</label>
+                      <input
+                        type="text"
+                        value={pkg.description}
+                        onChange={(e) => handlePackageChange(index, 'description', e.target.value)}
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs focus:outline-none"
+                      />
+                    </div>
+                    <div className="md:col-span-3">
+                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Tier Benefits Bullet List (One per line)</label>
+                      <textarea
+                        value={Array.isArray(pkg.benefits) ? pkg.benefits.join('\n') : pkg.benefits || ''}
+                        onChange={(e) => handlePackageChange(index, 'benefits', e.target.value.split('\n'))}
+                        rows={4}
+                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs resize-none focus:outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
