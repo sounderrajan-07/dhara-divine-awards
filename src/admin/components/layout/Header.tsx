@@ -26,14 +26,15 @@ export const Header: React.FC = () => {
 
   const getTabTitle = () => {
     switch (currentTab) {
-      case 'overview': return { title: 'Unified Overview & Analytics', desc: 'Real-time telemetry and KPI metrics for Dhara Divine Awards 2026' };
+      case 'overview': return { title: 'Overview & Analytics', desc: 'Real-time telemetry and KPI metrics for Dhara Divine Awards 2026' };
       case 'nominations': return { title: 'Award Nominations Vetting', desc: 'Manage submissions, assign jury review, and shortlist candidates' };
-      case 'donations': return { title: 'Donor & Sponsorship Ledger', desc: 'Track financial offerings, CSR pledges, and generate Tax 80G Seva Patr receipts' };
-      case 'delegates': return { title: 'Delegate Registry & Gate Control', desc: 'Verify ticket passes, scan barcodes, and monitor hall check-in capacity' };
+      case 'donations': return { title: 'Donations & Sponsors Ledger', desc: 'Track financial offerings, CSR pledges, and generate Tax 80G Seva Patr receipts' };
+      case 'delegates': return { title: 'Event Registration & Gate Control', desc: 'Verify ticket passes, scan barcodes, and monitor hall check-in capacity' };
       case 'volunteers': return { title: 'Volunteer Seva Roster', desc: 'Coordinate skill matrices, shifts, and venue logistics assignments' };
-      case 'enquiries': return { title: 'General Enquiries & Media Desk', desc: 'Respond to press pass requests, sponsor inquiries, and devotee questions' };
+      case 'enquiries': return { title: 'Contact Enquiries & Media Desk', desc: 'Respond to press pass requests, sponsor inquiries, and devotee questions' };
       case 'gallery': return { title: 'Gallery Management Panel', desc: 'Add new photographs, manage categories, and update promotional gallery' };
-      case 'events': return { title: 'Events & Activities Organizer', desc: 'Manage event highlights, add new YouTube coverage videos, and log spiritual/community seva' };
+      case 'events': return { title: 'Events & News Organizer', desc: 'Manage event highlights, add new YouTube coverage videos, and log spiritual/community seva' };
+      case 'event-config': return { title: 'Passes & Tickets Pricing', desc: 'Configure delegate pass pricing, corporate sponsorship tiers, and ticketing limits' };
       case 'settings': return { title: 'Site Settings', desc: 'Configure global settings for the promotional website' };
       default: return { title: 'Dhara Divine Awards Dashboard', desc: 'Admin Portal' };
     }

@@ -29,25 +29,25 @@ export const Sidebar: React.FC = () => {
   const newEnquiries = enquiries.filter(e => e.status === 'new').length;
 
   const navItems: NavItem[] = [
-    { id: 'overview', label: 'Overview Panel', icon: <LayoutDashboard size={20} /> },
+    { id: 'overview', label: 'Overview', icon: <LayoutDashboard size={20} /> },
     { 
       id: 'nominations', 
-      label: 'Nominations Workspace', 
+      label: 'Award Nominations', 
       icon: <Award size={20} />,
       badge: pendingNominations > 0 ? pendingNominations : undefined 
     },
-    { id: 'donations', label: 'Donor & Sponsorship Ledger', icon: <IndianRupee size={20} /> },
-    { id: 'delegates', label: 'Delegate Registry & Gate', icon: <QrCode size={20} /> },
-    { id: 'volunteers', label: 'Volunteer Roster', icon: <Users size={20} /> },
+    { id: 'donations', label: 'Donations & Sponsors', icon: <IndianRupee size={20} /> },
+    { id: 'delegates', label: 'Event Registration', icon: <QrCode size={20} /> },
+    { id: 'volunteers', label: 'Volunteer Seva', icon: <Users size={20} /> },
     { 
       id: 'enquiries', 
-      label: 'Enquiries & Media', 
+      label: 'Contact Enquiries', 
       icon: <MessageSquare size={20} />,
       badge: newEnquiries > 0 ? newEnquiries : undefined 
     },
-    { id: 'gallery', label: 'Gallery Management', icon: <ImageIcon size={20} /> },
-    { id: 'events', label: 'Events & Activities', icon: <Calendar size={20} /> },
-    { id: 'event-config', label: 'Passes & Pricing', icon: <Ticket size={20} /> },
+    { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={20} /> },
+    { id: 'events', label: 'Events & News', icon: <Calendar size={20} /> },
+    { id: 'event-config', label: 'Passes & Tickets', icon: <Ticket size={20} /> },
     { id: 'settings', label: 'Site Settings', icon: <Settings size={20} /> },
   ];
 
