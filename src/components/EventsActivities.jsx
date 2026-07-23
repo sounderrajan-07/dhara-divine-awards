@@ -473,43 +473,60 @@ export default function EventsActivities() {
     }
   ];
 
-  const dynamicSection = dynamicEvents.length > 0 ? {
-    id: "sec-dynamic",
-    title: "Recent Updates & Events",
-    subtitle: "Latest videos added via admin portal.",
-    videos: dynamicEvents.map(ev => ({
-      id: ev.youtubeId,
-      title: ev.title,
-      description: ev.description,
-      duration: ev.category
-    }))
-  } : null;
+  const spiritualPillarsCategories = ['Spiritual Pillars', 'Sivacharyas', 'Bhattacharyas', 'Odhuvars'];
+  const institutionsCategories = ['Institutions and Organisations', 'Institutions', 'Organisations', 'Traditional Craft', 'Traditional Art'];
+  const individualsCategories = ['Individuals and Professionals', 'Individuals', 'Professionals'];
+  const grassRouteCategories = ['Grass Route Eminents', 'Grassroots', 'Grassroots Volunteers', 'Grassroot'];
+
+  const dynamicSection = dynamicEvents.filter(ev => 
+    !spiritualPillarsCategories.includes(ev.category) &&
+    !institutionsCategories.includes(ev.category) &&
+    !individualsCategories.includes(ev.category) &&
+    !grassRouteCategories.includes(ev.category)
+  );
+
+  const dynamicSpiritual = dynamicEvents.filter(ev => spiritualPillarsCategories.includes(ev.category));
+  const dynamicInstitutions = dynamicEvents.filter(ev => institutionsCategories.includes(ev.category));
+  const dynamicIndividuals = dynamicEvents.filter(ev => individualsCategories.includes(ev.category));
+  const dynamicGrassroots = dynamicEvents.filter(ev => grassRouteCategories.includes(ev.category));
+
+  const mapToVideoFormat = (ev) => ({
+    id: ev.youtubeId,
+    title: ev.title,
+    description: ev.description,
+    duration: ev.category
+  });
 
   const sections = [
-    ...(dynamicSection ? [dynamicSection] : []),
+    ...(dynamicSection.length > 0 ? [{
+      id: "sec-dynamic",
+      title: "Recent Updates & Events",
+      subtitle: "Latest videos and updates added via admin portal.",
+      videos: dynamicSection.map(mapToVideoFormat)
+    }] : []),
     {
       id: "sec-1",
       title: "Spiritual Pillars",
       subtitle: "Honoring Sivachariyars, Bhattachariyars, Sivanadiyars, and dedicated exponents of sacred Sanatana worship traditions.",
-      videos: section1Videos
+      videos: [...dynamicSpiritual.map(mapToVideoFormat), ...section1Videos]
     },
     {
       id: "sec-2",
       title: "Institutions and Organisations",
       subtitle: "Recognizing excellence across education, healthcare, annadhanam, spiritual media, traditional crafts, and philanthropy.",
-      videos: section2Videos
+      videos: [...dynamicInstitutions.map(mapToVideoFormat), ...section2Videos]
     },
     {
       id: "sec-3",
       title: "Individuals and Professionals",
-      subtitle: "Keynote speeches, felicitations, and discourses by distinguished judges, scientists, legal experts, authors, doctors, and traditional specialists.",
-      videos: section3Videos
+      subtitle: "Keynote speeches, felicitations, and discourses by distinguished judges, legal experts, authors, doctors, and traditional specialists.",
+      videos: [...dynamicIndividuals.map(mapToVideoFormat), ...section3Videos]
     },
     {
       id: "sec-4",
       title: "Grass Route Eminents",
       subtitle: "Honoring grassroots temple artisans, master sthapathis, sculptors, pushpa alankarams, madapalli sevaks, mahouts, and folk artists.",
-      videos: section4Videos
+      videos: [...dynamicGrassroots.map(mapToVideoFormat), ...section4Videos]
     }
   ];
 

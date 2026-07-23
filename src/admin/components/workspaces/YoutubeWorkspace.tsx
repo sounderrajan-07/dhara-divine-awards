@@ -58,7 +58,7 @@ export const YoutubeWorkspace: React.FC = () => {
 
   // Form states
   const [title, setTitle] = useState<string>('');
-  const [category, setCategory] = useState<string>('YouTube Videos');
+  const [category, setCategory] = useState<string>('Recent Updates & Events');
   const [description, setDescription] = useState<string>('');
   const [youtubeId, setYoutubeId] = useState<string>('');
   const [featured, setFeatured] = useState<boolean>(true);
@@ -123,7 +123,7 @@ export const YoutubeWorkspace: React.FC = () => {
   const resetForm = () => {
     setEditingId(null);
     setTitle('');
-    setCategory('YouTube Videos');
+    setCategory('Recent Updates & Events');
     setDescription('');
     setYoutubeId('');
     setFeatured(true);
@@ -284,15 +284,19 @@ export const YoutubeWorkspace: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-bold text-[#534436] dark:text-[#D1D5DB] mb-1">
-                    Video Category / Duration
+                    Video Category *
                   </label>
-                  <input
-                    type="text"
+                  <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    placeholder="e.g. Traditional Craft or 12:45"
                     className="w-full px-4 py-2.5 rounded-xl border border-[#E4E2DD] dark:border-[#30312E] bg-[#FBF9F4] dark:bg-[#242622] text-sm text-[#1B1C19] dark:text-white focus:outline-none focus:border-[#D9762E]"
-                  />
+                  >
+                    <option value="Recent Updates & Events">Recent Updates & Events</option>
+                    <option value="Spiritual Pillars">Spiritual Pillars</option>
+                    <option value="Institutions and Organisations">Institutions and Organisations</option>
+                    <option value="Individuals and Professionals">Individuals and Professionals</option>
+                    <option value="Grass Route Eminents">Grass Route Eminents</option>
+                  </select>
                 </div>
               </div>
 
