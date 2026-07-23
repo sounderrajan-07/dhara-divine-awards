@@ -72,7 +72,6 @@ export default function Navbar({ activeTab, setActiveTab, mobileMenuOpen, setMob
                   <a href="/sponsor" onClick={(e) => { e.preventDefault(); setActiveTab('sponsor'); setPortalsOpen(false); }}>Corporate Sponsors</a>
                   <a href="/csr" onClick={(e) => { e.preventDefault(); setActiveTab('csr'); setPortalsOpen(false); }}>CSR Partnership</a>
                   <a href="/volunteer" onClick={(e) => { e.preventDefault(); setActiveTab('volunteer'); setPortalsOpen(false); }}>Volunteer Seva</a>
-                  <a href="/admin" onClick={(e) => { e.preventDefault(); setActiveTab('admin'); setPortalsOpen(false); }}>Admin Portal</a>
                   <a href="https://dhara-foundation.vercel.app/" target="_blank" rel="noopener noreferrer" onClick={() => setPortalsOpen(false)}>Other Events</a>
                 </div>
               )}

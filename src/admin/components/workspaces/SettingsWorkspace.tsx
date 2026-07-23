@@ -627,10 +627,6 @@ export const SettingsWorkspace: React.FC = () => {
 
   const handleSave = async () => {
     setSaving(true);
-    const parsedTickets = registrationTickets.map(t => ({
-      ...t,
-      features: typeof t.features === 'string' ? t.features.split(',').map(f => f.trim()).filter(Boolean) : t.features
-    }));
 
     await updateSiteConfig({
       ...siteConfig,
@@ -642,45 +638,10 @@ export const SettingsWorkspace: React.FC = () => {
       aboutStats,
       founders,
       homeCredentials,
-      registrations,
-      registrationTickets: parsedTickets,
-      razorpayConfig: {
-        keyId: razorpayKeyId
-      },
-      donorConfig: {
-        presets: donorPresets,
-        bankDetails,
-        taxExemptText,
-        razorpayKeyId
-      },
-      eventRegConfig: {
-        eventYear: siteConfig?.eventYear || '2026',
-        tickets: parsedTickets
-      },
-      generalEnquiriesConfig: contactInfo,
-      sponsorshipConfig: {
-        benefits: sponsorshipBenefits,
-        opportunities: sponsorshipOpportunities,
-        previousSponsors,
-        testimonial,
-        faqs: sponsorshipFaqs,
-        packages: sponsorshipPackages
-      },
-      csrConfig: {
-        whyPartner: csrWhyPartner,
-        csrProcess: csrProcess,
-        partnershipModels: csrPartnershipModels,
-        complianceHub: {
-          docs: csrComplianceDocs,
-          downloads: csrComplianceDownloads
-        },
-        caseStudies: csrCaseStudies,
-        corporatePartners: csrCorporatePartners,
-        testimonial: csrTestimonial
-      }
+      registrations
     });
     setSaving(false);
-    alert('Site settings & subdomain configurations updated successfully!');
+    alert('Site settings updated successfully!');
   };
 
   return (
