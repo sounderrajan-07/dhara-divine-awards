@@ -157,14 +157,75 @@ export default function EventRegistration({ onSubmitSuccess, siteConfig }) {
   };
 
   return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-      <div className="text-center mb-12">
-        <span className="text-sun-gold font-semibold uppercase tracking-wider text-sm font-sans">Divine Awards {eventYear}</span>
-        <h2 className="text-4xl font-serif text-forest-teal-dark mt-2 mb-4">Event Registration</h2>
-        <p className="text-neutral-600 max-w-2xl mx-auto font-sans">
-          Join us in honoring outstanding contributions to society and spiritual evolution. Select your attendance category below to secure your seat.
-        </p>
-      </div>
+    <div style={{ background: 'var(--color-warm-cream)', minHeight: '100vh', paddingBottom: '80px' }}>
+      
+      {/* 1. Hero Section */}
+      <section style={{ 
+        position: 'relative', 
+        background: 'linear-gradient(135deg, var(--color-deep-forest) 0%, var(--color-deep-forest-dark) 100%)',
+        color: '#fff',
+        padding: '100px 20px',
+        textAlign: 'center',
+        overflow: 'hidden',
+        marginBottom: '48px'
+      }}>
+        {/* Glow Effects */}
+        <div style={{
+          position: 'absolute', top: '-150px', right: '-150px',
+          width: '500px', height: '500px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(243, 167, 18, 0.15) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
+        
+        <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(217, 166, 70, 0.15)',
+            border: '1px solid rgba(217, 166, 70, 0.3)',
+            borderRadius: '999px',
+            padding: '6px 18px',
+            marginBottom: '24px'
+          }}>
+            <Ticket className="w-4 h-4 text-[#F3A712]" />
+            <span style={{ 
+              color: '#F9DCA2', 
+              fontFamily: 'var(--font-mono)', 
+              letterSpacing: '1px', 
+              fontSize: '11px',
+              textTransform: 'uppercase',
+              fontWeight: '700'
+            }}>
+              Divine Awards {eventYear}
+            </span>
+          </div>
+
+          <h1 style={{ 
+            fontFamily: 'var(--font-serif)', 
+            fontSize: 'clamp(36px, 5.5vw, 56px)', 
+            lineHeight: '1.15', 
+            maxWidth: '920px',
+            margin: '0 auto 24px',
+            fontWeight: 'bold',
+            color: '#ffffff'
+          }}>
+            Secure Your Entry Pass
+          </h1>
+
+          <p style={{ 
+            color: '#D5E5CD', 
+            fontSize: '18px', 
+            maxWidth: '740px', 
+            margin: '0 auto',
+            lineHeight: '1.6'
+          }}>
+            Join us in honoring outstanding contributions to society and spiritual evolution. Select your attendance category below to secure your seat.
+          </p>
+        </div>
+      </section>
+
+      <div className="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
         {tickets.map((t) => (
@@ -363,5 +424,6 @@ export default function EventRegistration({ onSubmitSuccess, siteConfig }) {
         </form>
       </div>
     </div>
+  </div>
   );
 }

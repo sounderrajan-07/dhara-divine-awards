@@ -1,16 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { Award, Users, Calendar, Trees, Search, Play, X } from 'lucide-react';
-import { fetchEvents } from '../utils/api';
+import { fetchEvents, fetchSiteConfig } from '../utils/api';
+
+const iconMap = {
+  Award: Award,
+  Users: Users,
+  Calendar: Calendar,
+  Trees: Trees
+};
 
 export default function EventsActivities() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeVideoId, setActiveVideoId] = useState(null);
   const [dynamicEvents, setDynamicEvents] = useState([]);
+  const [eventStats, setEventStats] = useState([
+    {
+      icon: Award,
+      value: '63+',
+      label: 'Divine Awardees Honored',
+      desc: 'Grassroots leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.'
+    },
+    {
+      icon: Users,
+      value: '2,500+',
+      label: 'Dignitaries & Attendees',
+      desc: 'Gathering of Madras High Court Judge Justice GR Swaminathan, Adheenams, and eminent personalities.'
+    },
+    {
+      icon: Calendar,
+      value: 'Jan 2025',
+      label: 'Flagship Assembly Date',
+      desc: 'A grand devotional assembly hosted at the Chinmaya Heritage Centre in Chennai.'
+    },
+    {
+      icon: Trees,
+      value: '100% Seva',
+      label: 'Pure Selfless Platform',
+      desc: 'Organized fully by volunteers to recognize quiet champions of socio-cultural revival.'
+    }
+  ]);
 
   useEffect(() => {
     fetchEvents().then(res => {
       if (res && res.length) {
         setDynamicEvents(res.filter(ev => ev.type === 'video'));
+      }
+    });
+    fetchSiteConfig().then(config => {
+      if (config && config.eventStats && config.eventStats.length === 4) {
+        const mappedStats = config.eventStats.map(stat => ({
+          ...stat,
+          icon: iconMap[stat.icon] || Award
+        }));
+        setEventStats(mappedStats);
       }
     });
   }, []);
@@ -502,7 +544,7 @@ export default function EventsActivities() {
 
       {/* Impact Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((s, idx) => {
+        {eventStats.map((s, idx) => {
           const Icon = s.icon;
           return (
             <div

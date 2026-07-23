@@ -71,7 +71,8 @@ export default async function handler(req: any, res: any) {
         skills: body.preferredRoleText ? [body.preferredRoleText] : ['Logistics'],
         availability: body.availability || 'Full Event',
         status: 'active',
-        assigned_zone: 'General Support'
+        assigned_zone: 'General Support',
+        referred_by: body.referredBy || ''
       };
       db.volunteers.push(newEntry);
       activityType = 'volunteer';

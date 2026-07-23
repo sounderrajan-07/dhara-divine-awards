@@ -322,13 +322,39 @@ export const NominationsWorkspace: React.FC = () => {
 
             {previewNomination.nominee_work_image && (
               <div className="space-y-3">
-                <h4 className="text-xs font-bold text-[#867463] uppercase tracking-wider">Uploaded Evidence / Nominee Work Image</h4>
-                <div className="border border-[#E4E2DD] dark:border-[#30312E] rounded-2xl overflow-hidden bg-neutral-50 dark:bg-neutral-900 flex justify-center p-2">
-                  <img 
-                    src={previewNomination.nominee_work_image} 
-                    alt="Nominee Work Evidence" 
-                    className="max-h-[300px] object-contain rounded-xl shadow-sm" 
-                  />
+                <h4 className="text-xs font-bold text-[#867463] uppercase tracking-wider">Uploaded Evidence / Nominee Work Images</h4>
+                <div className="border border-[#E4E2DD] dark:border-[#30312E] rounded-2xl p-4 bg-neutral-50 dark:bg-neutral-900">
+                  {(() => {
+                    try {
+                      if (previewNomination.nominee_work_image.startsWith('[')) {
+                        const imgs = JSON.parse(previewNomination.nominee_work_image);
+                        if (Array.isArray(imgs) && imgs.length > 0) {
+                          return (
+                            <div className="grid grid-cols-2 gap-4">
+                              {imgs.map((imgSrc, idx) => (
+                                <img 
+                                  key={idx}
+                                  src={imgSrc} 
+                                  alt={`Nominee Work Evidence ${idx + 1}`} 
+                                  className="max-h-[200px] w-full object-contain rounded-xl shadow-sm border border-neutral-100 dark:border-neutral-800" 
+                                />
+                              ))}
+                            </div>
+                          );
+                        }
+                      }
+                    } catch (e) {}
+
+                    return (
+                      <div className="flex justify-center p-2">
+                        <img 
+                          src={previewNomination.nominee_work_image} 
+                          alt="Nominee Work Evidence" 
+                          className="max-h-[300px] object-contain rounded-xl shadow-sm" 
+                        />
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             )}

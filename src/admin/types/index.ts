@@ -68,6 +68,7 @@ export interface Volunteer {
   availability: Availability;
   status: VolunteerStatus;
   assigned_zone?: string;
+  referred_by?: string;
 }
 
 export type EnquiryType = 'general' | 'media' | 'sponsorship_enquiry';

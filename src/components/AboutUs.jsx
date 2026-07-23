@@ -240,7 +240,7 @@ export default function AboutUs({ siteConfig }) {
               </h4>
               <div className="space-y-4 text-sm text-[#F3E9D4] leading-relaxed font-sans">
                 <p>
-                  The <strong>Dhara Divine Awards</strong> were conceived with a simple yet powerful purpose—to recognize individuals and organizations whose contributions have significantly improved the lives of others.
+                  The <strong>Dhara Divine Awards</strong> were conceived with a simple yet powerful purpose-to recognize 63 categories of individuals and organisations whose contributions have significantly improved the lives of others.
                 </p>
                 <p>
                   In a world often focused on achievement and recognition, countless heroes continue to work quietly behind the scenes, transforming communities through dedication, compassion, and selfless service. These awards shine a spotlight on such remarkable individuals and institutions.
@@ -313,7 +313,7 @@ export default function AboutUs({ siteConfig }) {
                       <span className="text-[10px] bg-[#FFD27F]/20 text-[#FFD27F] px-2 py-0.5 rounded-full font-bold">12 Honorees</span>
                     </div>
                     <div className="text-sm font-bold text-white font-serif mt-0.5">
-                      ₹25,000 Cash Prize &amp; Trophy <span className="text-xs font-normal text-neutral-300 font-sans">(Each Recipient)</span>
+                      only ₹25,000 Cash Prize &amp; Trophy to 12 deserving awardees <span className="text-xs font-normal text-neutral-300 font-sans">(Each Recipient)</span>
                     </div>
                   </div>
                 </div>

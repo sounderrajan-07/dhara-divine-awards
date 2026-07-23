@@ -118,6 +118,9 @@ export const VolunteersWorkspace: React.FC = () => {
                   <td className="py-4 px-6">
                     <div className="font-serif font-bold text-sm text-[#1B1C19] dark:text-[#F3F4F6]">{vol.name}</div>
                     <span className="text-[11px] text-[#867463] font-mono">Age: {vol.age} • ID: {vol.id}</span>
+                    {vol.referred_by && (
+                      <div className="text-[10px] text-[#D9762E] font-medium mt-0.5">Ref: {vol.referred_by}</div>
+                    )}
                   </td>
                   <td className="py-4 px-4">
                     <div className="flex items-center gap-1.5 text-[#534436] dark:text-[#D1D5DB]"><Mail size={12} /> {vol.email}</div>

@@ -456,11 +456,15 @@ export default function App() {
             <ul className="hero-highlights font-serif" style={{ listStyle: 'none', padding: 0, margin: '0 0 36px 0', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
               <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '1.25rem', lineHeight: '1.5', color: 'var(--ink-soft)' }}>
                 <span style={{ color: 'var(--color-saffron-glow)', fontSize: '1.25rem', marginTop: '2px' }}>✦</span>
-                <span className="text-left">An annual celebration honouring selfless individuals in the path of spiritual and social service</span>
+                <span className="text-left">An annual celebration honouring 63 selfless Individuals in the path of spiritual and social service.</span>
               </li>
               <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '1.25rem', lineHeight: '1.5', color: 'var(--ink-soft)' }}>
                 <span style={{ color: 'var(--color-saffron-glow)', fontSize: '1.25rem', marginTop: '2px' }}>✦</span>
-                <span className="text-left">Recognizing excellence from grassroots volunteers to thought leaders</span>
+                <span className="text-left">Recognizing excellence from grassroot volunteers to thought leaders</span>
+              </li>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '1.25rem', lineHeight: '1.5', color: 'var(--ink-soft)' }}>
+                <span style={{ color: 'var(--color-saffron-glow)', fontSize: '1.25rem', marginTop: '2px' }}>✦</span>
+                <span className="text-left">Honouring 12 deserving awardees with the cash ₹25000 each.</span>
               </li>
             </ul>
             <div className="hero-actions" style={{ flexWrap: 'wrap', gap: '16px', justifyContent: 'flex-start', width: '100%' }}>

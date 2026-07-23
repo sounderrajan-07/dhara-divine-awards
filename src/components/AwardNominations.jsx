@@ -18,7 +18,8 @@ export default function AwardNominations({ onSubmitSuccess }) {
     sevaSummary: '',
     impactMetrics: '',
     references: '',
-    nomineeWorkImage: ''
+    nomineeWorkImage: '',
+    nomineeWorkImages: []
   });
 
   const groupedCategories = {
@@ -112,8 +113,8 @@ export default function AwardNominations({ onSubmitSuccess }) {
         alert('Please fill in the nominee name and location.');
         return;
       }
-      if (!formData.nomineeWorkImage) {
-        alert("Please upload an image showing the nominee's work as evidence.");
+      if (!formData.nomineeWorkImages || formData.nomineeWorkImages.length === 0) {
+        alert("Please upload at least one image showing the nominee's work as evidence.");
         return;
       }
       setStep(3);
@@ -135,6 +136,7 @@ export default function AwardNominations({ onSubmitSuccess }) {
 
     const submission = {
       ...formData,
+      nomineeWorkImage: JSON.stringify(formData.nomineeWorkImages || []),
       categoryTitle
     };
 
@@ -152,14 +154,75 @@ export default function AwardNominations({ onSubmitSuccess }) {
   };
 
   return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-      <div className="text-center mb-12">
-        <span className="text-sun-gold font-semibold uppercase tracking-wider text-sm font-sans font-semibold">Honoring Selfless Souls</span>
-        <h2 className="text-4xl font-serif text-forest-teal-dark mt-2 mb-4">Divine Awards 2025 Nominations</h2>
-        <p className="text-neutral-600 max-w-2xl mx-auto font-sans">
-          Do you know a silent hero who does outstanding seva without seeking recognition? Nominate them today to shine a light on their noble deeds.
-        </p>
-      </div>
+    <div style={{ background: 'var(--color-warm-cream)', minHeight: '100vh', paddingBottom: '80px' }}>
+      
+      {/* 1. Hero Section */}
+      <section style={{ 
+        position: 'relative', 
+        background: 'linear-gradient(135deg, var(--color-deep-forest) 0%, var(--color-deep-forest-dark) 100%)',
+        color: '#fff',
+        padding: '100px 20px',
+        textAlign: 'center',
+        overflow: 'hidden',
+        marginBottom: '48px'
+      }}>
+        {/* Glow Effects */}
+        <div style={{
+          position: 'absolute', top: '-150px', right: '-150px',
+          width: '500px', height: '500px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(243, 167, 18, 0.15) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
+        
+        <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(217, 166, 70, 0.15)',
+            border: '1px solid rgba(217, 166, 70, 0.3)',
+            borderRadius: '999px',
+            padding: '6px 18px',
+            marginBottom: '24px'
+          }}>
+            <Award className="w-4 h-4 text-[#F3A712]" />
+            <span style={{ 
+              color: '#F9DCA2', 
+              fontFamily: 'var(--font-mono)', 
+              letterSpacing: '1px', 
+              fontSize: '11px',
+              textTransform: 'uppercase',
+              fontWeight: '700'
+            }}>
+              Honoring Selfless Souls
+            </span>
+          </div>
+
+          <h1 style={{ 
+            fontFamily: 'var(--font-serif)', 
+            fontSize: 'clamp(36px, 5.5vw, 56px)', 
+            lineHeight: '1.15', 
+            maxWidth: '920px',
+            margin: '0 auto 24px',
+            fontWeight: 'bold',
+            color: '#ffffff'
+          }}>
+            Divine Awards 2025 Nominations
+          </h1>
+
+          <p style={{ 
+            color: '#D5E5CD', 
+            fontSize: '18px', 
+            maxWidth: '740px', 
+            margin: '0 auto',
+            lineHeight: '1.6'
+          }}>
+            Do you know a silent hero who does outstanding seva without seeking recognition? Nominate them today to shine a light on their noble deeds.
+          </p>
+        </div>
+      </section>
+
+      <div className="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
 
       <div className="max-w-4xl mx-auto mb-10">
         <div className="flex items-center justify-between relative">
@@ -374,73 +437,95 @@ export default function AwardNominations({ onSubmitSuccess }) {
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-forest-teal mb-2 font-sans">
-                Upload Nominee's Work / Evidence (Image) *
+                Upload Nominee's Work / Evidence (Images) * <span className="text-[10px] text-neutral-450 normal-case">(Add up to 4 images)</span>
               </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-neutral-250 rounded-2xl hover:border-forest-teal transition-colors bg-[#FDFBF9]/50">
-                <div className="space-y-1 text-center">
-                  {formData.nomineeWorkImage ? (
-                    <div className="relative inline-block">
+
+              {formData.nomineeWorkImages && formData.nomineeWorkImages.length > 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+                  {formData.nomineeWorkImages.map((img, idx) => (
+                    <div key={idx} className="relative inline-block border border-neutral-200 rounded-xl overflow-hidden bg-[#FDFBF9] p-1 shadow-sm">
                       <img
-                        src={formData.nomineeWorkImage}
-                        alt="Nominee work preview"
-                        className="max-h-48 rounded-lg object-contain shadow-sm border border-neutral-100"
+                        src={img}
+                        alt={`Nominee work preview ${idx + 1}`}
+                        className="h-28 w-full object-contain rounded-lg"
                       />
                       <button
                         type="button"
-                        onClick={() => setFormData(prev => ({ ...prev, nomineeWorkImage: '' }))}
-                        className="absolute -top-2 -right-2 p-1.5 bg-red-650 text-white rounded-full hover:bg-red-700 transition-colors shadow-md cursor-pointer"
+                        onClick={() => setFormData(prev => ({
+                          ...prev,
+                          nomineeWorkImages: prev.nomineeWorkImages.filter((_, i) => i !== idx)
+                        }))}
+                        className="absolute -top-1 -right-1 p-1 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors shadow-md cursor-pointer"
                         title="Remove Image"
                       >
-                        <X className="w-3.5 h-3.5" />
+                        <X className="w-3 h-3" />
                       </button>
                     </div>
-                  ) : (
-                    <>
-                      <svg
-                        className="mx-auto h-12 w-12 text-neutral-400"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 48 48"
-                        aria-hidden="true"
+                  ))}
+                </div>
+              )}
+
+              {(!formData.nomineeWorkImages || formData.nomineeWorkImages.length < 4) && (
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-neutral-250 rounded-2xl hover:border-forest-teal transition-colors bg-[#FDFBF9]/50">
+                  <div className="space-y-1 text-center">
+                    <svg
+                      className="mx-auto h-12 w-12 text-neutral-400"
+                      stroke="currentColor"
+                      fill="none"
+                      viewBox="0 0 48 48"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <div className="flex text-sm text-neutral-600 font-sans justify-center">
+                      <label
+                        htmlFor="file-upload"
+                        className="relative cursor-pointer bg-transparent rounded-md font-semibold text-sun-gold hover:text-amber-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-forest-teal"
                       >
-                        <path
-                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <div className="flex text-sm text-neutral-600 font-sans justify-center">
-                        <label
-                          htmlFor="file-upload"
-                          className="relative cursor-pointer bg-transparent rounded-md font-semibold text-sun-gold hover:text-amber-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-forest-teal"
-                        >
-                          <span>Upload a file</span>
-                          <input
-                            id="file-upload"
-                            name="file-upload"
-                            type="file"
-                            accept="image/*"
-                            className="sr-only"
-                            onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
+                        <span>Upload files</span>
+                        <input
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          className="sr-only"
+                          onChange={(e) => {
+                            const files = Array.from(e.target.files || []);
+                            if (files.length > 0) {
+                              const currentCount = formData.nomineeWorkImages?.length || 0;
+                              const allowedCount = 4 - currentCount;
+                              const filesToProcess = files.slice(0, allowedCount);
+
+                              filesToProcess.forEach(file => {
                                 const reader = new FileReader();
                                 reader.onloadend = () => {
-                                  setFormData(prev => ({ ...prev, nomineeWorkImage: reader.result }));
+                                  setFormData(prev => {
+                                    const currentImages = prev.nomineeWorkImages || [];
+                                    if (currentImages.length >= 4) return prev;
+                                    return {
+                                      ...prev,
+                                      nomineeWorkImages: [...currentImages, reader.result]
+                                    };
+                                  });
                                 };
                                 reader.readAsDataURL(file);
-                              }
-                            }}
-                          />
-                        </label>
-                        <p className="pl-1">or drag and drop</p>
-                      </div>
-                      <p className="text-xs text-neutral-500 font-sans">PNG, JPG, JPEG up to 5MB</p>
-                    </>
-                  )}
+                              });
+                            }
+                          }}
+                        />
+                      </label>
+                      <p className="pl-1">or drag and drop</p>
+                    </div>
+                    <p className="text-xs text-neutral-500 font-sans">PNG, JPG, JPEG up to 5MB (Upto 4 files)</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="pt-4 flex justify-between">
@@ -539,5 +624,6 @@ export default function AwardNominations({ onSubmitSuccess }) {
         )}
       </div>
     </div>
+  </div>
   );
 }

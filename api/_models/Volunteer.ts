@@ -10,6 +10,7 @@ export interface IVolunteer extends Document {
   availability: string;
   status: 'active' | 'assigned' | 'on_hold';
   assigned_zone?: string;
+  referred_by?: string;
 }
 
 const VolunteerSchema: Schema = new Schema({
@@ -21,7 +22,8 @@ const VolunteerSchema: Schema = new Schema({
   skills: [{ type: String }],
   availability: { type: String, default: 'Full Event' },
   status: { type: String, enum: ['active', 'assigned', 'on_hold'], default: 'active' },
-  assigned_zone: { type: String, default: 'General Support' }
+  assigned_zone: { type: String, default: 'General Support' },
+  referred_by: { type: String, default: '' }
 });
 
 export default mongoose.models.Volunteer || mongoose.model<IVolunteer>('Volunteer', VolunteerSchema);

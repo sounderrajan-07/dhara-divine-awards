@@ -131,12 +131,14 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                       onClick={() => setSelectedVideo(art)}
                       title="Click to play video"
                     >
-                      <video
-                        src={art.mediaUrl}
-                        preload="metadata"
+                      <img
+                        src={encodeURI(art.image || "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80")}
+                        alt={art.title}
                         className="w-full h-full max-h-[360px] object-contain transition-transform duration-500 group-hover/img:scale-105"
-                        muted
-                        playsInline
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80";
+                        }}
                       />
                       <div className="absolute inset-0 bg-black/35 flex items-center justify-center group-hover/img:bg-black/50 transition-colors">
                         <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center group-hover/img:scale-110 transition-transform duration-300 border border-white/30">

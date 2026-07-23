@@ -28,7 +28,8 @@ export default function Volunteer({ onSubmitSuccess }) {
     emergencyContact: '',
     medicalNotes: '',
     agreeGuidelines: false,
-    consentPhoto: false
+    consentPhoto: false,
+    referredBy: ''
   });
 
   const opportunities = [
@@ -863,6 +864,18 @@ export default function Volunteer({ onSubmitSuccess }) {
                     style={{ width: '100%', padding: '12px 14px', borderRadius: '12px', border: '1.5px solid var(--color-card-border)', background: '#fff', fontSize: '14px' }}
                   />
                 </div>
+              </div>
+
+              <div style={{ marginTop: '20px' }}>
+                <label style={{ display: 'block', fontSize: '11px', fontWeight: 'bold', color: '#401C0C', marginBottom: '8px', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Who referred you to join as a volunteer? (Optional)</label>
+                <input
+                  type="text"
+                  name="referredBy"
+                  placeholder="e.g. Friend Name, Social Media post, NGO partner"
+                  value={formData.referredBy}
+                  onChange={handleChange}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '12px', border: '1.5px solid var(--color-card-border)', background: '#fff', fontSize: '14px' }}
+                />
               </div>
             </div>
 

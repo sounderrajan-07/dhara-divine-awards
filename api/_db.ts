@@ -119,59 +119,18 @@ export async function readDb(): Promise<DatabaseSchema> {
 
       let finalEvents = events;
       if (!events || events.length === 0) {
-        console.log("Events database is empty. Auto-migrating initial events from EventsActivities.jsx...");
-        const eventsPagePath = path.join(process.cwd(), 'src', 'components', 'EventsActivities.jsx');
-        let fileExists = false;
+        console.log("Events database is empty. Auto-migrating initial events from db.json...");
         try {
-          await fs.access(eventsPagePath);
-          fileExists = true;
-        } catch {}
-
-        if (fileExists) {
-          try {
-            const content = await fs.readFile(eventsPagePath, 'utf8');
-
-            const extractSectionVideos = (varName: string): any[] => {
-              const startIdx = content.indexOf(`const ${varName} = [`);
-              if (startIdx === -1) return [];
-              const endIdx = content.indexOf('];', startIdx);
-              if (endIdx === -1) return [];
-              const arrayText = content.substring(startIdx + `const ${varName} = `.length, endIdx + 2).trim();
-              try {
-                return eval(arrayText);
-              } catch (e) {
-                console.error(`Failed to parse ${varName}:`, e);
-                return [];
-              }
-            };
-
-            const section1 = extractSectionVideos('section1Videos');
-            const section2 = extractSectionVideos('section2Videos');
-            const section3 = extractSectionVideos('section3Videos');
-            const section4 = extractSectionVideos('section4Videos');
-
-            const allVideos = [...section1, ...section2, ...section3, ...section4];
-            if (allVideos.length > 0) {
-              const eventsDbList = allVideos.map((vid, idx) => ({
-                id: `ev-vid-${vid.id}-${idx}`,
-                type: 'video',
-                category: vid.duration || 'YouTube Videos',
-                title: vid.title,
-                description: vid.description || '',
-                youtubeId: vid.id,
-                image: `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`,
-                featured: idx < 6
-              }));
-
-              await Promise.all(
-                eventsDbList.map(item => (Event as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
-              );
-              console.log(`Successfully migrated ${eventsDbList.length} events to MongoDB.`);
-              finalEvents = await (Event as any).find({}).lean();
-            }
-          } catch (e) {
-            console.error("Failed to dynamically migrate events:", e);
+          const fileData = await readLocalDbFile();
+          if (fileData.events && fileData.events.length > 0) {
+            await Promise.all(
+              fileData.events.map((item: any) => (Event as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
+            );
+            console.log(`Successfully migrated ${fileData.events.length} events from db.json to MongoDB.`);
+            finalEvents = await (Event as any).find({}).lean();
           }
+        } catch (e) {
+          console.error("Failed to migrate events from db.json:", e);
         }
       }
 
