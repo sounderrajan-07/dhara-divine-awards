@@ -155,79 +155,101 @@ export const YoutubeWorkspace: React.FC = () => {
         </button>
       </div>
 
-      {/* Grid List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredVideos.length === 0 ? (
-          <div className="col-span-full py-16 text-center bg-white dark:bg-[#1B1C19] rounded-3xl border border-dashed border-[#E4E2DD] dark:border-[#30312E] text-xs text-[#867463] italic">
-            No video highlights found. Click "Add Video Highlight" to add one.
-          </div>
-        ) : (
-          filteredVideos.map(vid => (
-            <div
-              key={vid.id}
-              className="bg-white dark:bg-[#1B1C19] rounded-3xl border border-[#EAE8E3] dark:border-[#30312E] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-            >
-              <div>
-                <div className="relative h-48 bg-[#121310] overflow-hidden flex items-center justify-center">
-                  <img
-                    src={getThumbnailUrl(vid.youtubeId)}
-                    alt={vid.title}
-                    className="w-full h-full object-cover"
-                    onError={(e: any) => {
-                      e.target.onerror = null;
-                      e.target.src = "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <Play className="text-white w-10 h-10 drop-shadow-lg opacity-85 hover:scale-110 transition-transform cursor-pointer" />
-                  </div>
-                  {vid.featured && (
-                    <div className="absolute top-3 left-3 bg-[#FFD27F]/90 backdrop-blur-sm text-[#401C0C] text-[10px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1">
-                      <Star size={10} fill="#401C0C" /> Featured
-                    </div>
-                  )}
-                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-[#FFD27F] text-[10px] font-mono px-2.5 py-1 rounded-lg border border-white/20">
-                    ID: {vid.youtubeId}
-                  </div>
-                </div>
+      {/* Categorized Video List */}
+      <div className="space-y-10">
+        {[
+          'Recent Updates & Events',
+          'Spiritual Pillars',
+          'Institutions and Organisations',
+          'Individuals and Professionals',
+          'Grass Route Eminents'
+        ].map(cat => {
+          const catVideos = filteredVideos.filter(vid => {
+            const vidCat = vid.category || 'Recent Updates & Events';
+            if (cat === 'Recent Updates & Events') {
+              return vidCat === cat || !['Recent Updates & Events', 'Spiritual Pillars', 'Institutions and Organisations', 'Individuals and Professionals', 'Grass Route Eminents'].includes(vidCat);
+            }
+            return vidCat === cat;
+          });
 
-                <div className="p-5 space-y-3">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#401C0C]/10 dark:bg-[#FFD27F]/10 text-[#401C0C] dark:text-[#FFD27F] text-[10px] font-bold uppercase tracking-wider">
-                      {vid.category || 'Highlight'}
-                    </span>
-                  </div>
-                  <h3 className="font-serif text-sm font-bold text-[#1B1C19] dark:text-[#F3F4F6] line-clamp-2 leading-snug">
-                    {vid.title}
-                  </h3>
-                  <p className="text-[11px] text-[#867463] dark:text-[#9CA3AF] line-clamp-3 leading-relaxed">
-                    {vid.description}
-                  </p>
-                </div>
+          if (catVideos.length === 0) return null;
+
+          return (
+            <div key={cat} className="space-y-4">
+              <div className="border-b border-[#EAE8E3] dark:border-[#30312E] pb-2">
+                <h3 className="font-serif text-base font-bold text-[#401C0C] dark:text-[#FFD27F]">{cat}</h3>
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {catVideos.map(vid => (
+                  <div
+                    key={vid.id}
+                    className="bg-white dark:bg-[#1B1C19] rounded-3xl border border-[#EAE8E3] dark:border-[#30312E] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="relative h-48 bg-[#121310] overflow-hidden flex items-center justify-center">
+                        <img
+                          src={getThumbnailUrl(vid.youtubeId)}
+                          alt={vid.title}
+                          className="w-full h-full object-cover"
+                          onError={(e: any) => {
+                            e.target.onerror = null;
+                            e.target.src = 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80';
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                          <Play className="text-white w-10 h-10 drop-shadow-lg opacity-85 hover:scale-110 transition-transform cursor-pointer" />
+                        </div>
+                        {vid.featured && (
+                          <div className="absolute top-3 left-3 bg-[#FFD27F]/90 backdrop-blur-sm text-[#401C0C] text-[10px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1">
+                            <Star size={10} fill="#401C0C" /> Featured
+                          </div>
+                        )}
+                        <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-[#FFD27F] text-[10px] font-mono px-2.5 py-1 rounded-lg border border-white/20">
+                          ID: {vid.youtubeId}
+                        </div>
+                      </div>
 
-              <div className="p-5 pt-0 border-t border-[#F5F3EE] dark:border-[#2E302A] flex justify-end gap-2 bg-[#FDFBF8]/50 dark:bg-[#1C1D1A]/50">
-                <button
-                  onClick={() => handleEditClick(vid)}
-                  className="p-2 rounded-xl text-[#867463] hover:text-[#C9A646] hover:bg-[#F5F3EE] dark:hover:bg-[#242622] transition-colors cursor-pointer"
-                  title="Edit Video Highlight"
-                >
-                  <Edit3 size={15} />
-                </button>
-                <button
-                  onClick={async () => {
-                    if (confirm(`Are you sure you want to delete video "${vid.title}"?`)) {
-                      await deleteEvent(vid.id);
-                    }
-                  }}
-                  className="p-2 rounded-xl text-[#867463] hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors cursor-pointer"
-                  title="Delete Video Highlight"
-                >
-                  <Trash2 size={15} />
-                </button>
+                      <div className="p-5 space-y-3">
+                        <h3 className="font-serif text-sm font-bold text-[#1B1C19] dark:text-[#F3F4F6] line-clamp-2 leading-snug">
+                          {vid.title}
+                        </h3>
+                        <p className="text-[11px] text-[#867463] dark:text-[#9CA3AF] line-clamp-3 leading-relaxed">
+                          {vid.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-5 pt-0 border-t border-[#F5F3EE] dark:border-[#2E302A] flex justify-end gap-2 bg-[#FDFBF8]/50 dark:bg-[#1C1D1A]/50">
+                      <button
+                        onClick={() => handleEditClick(vid)}
+                        className="p-2 rounded-xl text-[#867463] hover:text-[#C9A646] hover:bg-[#F5F3EE] dark:hover:bg-[#242622] transition-colors cursor-pointer"
+                        title="Edit Video Highlight"
+                      >
+                        <Edit3 size={15} />
+                      </button>
+                      <button
+                        onClick={async () => {
+                          if (confirm(`Are you sure you want to delete video "${vid.title}"?`)) {
+                            await deleteEvent(vid.id);
+                          }
+                        }}
+                        className="p-2 rounded-xl text-[#867463] hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors cursor-pointer"
+                        title="Delete Video Highlight"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))
+          );
+        })}
+
+        {filteredVideos.length === 0 && (
+          <div className="py-16 text-center bg-white dark:bg-[#1B1C19] rounded-3xl border border-dashed border-[#E4E2DD] dark:border-[#30312E] text-xs text-[#867463] italic">
+            No video highlights found. Click "Add Video Highlight" to add one.
+          </div>
         )}
       </div>
 
