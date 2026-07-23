@@ -473,10 +473,10 @@ export default function EventsActivities() {
     }
   ];
 
-  const spiritualPillarsCategories = ['Spiritual Pillars', 'Sivacharyas', 'Bhattacharyas', 'Odhuvars'];
-  const institutionsCategories = ['Institutions and Organisations', 'Institutions', 'Organisations', 'Traditional Craft', 'Traditional Art'];
-  const individualsCategories = ['Individuals and Professionals', 'Individuals', 'Professionals'];
-  const grassRouteCategories = ['Grass Route Eminents', 'Grassroots', 'Grassroots Volunteers', 'Grassroot'];
+  const spiritualPillarsCategories = ['Spiritual Pillars', 'Sivacharyas', 'Bhattacharyas', 'Odhuvars', 'Sivachariyar Seva', 'Sai Bhakti Seva', 'Siddhar Tradition', 'Guardian Deity Seva', 'Uzhavarappani Seva', 'Gramadevatha Seva'];
+  const institutionsCategories = ['Institutions and Organisations', 'Institutions', 'Organisations', 'Traditional Craft', 'Traditional Art', 'Education Seva', 'Medical Seva', 'Hospitality Seva', 'Higher Education', 'Annadhanam Seva', 'Corporate CSR Seva', 'Social Welfare'];
+  const individualsCategories = ['Individuals and Professionals', 'Individuals', 'Professionals', 'Madras HC Judge', 'Spiritual Music', 'Financial Seva'];
+  const grassRouteCategories = ['Grass Route Eminents', 'Grassroots', 'Grassroots Volunteers', 'Grassroot', 'Temple Seva', 'Heritage Sports', 'Vedic Pathashala', 'Temple Priest Seva', 'Temple Architecture', 'Metal Iconography', 'Temple Carpentry', 'Sacred Art', 'Madapalli Seva', 'Pushpa Alankaram', 'Mahout Seva', 'Folk Theater Art'];
 
   const dynamicSection = dynamicEvents.filter(ev => 
     !spiritualPillarsCategories.includes(ev.category) &&

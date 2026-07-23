@@ -20,6 +20,23 @@ const Youtube: React.FC<React.SVGProps<SVGSVGElement> & { size?: number | string
   </svg>
 );
 
+const normalizeCategory = (cat: string): string => {
+  const c = (cat || '').trim();
+  if (['Spiritual Pillars', 'Sivacharyas', 'Bhattacharyas', 'Odhuvars', 'Sivachariyar Seva', 'Sai Bhakti Seva', 'Siddhar Tradition', 'Guardian Deity Seva', 'Uzhavarappani Seva', 'Gramadevatha Seva'].includes(c)) {
+    return 'Spiritual Pillars';
+  }
+  if (['Institutions and Organisations', 'Institutions', 'Organisations', 'Traditional Craft', 'Traditional Art', 'Education Seva', 'Medical Seva', 'Hospitality Seva', 'Higher Education', 'Annadhanam Seva', 'Corporate CSR Seva', 'Social Welfare'].includes(c)) {
+    return 'Institutions and Organisations';
+  }
+  if (['Individuals and Professionals', 'Individuals', 'Professionals', 'Madras HC Judge', 'Spiritual Music', 'Financial Seva'].includes(c)) {
+    return 'Individuals and Professionals';
+  }
+  if (['Grass Route Eminents', 'Grassroots', 'Grassroots Volunteers', 'Grassroot', 'Temple Seva', 'Heritage Sports', 'Vedic Pathashala', 'Temple Priest Seva', 'Temple Architecture', 'Metal Iconography', 'Temple Carpentry', 'Sacred Art', 'Madapalli Seva', 'Pushpa Alankaram', 'Mahout Seva', 'Folk Theater Art'].includes(c)) {
+    return 'Grass Route Eminents';
+  }
+  return 'Recent Updates & Events';
+};
+
 export const YoutubeWorkspace: React.FC = () => {
   const { events, addEvent, updateEvent, deleteEvent, globalSearchQuery, siteConfig, updateSiteConfig } = useApp();
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
@@ -164,13 +181,7 @@ export const YoutubeWorkspace: React.FC = () => {
           'Individuals and Professionals',
           'Grass Route Eminents'
         ].map(cat => {
-          const catVideos = filteredVideos.filter(vid => {
-            const vidCat = vid.category || 'Recent Updates & Events';
-            if (cat === 'Recent Updates & Events') {
-              return vidCat === cat || !['Recent Updates & Events', 'Spiritual Pillars', 'Institutions and Organisations', 'Individuals and Professionals', 'Grass Route Eminents'].includes(vidCat);
-            }
-            return vidCat === cat;
-          });
+          const catVideos = filteredVideos.filter(vid => normalizeCategory(vid.category) === cat);
 
           if (catVideos.length === 0) return null;
 
