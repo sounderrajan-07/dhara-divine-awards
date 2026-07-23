@@ -1779,47 +1779,6 @@ export const SettingsWorkspace: React.FC = () => {
               ))}
             </div>
           </div>
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Collaboration Details</label>
-                      <input
-                        type="text"
-                        value={partner.collab}
-                        onChange={(e) => handleCsrCorporatePartnerChange(index, 'collab', e.target.value)}
-                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Testimonial Quote */}
-            <div className="border-t border-[#EAE8E3] dark:border-[#30312E] pt-6 space-y-4">
-              <h4 className="font-serif text-md font-bold text-[#401C0C] dark:text-[#F3F4F6]">CSR Testimonial Quote</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="md:col-span-3">
-                  <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Quote Text</label>
-                  <textarea
-                    value={csrTestimonial.quote}
-                    onChange={(e) => setCsrTestimonial(prev => ({ ...prev, quote: e.target.value }))}
-                    rows={3}
-                    className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs resize-none focus:outline-none focus:border-[#D9762E]"
-                  />
-                </div>
-                <div className="md:col-span-3">
-                  <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Author Name & Role</label>
-                  <input
-                    type="text"
-                    value={csrTestimonial.author}
-                    onChange={(e) => setCsrTestimonial(prev => ({ ...prev, author: e.target.value }))}
-                    className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-[#D9762E]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       )}
 
