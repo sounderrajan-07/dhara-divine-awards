@@ -8,7 +8,7 @@ import {
 
 export const SettingsWorkspace: React.FC = () => {
   const { siteConfig, updateSiteConfig, news, addNews, updateNews, deleteNews, globalSearchQuery } = useApp();
-  const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'news' | 'trustees' | 'registrations' | 'sponsors' | 'csr'>('home');
+  const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'news' | 'trustees' | 'registrations'>('home');
   
   // Home Section
   const [heroVideoUrl, setHeroVideoUrl] = useState('');
@@ -997,8 +997,6 @@ export const SettingsWorkspace: React.FC = () => {
         </div>
       )}
 
-
-
       {/* SUB TAB 3: NEWS SECTION SETTINGS */}
       {activeSubTab === 'news' && (
         <div className="space-y-6">
@@ -1781,50 +1779,6 @@ export const SettingsWorkspace: React.FC = () => {
               ))}
             </div>
           </div>
-
-          {/* Our Corporate Partners & Testimonial */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-6">
-            <div className="flex justify-between items-center">
-              <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
-                <Users size={18} className="text-[#D9762E]" /> Our Corporate Partners Logos
-              </h3>
-              <button
-                type="button"
-                onClick={addCsrCorporatePartner}
-                className="text-[#D9762E] hover:text-[#C9A646] p-1.5 bg-[#F5F3EE] dark:bg-[#242622] rounded-lg border border-[#EAE8E3] dark:border-[#30312E] flex items-center gap-1 text-xs font-semibold"
-              >
-                <Plus size={14} /> Add Partner
-              </button>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {csrCorporatePartners.map((partner, index) => (
-                <div key={index} className="p-4 bg-[#F9F8F6] dark:bg-[#242622] border border-[#EAE8E3] dark:border-[#30312E] rounded-2xl space-y-3 relative">
-                  <button
-                    type="button"
-                    onClick={() => removeCsrCorporatePartner(index)}
-                    className="absolute top-3 right-3 p-1 text-red-400 hover:text-red-500 rounded"
-                  >
-                    <Trash2 size={14} />
-                  </button>
-                  <span className="text-[10px] font-bold font-mono text-[#D9762E]">Partner #{index + 1}</span>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Company Name</label>
-                      <input
-                        type="text"
-                        value={partner.name}
-                        onChange={(e) => handleCsrCorporatePartnerChange(index, 'name', e.target.value)}
-                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs font-bold focus:outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[9px] uppercase font-semibold text-[#867463] mb-1">Partnership Since</label>
-                      <input
-                        type="text"
-                        value={partner.duration}
-                        onChange={(e) => handleCsrCorporatePartnerChange(index, 'duration', e.target.value)}
-                        className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs focus:outline-none"
                       />
                     </div>
                     <div>

@@ -267,14 +267,6 @@ export default function CorporateCSR({ onSubmitSuccess, siteConfig }) {
             <button onClick={handleScrollToForm} className="btn btn-primary sparkle-shimmer-btn">
               Become a CSR Partner
             </button>
-            <button onClick={handleScheduleMeeting} className="btn btn-secondary" style={{ background: 'white', border: '1px solid rgba(64, 28, 12, 0.25)', color: '#401C0C', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-              <Calendar className="w-4 h-4" />
-              Schedule a Meeting
-            </button>
-            <button onClick={() => handleDownload('CSR Brochure')} className="btn btn-secondary" style={{ background: 'white', border: '1px solid rgba(64, 28, 12, 0.25)', color: '#401C0C', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-              <Download className="w-4 h-4" />
-              Download CSR Brochure
-            </button>
           </div>
         </div>
       </section>
