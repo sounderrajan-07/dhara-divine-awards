@@ -47,7 +47,6 @@ export const Sidebar: React.FC = () => {
       )
     },
     { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={20} /> },
-    { id: 'events', label: 'Events & News', icon: <Calendar size={20} /> },
     { id: 'event-config', label: 'Passes & Tickets', icon: <Ticket size={20} /> },
     { id: 'settings', label: 'Site Settings', icon: <Settings size={20} /> },
   ];

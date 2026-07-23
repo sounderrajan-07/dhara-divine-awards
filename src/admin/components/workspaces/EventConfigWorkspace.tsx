@@ -30,12 +30,6 @@ export const EventConfigWorkspace: React.FC = () => {
     }
   ]);
   const [saving, setSaving] = useState(false);
-  const [eventStats, setEventStats] = useState([
-    { value: '63+', label: 'Divine Awardees Honored', desc: 'Grassroots leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.', icon: 'Award' },
-    { value: '2,500+', label: 'Dignitaries & Attendees', desc: 'Gathering of Madras High Court Judge Justice GR Swaminathan, Adheenams, and eminent personalities.', icon: 'Users' },
-    { value: 'Jan 2025', label: 'Flagship Assembly Date', desc: 'A grand devotional assembly hosted at the Chinmaya Heritage Centre in Chennai.', icon: 'Calendar' },
-    { value: '100% Seva', label: 'Pure Selfless Platform', desc: 'Organized fully by volunteers to recognize quiet champions of socio-cultural revival.', icon: 'Trees' }
-  ]);
 
   useEffect(() => {
     if (siteConfig) {
@@ -46,8 +40,6 @@ export const EventConfigWorkspace: React.FC = () => {
           features: Array.isArray(t.features) ? t.features.join(', ') : (t.features || '')
         })));
       }
-      if (siteConfig.eventStats && siteConfig.eventStats.length === 4) {
-        setEventStats(siteConfig.eventStats);
       }
     }
   }, [siteConfig]);
@@ -66,8 +58,7 @@ export const EventConfigWorkspace: React.FC = () => {
       registrationTickets: registrationTickets.map(t => ({
         ...t,
         features: t.features.split(',').map((f: string) => f.trim()).filter((f: string) => f)
-      })),
-      eventStats
+      }))
     });
     setSaving(false);
     alert('Event Config saved successfully!');
@@ -172,62 +163,6 @@ export const EventConfigWorkspace: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Dynamic Event Statistics Panel */}
-        <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
-          <div>
-            <h3 className="font-serif text-lg font-bold text-[#1B1C19] dark:text-[#F3F4F6]">Event Highlights Statistics & Metrics</h3>
-            <p className="text-xs text-[#867463] dark:text-[#9CA3AF] mt-1">
-              Configure the 4 statistics cards shown at the top of the event video highlight page.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {eventStats.map((stat, idx) => (
-              <div key={idx} className="p-4 rounded-2xl bg-[#F5F3EE] dark:bg-[#242622] border border-[#E4E2DD] dark:border-[#30312E] space-y-3">
-                <span className="text-xs font-bold text-[#401C0C] dark:text-[#FFD27F] block">Card #{idx + 1} ({stat.icon})</span>
-                <div>
-                  <label className="block text-[10px] uppercase font-bold text-[#867463] mb-1">Value</label>
-                  <input
-                    type="text"
-                    value={stat.value}
-                    onChange={(e) => {
-                      const newStats = [...eventStats];
-                      newStats[idx] = { ...newStats[idx], value: e.target.value };
-                      setEventStats(newStats);
-                    }}
-                    className="w-full bg-white dark:bg-[#1B1C19] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C] font-semibold text-[#1B1C19] dark:text-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] uppercase font-bold text-[#867463] mb-1">Label</label>
-                  <input
-                    type="text"
-                    value={stat.label}
-                    onChange={(e) => {
-                      const newStats = [...eventStats];
-                      newStats[idx] = { ...newStats[idx], label: e.target.value };
-                      setEventStats(newStats);
-                    }}
-                    className="w-full bg-white dark:bg-[#1B1C19] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C] font-semibold text-[#1B1C19] dark:text-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] uppercase font-bold text-[#867463] mb-1">Description</label>
-                  <textarea
-                    value={stat.desc}
-                    onChange={(e) => {
-                      const newStats = [...eventStats];
-                      newStats[idx] = { ...newStats[idx], desc: e.target.value };
-                      setEventStats(newStats);
-                    }}
-                    rows={3}
-                    className="w-full bg-white dark:bg-[#1B1C19] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C] resize-none text-[#534436] dark:text-[#D1D5DB]"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 

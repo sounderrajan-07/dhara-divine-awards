@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Search, Plus, Trash2, X, Edit3, Play, Star } from 'lucide-react';
+import { Search, Plus, Trash2, X, Edit3, Play, Star, Save, Award } from 'lucide-react';
 
 const Youtube: React.FC<React.SVGProps<SVGSVGElement> & { size?: number | string }> = ({ size = 24, ...props }) => (
   <svg
@@ -21,9 +21,40 @@ const Youtube: React.FC<React.SVGProps<SVGSVGElement> & { size?: number | string
 );
 
 export const YoutubeWorkspace: React.FC = () => {
-  const { events, addEvent, updateEvent, deleteEvent, globalSearchQuery } = useApp();
+  const { events, addEvent, updateEvent, deleteEvent, globalSearchQuery, siteConfig, updateSiteConfig } = useApp();
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  // Statistics editor states
+  const [eventStats, setEventStats] = useState([
+    { value: '63+', label: 'Divine Awardees Honored', desc: 'Grassroots leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.', icon: 'Award' },
+    { value: '2,500+', label: 'Dignitaries & Attendees', desc: 'Gathering of Madras High Court Judge Justice GR Swaminathan, Adheenams, and eminent personalities.', icon: 'Users' },
+    { value: 'Jan 2025', label: 'Flagship Assembly Date', desc: 'A grand devotional assembly hosted at the Chinmaya Heritage Centre in Chennai.', icon: 'Calendar' },
+    { value: '100% Seva', label: 'Pure Selfless Platform', desc: 'Organized fully by volunteers to recognize quiet champions of socio-cultural revival.', icon: 'Trees' }
+  ]);
+  const [savingStats, setSavingStats] = useState(false);
+
+  React.useEffect(() => {
+    if (siteConfig && siteConfig.eventStats && siteConfig.eventStats.length === 4) {
+      setEventStats(siteConfig.eventStats);
+    }
+  }, [siteConfig]);
+
+  const handleSaveStats = async () => {
+    setSavingStats(true);
+    try {
+      await updateSiteConfig({
+        ...siteConfig,
+        eventStats
+      });
+      alert('Event highlights statistics saved successfully!');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save statistics.');
+    } finally {
+      setSavingStats(false);
+    }
+  };
 
   // Form states
   const [title, setTitle] = useState<string>('');
@@ -310,6 +341,72 @@ export const YoutubeWorkspace: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Dynamic Event Statistics Panel */}
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4 mt-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 className="font-serif text-lg font-bold text-[#1B1C19] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Award className="w-5 h-5 text-[#D9762E]" /> Event Highlights Statistics & Metrics
+            </h3>
+            <p className="text-xs text-[#867463] dark:text-[#9CA3AF] mt-1">
+              Configure the 4 statistics cards shown at the top of the event video highlight page.
+            </p>
+          </div>
+          <button
+            onClick={handleSaveStats}
+            disabled={savingStats}
+            className="bg-[#401C0C] hover:bg-[#5C2913] text-white rounded-xl text-xs font-semibold px-6 py-2.5 flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0 self-start sm:self-auto"
+          >
+            <Save size={16} /> {savingStats ? 'Saving...' : 'Save Statistics'}
+          </button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
+          {eventStats.map((stat, idx) => (
+            <div key={idx} className="p-4 rounded-2xl bg-[#F5F3EE] dark:bg-[#242622] border border-[#E4E2DD] dark:border-[#30312E] space-y-3">
+              <span className="text-xs font-bold text-[#401C0C] dark:text-[#FFD27F] block">Card #{idx + 1} ({stat.icon})</span>
+              <div>
+                <label className="block text-[10px] uppercase font-bold text-[#867463] mb-1">Value</label>
+                <input
+                  type="text"
+                  value={stat.value}
+                  onChange={(e) => {
+                    const newStats = [...eventStats];
+                    newStats[idx] = { ...newStats[idx], value: e.target.value };
+                    setEventStats(newStats);
+                  }}
+                  className="w-full bg-white dark:bg-[#1B1C19] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C] font-semibold text-[#1B1C19] dark:text-white"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase font-bold text-[#867463] mb-1">Label</label>
+                <input
+                  type="text"
+                  value={stat.label}
+                  onChange={(e) => {
+                    const newStats = [...eventStats];
+                    newStats[idx] = { ...newStats[idx], label: e.target.value };
+                    setEventStats(newStats);
+                  }}
+                  className="w-full bg-white dark:bg-[#1B1C19] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C] font-semibold text-[#1B1C19] dark:text-white"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase font-bold text-[#867463] mb-1">Description</label>
+                <textarea
+                  value={stat.desc}
+                  onChange={(e) => {
+                    const newStats = [...eventStats];
+                    newStats[idx] = { ...newStats[idx], desc: e.target.value };
+                    setEventStats(newStats);
+                  }}
+                  rows={3}
+                  className="w-full bg-white dark:bg-[#1B1C19] border border-[#E4E2DD] dark:border-[#30312E] rounded-lg p-2 text-xs focus:outline-none focus:border-[#401C0C] resize-none text-[#534436] dark:text-[#D1D5DB]"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
