@@ -464,7 +464,7 @@ export default function App() {
               </li>
               <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '1.25rem', lineHeight: '1.5', color: 'var(--ink-soft)' }}>
                 <span style={{ color: 'var(--color-saffron-glow)', fontSize: '1.25rem', marginTop: '2px' }}>✦</span>
-                <span className="text-left">Honouring 12 deserving awardees with the cash ₹25000 each.</span>
+                <span className="text-left">Honouring 12 deserving awardees with a cash award of ₹25,000 each.</span>
               </li>
             </ul>
             <div className="hero-actions" style={{ flexWrap: 'wrap', gap: '16px', justifyContent: 'flex-start', width: '100%' }}>

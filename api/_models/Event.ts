@@ -9,6 +9,8 @@ export interface IEvent extends Document {
   description: string;
   youtubeId?: string;
   duration?: string;
+  featured?: boolean;
+  priority?: number;
 }
 
 const EventSchema: Schema = new Schema({
@@ -19,7 +21,9 @@ const EventSchema: Schema = new Schema({
   image: { type: String, default: '' },
   description: { type: String, default: '' },
   youtubeId: { type: String },
-  duration: { type: String }
+  duration: { type: String },
+  featured: { type: Boolean, default: false },
+  priority: { type: Number, default: 0 }
 });
 
 export default mongoose.models.Event || mongoose.model<IEvent>('Event', EventSchema);

@@ -45,7 +45,7 @@ interface AppContextType {
   addGalleryImage: (img: { src: string; category: string; caption: string; priority?: number; featured?: boolean }) => Promise<void>;
   updateGalleryImage: (id: string, img: { src: string; category: string; caption: string; priority?: number; featured?: boolean }) => Promise<void>;
   deleteGalleryImage: (id: string) => Promise<void>;
-  addEvent: (ev: { type: string; category: string; title: string; image: string; description: string; youtubeId?: string; duration?: string }) => Promise<void>;
+  addEvent: (ev: { type: string; category: string; title: string; image: string; description: string; youtubeId?: string; duration?: string; featured?: boolean; priority?: number }) => Promise<void>;
   updateEvent: (id: string, ev: any) => Promise<void>;
   deleteEvent: (id: string) => Promise<void>;
   addNews: (item: { title: string; date?: string; image?: string; link?: string; summary?: string }) => Promise<void>;
@@ -376,7 +376,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // Events actions
-  const addEvent = async (eventData: { type: string; category: string; title: string; image: string; description: string; youtubeId?: string; duration?: string }) => {
+  const addEvent = async (eventData: { type: string; category: string; title: string; image: string; description: string; youtubeId?: string; duration?: string; featured?: boolean; priority?: number }) => {
     try {
       const res = await fetch('/api/events', {
         method: 'POST',

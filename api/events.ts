@@ -31,7 +31,9 @@ export default async function handler(req: any, res: any) {
         image: body.image || '',
         description: body.description || '',
         youtubeId: body.youtubeId || undefined,
-        duration: body.duration || undefined
+        duration: body.duration || undefined,
+        featured: body.featured === true || body.featured === 'true',
+        priority: typeof body.priority === 'number' ? body.priority : (body.featured ? 100 : 0)
       };
 
       db.events.unshift(newEvent);

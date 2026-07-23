@@ -117,7 +117,26 @@ export default function MediaCoverage({ onSubmitSuccess }) {
 
       <div className="space-y-8 animate-fade-in">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {newsArticles.map((art, idx) => {
+          {newsArticles.length === 0 ? (
+            Array(4).fill(0).map((_, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-3xl border border-[#D9CBB0]/60 overflow-hidden animate-pulse flex flex-col justify-between h-[480px]"
+              >
+                <div className="bg-neutral-200 w-full h-[280px]"></div>
+                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="h-3 bg-neutral-200 rounded-full w-24"></div>
+                    <div className="h-5 bg-neutral-200 rounded-full w-3/4"></div>
+                    <div className="h-4 bg-neutral-200 rounded-full w-full"></div>
+                    <div className="h-4 bg-neutral-200 rounded-full w-5/6"></div>
+                  </div>
+                  <div className="h-9 bg-neutral-200 rounded-xl w-32 mt-4"></div>
+                </div>
+              </div>
+            ))
+          ) : (
+            newsArticles.map((art, idx) => {
               const isVideo = art.type === 'video' || !!art.mediaUrl;
               return (
                 <div
@@ -209,7 +228,8 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                   </div>
                 </div>
               );
-            })}
+            })
+          )}
         </div>
       </div>
 

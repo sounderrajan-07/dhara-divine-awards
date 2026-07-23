@@ -307,14 +307,8 @@ export default function AboutUs({ siteConfig }) {
                   <div className="w-10 h-10 rounded-xl bg-[#FFD27F]/15 border border-[#FFD27F]/30 flex items-center justify-center text-[#FFD27F] shrink-0">
                     <Award className="w-5 h-5 text-[#FFD27F]" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[9px] uppercase tracking-widest font-mono text-[#FFD27F] font-bold">Award Value</span>
-                      <span className="text-[10px] bg-[#FFD27F]/20 text-[#FFD27F] px-2 py-0.5 rounded-full font-bold">12 Honorees</span>
-                    </div>
-                    <div className="text-sm font-bold text-white font-serif mt-0.5">
-                      only ₹25,000 Cash Prize &amp; Trophy to 12 deserving awardees <span className="text-xs font-normal text-neutral-300 font-sans">(Each Recipient)</span>
-                    </div>
+                  <div className="text-sm font-bold text-white font-serif">
+                    ₹25000 Cash Prize &amp; Trophy to 12 deserving awardees.
                   </div>
                 </div>
               </div>
