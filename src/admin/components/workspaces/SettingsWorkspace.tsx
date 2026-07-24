@@ -573,7 +573,7 @@ export const SettingsWorkspace: React.FC = () => {
     newFounders[index] = { ...newFounders[index], [field]: value };
     setFounders(newFounders);
   };
-  const addFounder = () => setFounders([...founders, { name: '', role: '', bio: '', image: '', useDefaultIcon: true, order: founders.length + 1 }]);
+  const addFounder = () => setFounders([...founders, { name: '', role: '', bio: '', image: '', order: founders.length + 1 }]);
   const removeFounder = (index: number) => setFounders(founders.filter((_, i) => i !== index));
 
   const handleCredChange = (index: number, field: 'prefix'|'highlight', value: string) => {
