@@ -914,7 +914,7 @@ export default function App() {
       </div>
       <div className="awards-visual" style={{ position: 'relative', overflow: 'hidden', height: '100%', minHeight: '320px', borderRadius: '26px' }}>
         <img 
-          src="/images/Divine Awards 2026.jpg" 
+          src={getImageUrl(siteConfig?.flagshipEvent?.image || "/images/Divine Awards 2026.jpg")} 
           alt="Dhara Divine Awards 2025" 
           className="w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-105"
           style={{ position: 'absolute', inset: 0 }}

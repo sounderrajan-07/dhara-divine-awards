@@ -71,6 +71,7 @@ export const SettingsWorkspace: React.FC = () => {
   const [flagshipDesc, setFlagshipDesc] = useState('A prestigious convergence of spiritual leaders, selfless changemakers, and corporate CSR visionaries. Join us in cultivating harmony, empowering community growth, and acknowledging the quiet souls who serve humanity.');
   const [flagshipDate, setFlagshipDate] = useState('January 24, 2025');
   const [flagshipLocation, setFlagshipLocation] = useState('Chinmaya Heritage Centre, Chennai');
+  const [flagshipImage, setFlagshipImage] = useState('/images/Divine Awards 2026.jpg');
   
   const [homeStats, setHomeStats] = useState<{ number: string, label: string }[]>([
     { number: '3', label: 'Founding Trustees' },
@@ -552,6 +553,7 @@ export const SettingsWorkspace: React.FC = () => {
         setFlagshipDesc(siteConfig.flagshipEvent.description || 'A prestigious convergence of spiritual leaders, selfless changemakers, and corporate CSR visionaries. Join us in cultivating harmony, empowering community growth, and acknowledging the quiet souls who serve humanity.');
         setFlagshipDate(siteConfig.flagshipEvent.date || 'January 24, 2025');
         setFlagshipLocation(siteConfig.flagshipEvent.location || 'Chinmaya Heritage Centre, Chennai');
+        setFlagshipImage(siteConfig.flagshipEvent.image || '/images/Divine Awards 2026.jpg');
       }
     }
   }, [siteConfig]);
@@ -724,7 +726,8 @@ export const SettingsWorkspace: React.FC = () => {
         title: flagshipTitle,
         description: flagshipDesc,
         date: flagshipDate,
-        location: flagshipLocation
+        location: flagshipLocation,
+        image: flagshipImage
       }
     });
     setSaving(false);
@@ -1068,6 +1071,81 @@ export const SettingsWorkspace: React.FC = () => {
                   rows={3}
                   className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C] resize-none"
                 />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
+                  Event Banner Image
+                </label>
+                <div className="flex items-center gap-4">
+                  {flagshipImage ? (
+                    <img 
+                      src={getImageUrl(flagshipImage)} 
+                      alt="Flagship Event" 
+                      className="w-24 h-16 object-cover rounded-lg border border-[#C9A646]/40 shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1531058020387-3be344559be6?auto=format&fit=crop&w=800&q=80';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-24 h-16 rounded-lg bg-[#401C0C]/10 border border-[#EAE8E3] flex items-center justify-center text-xs font-bold text-[#401C0C] shrink-0">
+                      No Image
+                    </div>
+                  )}
+                  <div className="flex-1 space-y-2">
+                    <div className="flex gap-2">
+                      <label className="inline-block px-3 py-1.5 bg-[#401C0C] hover:bg-[#5C2913] text-[#FFD27F] font-bold text-xs rounded transition-all cursor-pointer border border-[#C9A646]/40">
+                        Choose Image File
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            const reader = new FileReader();
+                            reader.onload = async () => {
+                              try {
+                                const rawBase64 = reader.result as string;
+                                const base64 = await compressImage(rawBase64, 800, 500);
+                                const res = await fetch('/api/upload', {
+                                  method: 'POST',
+                                  headers: {
+                                    'Content-Type': 'application/json'
+                                  },
+                                  body: JSON.stringify({
+                                    base64,
+                                    name: file.name
+                                  })
+                                });
+                                const data = await res.json();
+                                if (data.success && data.url) {
+                                  setFlagshipImage(data.url);
+                                } else {
+                                  alert('Upload failed: ' + (data.error || 'Unknown error'));
+                                }
+                              } catch (err) {
+                                console.error('Upload error:', err);
+                                alert('Failed to upload image');
+                              }
+                            };
+                            reader.readAsDataURL(file);
+                          }}
+                          className="hidden"
+                        />
+                      </label>
+                      {flagshipImage && (
+                        <button
+                          type="button"
+                          onClick={() => setFlagshipImage('')}
+                          className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white font-bold text-xs rounded transition-all border border-red-500/20 cursor-pointer"
+                        >
+                          Delete Image
+                        </button>
+                      )}
+                    </div>
+                    <p className="text-[10px] text-[#867463] truncate mt-1">{flagshipImage || 'No file selected'}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
