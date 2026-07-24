@@ -7,6 +7,10 @@ export default function GeneralEnquiries({ onSubmitSuccess, siteConfig }) {
   const contactEmail = contactConfig?.email || 'info@dharafoundations.in';
   const contactPhone = contactConfig?.phone || '044-22236641';
   const contactAddress = contactConfig?.address || 'Dhara Foundations HQ, # 44A, 3rd Street, Judge Colony, Tambaram Sanatorium, Chennai, Tamil Nadu - 600047';
+  const presidentEmail = contactConfig?.presidentEmail || 'president@dharafoundations.in';
+  const trusteeEmail = contactConfig?.trusteeEmail || 'trustee@dharafoundations.in';
+  const alternativeEmail = contactConfig?.alternativeEmail || 'dharafoundationsindia@gmail.com';
+  const timings = contactConfig?.timings || 'Mon - Sat, 9:00 AM - 6:00 PM IST';
 
   const [formData, setFormData] = useState({
     name: '',
@@ -26,6 +30,9 @@ export default function GeneralEnquiries({ onSubmitSuccess, siteConfig }) {
     if (!formData.name || !formData.email || !formData.message) {
       alert('Please fill in all required fields.');
       return;
+    }
+    if (!formData.agreeGuidelines) {
+      // Just normal validation if any, but since agreeGuidelines isn't strictly on this form, skip
     }
 
     const submission = {
@@ -81,9 +88,7 @@ export default function GeneralEnquiries({ onSubmitSuccess, siteConfig }) {
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 font-sans">Office Address</h4>
                   <p className="text-sm font-sans text-neutral-700 mt-1 leading-relaxed">
-                    Dhara Foundations HQ,<br />
-                    # 44A, 3rd Street, Judge Colony, Tambaram Sanatorium,<br />
-                    Chennai, Tamil Nadu - 600047
+                    {contactAddress}
                   </p>
                 </div>
               </div>
@@ -94,17 +99,17 @@ export default function GeneralEnquiries({ onSubmitSuccess, siteConfig }) {
                 </div>
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 font-sans mb-1">Email Us</h4>
-                  <a href="mailto:info@dharafoundations.in" className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1 transition-colors">
-                    info@dharafoundations.in
+                  <a href={`mailto:${contactEmail}`} className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1 transition-colors">
+                    {contactEmail}
                   </a>
-                  <a href="mailto:president@dharafoundations.in" className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1.5 transition-colors">
-                    president@dharafoundations.in
+                  <a href={`mailto:${presidentEmail}`} className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1.5 transition-colors">
+                    {presidentEmail}
                   </a>
-                  <a href="mailto:trustee@dharafoundations.in" className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1.5 transition-colors">
-                    trustee@dharafoundations.in
+                  <a href={`mailto:${trusteeEmail}`} className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1.5 transition-colors">
+                    {trusteeEmail}
                   </a>
-                  <a href="mailto:dharafoundationsindia@gmail.com" className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1.5 transition-colors">
-                    dharafoundationsindia@gmail.com
+                  <a href={`mailto:${alternativeEmail}`} className="text-sm font-sans text-neutral-700 hover:text-forest-teal font-semibold block mt-1.5 transition-colors">
+                    {alternativeEmail}
                   </a>
                 </div>
               </div>
@@ -115,15 +120,16 @@ export default function GeneralEnquiries({ onSubmitSuccess, siteConfig }) {
                 </div>
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 font-sans">Call Desk</h4>
-                  <a href="tel:04422236641" className="text-sm font-sans text-neutral-700 hover:text-forest-teal mt-1 block font-semibold">
-                    044-22236641
+                  <a href={`tel:${contactPhone.replace(/[^0-9]/g, '')}`} className="text-sm font-sans text-neutral-700 hover:text-forest-teal mt-1 block font-semibold">
+                    {contactPhone}
                   </a>
-                  <p className="text-[10px] text-neutral-500 font-sans mt-0.5">Mon - Sat, 9:00 AM - 6:00 PM IST</p>
+                  <p className="text-[10px] text-neutral-500 font-sans mt-0.5">{timings}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
 
         <div className="lg:col-span-2 bg-white rounded-3xl border border-neutral-100 shadow-premium p-8">
           <h3 className="text-2xl font-serif text-forest-teal-dark mb-6 pb-2 border-b border-neutral-100 flex items-center">

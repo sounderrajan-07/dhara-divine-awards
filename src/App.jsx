@@ -1161,7 +1161,7 @@ export default function App() {
         </Routes>
       </main>
 
-      {!isAdminPage && <Footer setActiveTab={changeTab} handleNavClick={handleNavClick} />}
+      {!isAdminPage && <Footer setActiveTab={changeTab} handleNavClick={handleNavClick} siteConfig={siteConfig} />}
 
       {/* 11. Thank You Confirmation Overlay State */}
       {showThankYou && successData && (

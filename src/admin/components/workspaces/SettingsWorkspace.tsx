@@ -3,12 +3,13 @@ import { useApp } from '../../context/AppContext';
 import { 
   Settings, Save, Video, BarChart2, ShieldCheck, Plus, Trash2, 
   Image as ImageIcon, Users, ArrowUpDown, Home, Info, Building2, 
-  CheckCircle2, Newspaper, Edit3, ExternalLink, X, Upload, Calendar, Trophy, HelpCircle, Award, Briefcase
+  CheckCircle2, Newspaper, Edit3, ExternalLink, X, Upload, Calendar, Trophy, HelpCircle, Award, Briefcase,
+  Mail, Phone, Share2
 } from 'lucide-react';
 
 export const SettingsWorkspace: React.FC = () => {
   const { siteConfig, updateSiteConfig, news, addNews, updateNews, deleteNews, globalSearchQuery } = useApp();
-  const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'news' | 'trustees' | 'registrations'>('home');
+  const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'news' | 'trustees' | 'registrations' | 'sponsors' | 'csr' | 'contact'>('home');
   
   // Home Section
   const [heroVideoUrl, setHeroVideoUrl] = useState('');
@@ -81,9 +82,15 @@ export const SettingsWorkspace: React.FC = () => {
 
   const [contactInfo, setContactInfo] = useState({
     email: 'info@dharafoundations.in',
-    phone: '+91 94440 12345',
-    address: 'Dhara Foundations Trust Office, Chennai, Tamil Nadu',
-    timings: 'Monday - Saturday: 9:00 AM - 6:00 PM IST'
+    phone: '044-22236641',
+    address: '# 44A, 3rd Street, Judge Colony, Tambaram Sanatorium, Chennai – 600047',
+    timings: 'Monday - Saturday: 9:00 AM - 6:00 PM IST',
+    presidentEmail: 'president@dharafoundations.in',
+    trusteeEmail: 'trustee@dharafoundations.in',
+    alternativeEmail: 'dharafoundationsindia@gmail.com',
+    facebook: '#',
+    instagram: '#',
+    youtube: 'https://www.youtube.com/live/qOAbFfB22uI'
   });
 
   const [razorpayKeyId, setRazorpayKeyId] = useState('');
@@ -651,7 +658,8 @@ export const SettingsWorkspace: React.FC = () => {
       aboutStats,
       founders,
       homeCredentials,
-      registrations
+      registrations,
+      generalEnquiriesConfig: contactInfo
     });
     setSaving(false);
     alert('Site settings updated successfully!');
@@ -731,6 +739,17 @@ export const SettingsWorkspace: React.FC = () => {
             </button>
 
             <button
+              onClick={() => setActiveSubTab('contact')}
+              className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
+                activeSubTab === 'contact'
+                  ? 'bg-[#401C0C] text-white shadow-md'
+                  : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
+              }`}
+            >
+              <Phone size={15} /> Contact & Socials
+            </button>
+
+            <button
               onClick={() => setActiveSubTab('sponsors')}
               className={`px-4 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shrink-0 lg:w-full ${
                 activeSubTab === 'sponsors'
@@ -777,6 +796,7 @@ export const SettingsWorkspace: React.FC = () => {
                 {activeSubTab === 'news' && <><Newspaper className="text-[#C9A646]" size={18} /> News & Press Articles</>}
                 {activeSubTab === 'trustees' && <><Users className="text-[#C9A646]" size={18} /> Trustees & Founders Directory</>}
                 {activeSubTab === 'registrations' && <><ShieldCheck className="text-[#C9A646]" size={18} /> Legal Certificates & Registrations</>}
+                {activeSubTab === 'contact' && <><Phone className="text-[#C9A646]" size={18} /> Contact & Social Media Links Settings</>}
                 {activeSubTab === 'sponsors' && <><Trophy className="text-[#C9A646]" size={18} /> Corporate Sponsors Page Settings</>}
                 {activeSubTab === 'csr' && <><Briefcase className="text-[#C9A646]" size={18} /> CSR Partnerships Page Settings</>}
               </h3>
@@ -1226,6 +1246,147 @@ export const SettingsWorkspace: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {activeSubTab === 'contact' && (
+        <div className="space-y-6">
+          {/* General Contact Details */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Phone size={18} className="text-[#D9762E]" /> Core Contact Details
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">General Office Address</label>
+                <input
+                  type="text"
+                  value={contactInfo.address}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, address: e.target.value }))}
+                  placeholder="e.g. # 44A, 3rd Street, Judge Colony, Tambaram Sanatorium..."
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">Primary Call Desk Phone</label>
+                <input
+                  type="text"
+                  value={contactInfo.phone}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, phone: e.target.value }))}
+                  placeholder="e.g. 044-22236641"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">General Email (info@)</label>
+                <input
+                  type="email"
+                  value={contactInfo.email}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, email: e.target.value }))}
+                  placeholder="e.g. info@dharafoundations.in"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">Call Desk Operational Timings</label>
+                <input
+                  type="text"
+                  value={contactInfo.timings}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, timings: e.target.value }))}
+                  placeholder="e.g. Mon - Sat, 9:00 AM - 6:00 PM IST"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Departmental / Escalation Emails */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Mail size={18} className="text-[#D9762E]" /> Departmental & Escalation Emails
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">President's Email</label>
+                <input
+                  type="email"
+                  value={contactInfo.presidentEmail || ''}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, presidentEmail: e.target.value }))}
+                  placeholder="e.g. president@dharafoundations.in"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">Trustee's Email</label>
+                <input
+                  type="email"
+                  value={contactInfo.trusteeEmail || ''}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, trusteeEmail: e.target.value }))}
+                  placeholder="e.g. trustee@dharafoundations.in"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">Alternative Gmail Email</label>
+                <input
+                  type="email"
+                  value={contactInfo.alternativeEmail || ''}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, alternativeEmail: e.target.value }))}
+                  placeholder="e.g. dharafoundationsindia@gmail.com"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Social Media Links */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-4">
+            <h3 className="font-serif text-lg font-bold text-[#401C0C] dark:text-[#F3F4F6] flex items-center gap-2">
+              <Share2 size={18} className="text-[#D9762E]" /> Social Media Links
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">Facebook Profile URL</label>
+                <input
+                  type="text"
+                  value={contactInfo.facebook || ''}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, facebook: e.target.value }))}
+                  placeholder="e.g. https://facebook.com/..."
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">Instagram Profile URL</label>
+                <input
+                  type="text"
+                  value={contactInfo.instagram || ''}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, instagram: e.target.value }))}
+                  placeholder="e.g. https://instagram.com/..."
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1">YouTube Live/Channel URL</label>
+                <input
+                  type="text"
+                  value={contactInfo.youtube || ''}
+                  onChange={(e) => setContactInfo(prev => ({ ...prev, youtube: e.target.value }))}
+                  placeholder="e.g. https://youtube.com/..."
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-xs focus:outline-none focus:border-[#D9762E]"
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}
