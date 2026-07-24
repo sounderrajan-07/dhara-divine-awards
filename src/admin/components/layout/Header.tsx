@@ -43,21 +43,21 @@ export const Header: React.FC = () => {
   const headerInfo = getTabTitle() || { title: 'Dashboard', desc: '' };
 
   return (
-    <header className="sticky top-0 z-20 bg-white/40 dark:bg-[#151613]/40 backdrop-blur-md border-b border-[#EAE8E3]/60 dark:border-[#2E302A]/60 px-6 py-4 transition-colors duration-300">
-      <div className="flex items-center justify-between gap-4 sm:gap-6">
+    <header className="sticky top-0 z-20 bg-white/40 dark:bg-[#151613]/40 backdrop-blur-md border-b border-[#EAE8E3]/60 dark:border-[#2E302A]/60 px-3 sm:px-6 py-2.5 sm:py-4 transition-colors duration-300">
+      <div className="flex items-center justify-between gap-2 sm:gap-6">
         {/* Left: Hamburger & Page Title & Context */}
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           {/* Hamburger Menu Toggle for Mobile */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-xl bg-[#401C0C]/5 dark:bg-white/5 text-[#534436] dark:text-[#D1D5DB] hover:text-[#401C0C] dark:hover:text-[#FFD27F] hover:bg-[#401C0C]/10 dark:hover:bg-white/10 lg:hidden cursor-pointer shrink-0 transition-all duration-200"
+            className="p-1.5 sm:p-2 rounded-xl bg-[#401C0C]/5 dark:bg-white/5 text-[#534436] dark:text-[#D1D5DB] hover:text-[#401C0C] dark:hover:text-[#FFD27F] hover:bg-[#401C0C]/10 dark:hover:bg-white/10 lg:hidden cursor-pointer shrink-0 transition-all duration-200"
             aria-label="Open sidebar"
           >
-            <Menu size={20} />
+            <Menu size={18} sm={20} />
           </button>
           
           <div className="min-w-0">
-            <h1 className="text-base sm:text-lg font-bold font-serif text-[#1B1C19] dark:text-[#F3F4F6] tracking-tight flex items-center gap-2 leading-tight">
+            <h1 className="text-xs sm:text-base md:text-lg font-bold font-serif text-[#1B1C19] dark:text-[#F3F4F6] tracking-tight flex items-center gap-2 leading-tight break-words">
               {headerInfo.title}
             </h1>
             <p className="hidden sm:block text-[10px] sm:text-xs text-[#867463] dark:text-[#9CA3AF] font-medium mt-0.5 leading-normal max-w-xl">
@@ -67,25 +67,25 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Right: Notifications, Theme Switcher & User */}
-        <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-4 shrink-0">
 
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-            className="p-2 rounded-xl bg-[#401C0C]/5 dark:bg-white/5 text-[#534436] dark:text-[#D1D5DB] hover:text-[#401C0C] dark:hover:text-[#FFD27F] hover:bg-[#401C0C]/10 dark:hover:bg-white/10 transition-all cursor-pointer"
+            className="p-1.5 sm:p-2 rounded-xl bg-[#401C0C]/5 dark:bg-white/5 text-[#534436] dark:text-[#D1D5DB] hover:text-[#401C0C] dark:hover:text-[#FFD27F] hover:bg-[#401C0C]/10 dark:hover:bg-white/10 transition-all cursor-pointer"
           >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+            {theme === 'light' ? <Moon size={16} sm={18} /> : <Sun size={16} sm={18} />}
           </button>
 
           {/* Notifications Bell */}
           <div className="relative">
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="p-2 rounded-xl bg-[#401C0C]/5 dark:bg-white/5 text-[#534436] dark:text-[#D1D5DB] hover:text-[#401C0C] dark:hover:text-[#FFD27F] hover:bg-[#401C0C]/10 dark:hover:bg-white/10 transition-all relative cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl bg-[#401C0C]/5 dark:bg-white/5 text-[#534436] dark:text-[#D1D5DB] hover:text-[#401C0C] dark:hover:text-[#FFD27F] hover:bg-[#401C0C]/10 dark:hover:bg-white/10 transition-all relative cursor-pointer"
             >
-              <Bell size={18} />
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#D9762E] ring-2 ring-white dark:ring-[#151613] animate-pulse"></span>
+              <Bell size={16} sm={18} />
+              <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#D9762E] ring-1 ring-white dark:ring-[#151613] animate-pulse"></span>
             </button>
 
             {/* Notifications Dropdown */}
@@ -115,11 +115,11 @@ export const Header: React.FC = () => {
           </div>
 
           {/* User Profile Pill */}
-          <div className="flex items-center gap-3 pl-3 border-l border-[#EAE8E3]/60 dark:border-[#2E302A]/60">
+          <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-3 border-l border-[#EAE8E3]/60 dark:border-[#2E302A]/60">
             <img 
               src={currentUser.avatar} 
               alt={currentUser.name} 
-              className="w-9 h-9 rounded-full object-cover ring-2 ring-[#C9A646]/40 shadow-sm transition-transform duration-300 hover:scale-105"
+              className="w-7 h-7 sm:w-9 h-9 rounded-full object-cover ring-2 ring-[#C9A646]/40 shadow-sm transition-transform duration-300 hover:scale-105"
             />
             <div className="hidden xl:block text-left">
               <div className="text-xs font-bold text-[#1B1C19] dark:text-[#F3F4F6] truncate max-w-[130px]">
@@ -133,9 +133,9 @@ export const Header: React.FC = () => {
             <button
               onClick={logout}
               title={`Sign out (${authUser?.username || 'admin'})`}
-              className="p-2 rounded-xl text-[#867463] hover:text-[#D9762E] hover:bg-[#401C0C]/5 dark:hover:bg-white/5 transition-all cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl text-[#867463] hover:text-[#D9762E] hover:bg-[#401C0C]/5 dark:hover:bg-white/5 transition-all cursor-pointer"
             >
-              <LogOut size={16} />
+              <LogOut size={14} sm={16} />
             </button>
           </div>
         </div>
