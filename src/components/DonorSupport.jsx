@@ -90,6 +90,14 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
 
     setIsProcessing(true);
 
+    let sevaDomain = 'General Fund';
+    if (amountType === 'preset') {
+      const presetObj = presets.find(p => p.amount === selectedPreset);
+      if (presetObj) {
+        sevaDomain = presetObj.impact;
+      }
+    }
+
     try {
       // Step 1: Create Razorpay Order
       const orderRes = await createRazorpayOrder({
@@ -99,7 +107,8 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
         notes: {
           donor_name: formData.name || 'Anonymous',
           email: formData.email,
-          pan: formData.pan
+          phone: formData.phone,
+          seva_domain: sevaDomain
         }
       });
 
@@ -139,7 +148,8 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
             phone: formData.phone,
             amount: donationValue,
             pan: formData.pan,
-            isAnonymous: formData.anonymous
+            isAnonymous: formData.anonymous,
+            sevaDomain: sevaDomain
           });
 
           // Backup submission
@@ -150,6 +160,7 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
             payment_id: razorpayResponse.razorpay_payment_id,
             order_id: razorpayResponse.razorpay_order_id,
             ...formData,
+            sevaDomain: sevaDomain,
             timestamp: new Date().toISOString()
           });
 

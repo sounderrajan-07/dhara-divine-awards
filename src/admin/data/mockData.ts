@@ -102,7 +102,7 @@ export const mockDonations: Donation[] = [
     email: 'csr@tvsheritage.com',
     phone: '+91 44 2855 0000',
     amount: 1500000,
-    seva_domain: 'Awards Support',
+    seva_domain: 'Nominee Seva',
     pan: 'AAACT1234M',
     is_anonymous: false,
     sponsorship_tier: 'Title',
@@ -117,7 +117,7 @@ export const mockDonations: Donation[] = [
     email: 'rukmini.v@gmail.com',
     phone: '+91 98403 22334',
     amount: 250000,
-    seva_domain: 'Annadhanam',
+    seva_domain: 'Meal Seva',
     pan: 'AGKPV5678B',
     is_anonymous: false,
     receipt_sent: true,
@@ -131,7 +131,7 @@ export const mockDonations: Donation[] = [
     email: 'community@murugappa.co.in',
     phone: '+91 44 2530 1111',
     amount: 1000000,
-    seva_domain: 'Temple Heritage',
+    seva_domain: 'Kala Seva',
     pan: 'AAECM8901P',
     is_anonymous: false,
     sponsorship_tier: 'Lead',
@@ -159,7 +159,7 @@ export const mockDonations: Donation[] = [
     email: 'ganesh.natarajan@techworld.com',
     phone: '+91 98100 44556',
     amount: 50000,
-    seva_domain: 'Annadhanam',
+    seva_domain: 'Meal Seva',
     pan: 'ABZPN4321Q',
     is_anonymous: false,
     receipt_sent: false,
@@ -173,13 +173,13 @@ export const mockDonations: Donation[] = [
     email: 'csr@lmw.co.in',
     phone: '+91 422 262 2222',
     amount: 500000,
-    seva_domain: 'Awards Support',
+    seva_domain: 'Nominee Seva',
     pan: 'AAACL5555Z',
     is_anonymous: false,
     sponsorship_tier: 'Associate',
     receipt_sent: true,
     payment_status: 'success',
-    created_at: '2026-07-04T10:05:00Z'
+    created_at: '2026-07-04T08:15:00Z'
   }
 ];
 

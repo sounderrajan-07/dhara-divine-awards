@@ -19,7 +19,7 @@ export interface Nomination {
 }
 
 export type DonationType = 'individual' | 'corporate';
-export type SevaDomain = 'Annadhanam' | 'Awards Support' | 'General Fund' | 'Temple Heritage';
+export type SevaDomain = 'Meal Seva' | 'Sevak Support' | 'Kala Seva' | 'Nominee Seva' | 'General Fund';
 export type SponsorshipTier = 'Title' | 'Lead' | 'Associate' | 'Patron';
 export type PaymentStatus = 'pending' | 'success' | 'failed';
 

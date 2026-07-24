@@ -25,7 +25,7 @@ export const DonationsWorkspace: React.FC = () => {
   const [selectedType, setSelectedType] = useState<string>('all');
   const [previewReceipt, setPreviewReceipt] = useState<Donation | null>(null);
 
-  const domains: string[] = ['all', 'Annadhanam', 'Awards Support', 'General Fund', 'Temple Heritage'];
+  const domains: string[] = ['all', 'Meal Seva', 'Sevak Support', 'Kala Seva', 'Nominee Seva', 'General Fund'];
 
   const filteredDonations = donations.filter(don => {
     const matchesDomain = selectedDomain === 'all' || don.seva_domain === selectedDomain;
