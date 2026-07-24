@@ -7,6 +7,41 @@ import {
   Mail, Phone, Share2
 } from 'lucide-react';
 
+const compressImage = (base64Str: string, maxWidth = 300, maxHeight = 300): Promise<string> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64Str;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+
+      if (width > height) {
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, width, height);
+      }
+      resolve(canvas.toDataURL('image/jpeg', 0.6));
+    };
+    img.onerror = () => {
+      resolve(base64Str);
+    };
+  });
+};
+
 export const SettingsWorkspace: React.FC = () => {
   const { siteConfig, updateSiteConfig, news, addNews, updateNews, deleteNews, globalSearchQuery } = useApp();
   const [activeSubTab, setActiveSubTab] = useState<'home' | 'about' | 'news' | 'trustees' | 'registrations' | 'sponsors' | 'csr' | 'contact'>('home');
@@ -568,7 +603,8 @@ export const SettingsWorkspace: React.FC = () => {
     const reader = new FileReader();
     reader.onload = async () => {
       try {
-        const base64 = reader.result as string;
+        const rawBase64 = reader.result as string;
+        const base64 = await compressImage(rawBase64, 800, 500);
         const res = await fetch('/api/upload', {
           method: 'POST',
           headers: {
@@ -1180,7 +1216,8 @@ export const SettingsWorkspace: React.FC = () => {
                               const reader = new FileReader();
                               reader.onload = async () => {
                                 try {
-                                  const base64 = reader.result as string;
+                                  const rawBase64 = reader.result as string;
+                                  const base64 = await compressImage(rawBase64, 400, 400);
                                   const res = await fetch('/api/upload', {
                                     method: 'POST',
                                     headers: {

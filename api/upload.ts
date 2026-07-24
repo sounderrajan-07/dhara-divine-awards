@@ -27,11 +27,15 @@ export default async function handler(req: any, res: any) {
       const buffer = Buffer.from(base64Data, 'base64');
       const filename = `${Date.now()}_${body.name}`;
       const uploadDir = path.join(__dirname, '..', 'public', 'uploads');
-      
-      await fs.mkdir(uploadDir, { recursive: true });
-      const filePath = path.join(uploadDir, filename);
-      await fs.writeFile(filePath, buffer);
-      fileUrl = `/uploads/${filename}`;
+      try {
+        await fs.mkdir(uploadDir, { recursive: true });
+        const filePath = path.join(uploadDir, filename);
+        await fs.writeFile(filePath, buffer);
+        fileUrl = `/uploads/${filename}`;
+      } catch (fsError: any) {
+        console.warn('Writing to local disk failed (read-only filesystem), falling back to returning base64 string:', fsError.message);
+        fileUrl = body.base64;
+      }
     } else {
       return res.status(400).json({ error: 'Invalid payload. Expecting base64 image data.' });
     }
