@@ -1152,14 +1152,65 @@ export const SettingsWorkspace: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Photo Image Path / URL</label>
-                    <input
-                      type="text"
-                      value={founder.image}
-                      onChange={(e) => handleFounderChange(index, 'image', e.target.value)}
-                      placeholder="e.g. /images/S. Vinoth Ragavendran.jpg"
-                      className="w-full bg-white dark:bg-[#1B1C19] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#404040] rounded px-2.5 py-1.5 text-xs"
-                    />
+                    <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Photo Image</label>
+                    <div className="flex items-center gap-3">
+                      {founder.image && !founder.useDefaultIcon ? (
+                        <img 
+                          src={founder.image.startsWith('/uploads') ? `${window.location.protocol}//${window.location.host}${founder.image}` : founder.image} 
+                          alt={founder.name} 
+                          className="w-12 h-12 rounded-full object-cover border border-[#C9A646]/40 shrink-0"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = '/images/default-avatar.png';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-[#401C0C]/10 border border-[#EAE8E3] flex items-center justify-center text-xs font-bold text-[#401C0C] shrink-0">
+                          {founder.name ? founder.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2) : 'TR'}
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <label className="inline-block px-3 py-1.5 bg-[#401C0C] hover:bg-[#5C2913] text-[#FFD27F] font-bold text-xs rounded transition-all cursor-pointer border border-[#C9A646]/40">
+                          Choose Image File
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (!file) return;
+                              const reader = new FileReader();
+                              reader.onload = async () => {
+                                try {
+                                  const base64 = reader.result as string;
+                                  const res = await fetch('/api/upload', {
+                                    method: 'POST',
+                                    headers: {
+                                      'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                      base64,
+                                      name: file.name
+                                    })
+                                  });
+                                  const data = await res.json();
+                                  if (data.success && data.url) {
+                                    handleFounderChange(index, 'image', data.url);
+                                    handleFounderChange(index, 'useDefaultIcon', false);
+                                  } else {
+                                    alert('Upload failed: ' + (data.error || 'Unknown error'));
+                                  }
+                                } catch (err) {
+                                  console.error('Upload error:', err);
+                                  alert('Failed to upload image');
+                                }
+                              };
+                              reader.readAsDataURL(file);
+                            }}
+                            className="hidden"
+                          />
+                        </label>
+                        <p className="text-[10px] text-[#867463] truncate mt-1">{founder.image || 'No file selected'}</p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-2 pt-1">
