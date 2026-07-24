@@ -1012,15 +1012,25 @@ export const SettingsWorkspace: React.FC = () => {
                 >
                   <div>
                     <div className="relative h-48 bg-[#121310] overflow-hidden flex items-center justify-center p-1">
-                      <img 
-                        src={n.image || '/images/News/DHARA Divine Awards Ceremony.jpg'} 
-                        alt={n.title}
-                        className="w-full h-full object-contain"
-                        onError={(e: any) => {
-                          e.target.onerror = null;
-                          e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";
-                        }}
-                      />
+                      {n.mediaUrl ? (
+                        <video 
+                          src={n.mediaUrl}
+                          preload="metadata"
+                          className="w-full h-full object-contain"
+                          muted
+                          playsInline
+                        />
+                      ) : (
+                        <img 
+                          src={n.image || '/images/News/DHARA Divine Awards Ceremony.jpg'} 
+                          alt={n.title}
+                          className="w-full h-full object-contain"
+                          onError={(e: any) => {
+                            e.target.onerror = null;
+                            e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";
+                          }}
+                        />
+                      )}
                       <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md text-[#FFD27F] text-[10px] font-mono px-2.5 py-1 rounded-lg border border-white/20">
                         {n.date}
                       </div>
