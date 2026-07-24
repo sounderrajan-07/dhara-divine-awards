@@ -83,6 +83,10 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
       alert('Please select or input a valid donation amount.');
       return;
     }
+    if (amountType === 'custom' && donationValue < 100) {
+      alert('Minimum custom contribution is ₹100.');
+      return;
+    }
     if (!formData.anonymous && (!formData.name || !formData.email || !formData.phone)) {
       alert('Please fill in all required fields.');
       return;
@@ -265,11 +269,17 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
                     <span className="text-neutral-500 sm:text-base font-sans">₹</span>
                   </div>
                   <input
-                    type="number"
-                    min="100"
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     placeholder="10000"
                     value={customAmount}
-                    onChange={(e) => setCustomAmount(e.target.value)}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === '' || /^[0-9]+$/.test(val)) {
+                        setCustomAmount(val);
+                      }
+                    }}
                     className="w-full pl-9 pr-4 py-4 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-forest-teal text-lg font-bold text-forest-teal-dark font-sans"
                   />
                 </div>
