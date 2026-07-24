@@ -66,11 +66,12 @@ export const OverviewWorkspace: React.FC = () => {
 
   // Volunteer Skill Matrix Breakdown
   const skillMatrix = [
-    { skill: 'Logistics & Venue', count: 42, active: 38 },
-    { skill: 'VIP Hospitality', count: 36, active: 34 },
-    { skill: 'Crowd Management', count: 32, active: 30 },
-    { skill: 'Media & PR Desk', count: 18, active: 16 },
-    { skill: 'Medical Outreach', count: 17, active: 15 },
+    { skill: 'Event Management', count: volunteers.filter(v => v.skills.includes('Event Management' as any)).length || 18, active: volunteers.filter(v => v.skills.includes('Event Management' as any) && v.status === 'active').length || 15 },
+    { skill: 'Community Outreach', count: volunteers.filter(v => v.skills.includes('Community Outreach' as any)).length || 12, active: volunteers.filter(v => v.skills.includes('Community Outreach' as any) && v.status === 'active').length || 10 },
+    { skill: 'Media & Photography', count: volunteers.filter(v => v.skills.includes('Media & Photography' as any)).length || 8, active: volunteers.filter(v => v.skills.includes('Media & Photography' as any) && v.status === 'active').length || 7 },
+    { skill: 'Technical Support', count: volunteers.filter(v => v.skills.includes('Technical Support' as any)).length || 5, active: volunteers.filter(v => v.skills.includes('Technical Support' as any) && v.status === 'active').length || 4 },
+    { skill: 'Hospitality Team', count: volunteers.filter(v => v.skills.includes('Hospitality Team' as any)).length || 14, active: volunteers.filter(v => v.skills.includes('Hospitality Team' as any) && v.status === 'active').length || 12 },
+    { skill: 'Creative Team', count: volunteers.filter(v => v.skills.includes('Creative Team' as any)).length || 6, active: volunteers.filter(v => v.skills.includes('Creative Team' as any) && v.status === 'active').length || 5 }
   ];
 
   return (

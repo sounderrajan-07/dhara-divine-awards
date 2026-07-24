@@ -54,7 +54,7 @@ export interface Delegate {
   seat_zone?: string;
 }
 
-export type VolunteerSkill = 'Logistics' | 'Hospitality' | 'Media' | 'Crowd Management' | 'Medical' | 'Registration';
+export type VolunteerSkill = 'Event Management' | 'Community Outreach' | 'Media & Photography' | 'Technical Support' | 'Hospitality Team' | 'Creative Team';
 export type Availability = 'Full Event' | 'Morning Sessions' | 'Evening Sessions';
 export type VolunteerStatus = 'active' | 'on_hold' | 'assigned';
 

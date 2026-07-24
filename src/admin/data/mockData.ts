@@ -265,7 +265,7 @@ export const mockVolunteers: Volunteer[] = [
     email: 'aditya.n@sastra.edu',
     phone: '+91 99401 77889',
     age: 21,
-    skills: ['Logistics', 'Crowd Management'],
+    skills: ['Event Management'],
     availability: 'Full Event',
     status: 'active',
     assigned_zone: 'Main Gate Check-in'
@@ -276,7 +276,7 @@ export const mockVolunteers: Volunteer[] = [
     email: 'sreeja.k@gmail.com',
     phone: '+91 98405 66778',
     age: 24,
-    skills: ['Hospitality', 'Registration'],
+    skills: ['Hospitality Team'],
     availability: 'Morning Sessions',
     status: 'assigned',
     assigned_zone: 'VIP Hospitality Desk'
@@ -287,7 +287,7 @@ export const mockVolunteers: Volunteer[] = [
     email: 'karthik.sub@zoho.com',
     phone: '+91 97899 11223',
     age: 28,
-    skills: ['Media', 'Logistics'],
+    skills: ['Media & Photography', 'Event Management'],
     availability: 'Full Event',
     status: 'active',
     assigned_zone: 'Media Press Enclosure'
@@ -298,7 +298,7 @@ export const mockVolunteers: Volunteer[] = [
     email: 'harini.md@apollo.com',
     phone: '+91 98841 99000',
     age: 32,
-    skills: ['Medical', 'Hospitality'],
+    skills: ['Community Outreach', 'Hospitality Team'],
     availability: 'Evening Sessions',
     status: 'assigned',
     assigned_zone: 'Emergency Medical Booth'
@@ -309,7 +309,7 @@ export const mockVolunteers: Volunteer[] = [
     email: 'prasanth.v@iitm.ac.in',
     phone: '+91 94445 33445',
     age: 20,
-    skills: ['Crowd Management', 'Logistics'],
+    skills: ['Event Management'],
     availability: 'Full Event',
     status: 'on_hold',
     assigned_zone: 'Auditory Balcony'

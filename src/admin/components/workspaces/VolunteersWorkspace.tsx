@@ -21,7 +21,7 @@ export const VolunteersWorkspace: React.FC = () => {
   const [selectedSkill, setSelectedSkill] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
-  const skills: string[] = ['all', 'Logistics', 'Hospitality', 'Media', 'Crowd Management', 'Medical', 'Registration'];
+  const skills: string[] = ['all', 'Event Management', 'Community Outreach', 'Media & Photography', 'Technical Support', 'Hospitality Team', 'Creative Team'];
   const statuses: string[] = ['all', 'active', 'assigned', 'on_hold'];
 
   const filteredVolunteers = volunteers.filter(vol => {
