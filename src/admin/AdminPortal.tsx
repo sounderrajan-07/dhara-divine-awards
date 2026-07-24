@@ -18,7 +18,7 @@ const DashboardContent: React.FC = () => {
   const { currentTab } = useApp();
 
   return (
-    <main className="flex-1 min-w-0 w-full flex flex-col h-[calc(100vh-2rem)] my-4 mr-4 bg-white/70 dark:bg-[#151613]/70 backdrop-blur-xl rounded-[2rem] border border-[#EAE8E3]/60 dark:border-[#2E302A]/60 shadow-[0_8px_32px_0_rgba(0,0,0,0.02)] overflow-hidden transition-all duration-300">
+    <main className="flex-1 min-w-0 w-full flex flex-col h-[calc(100vh-2rem)] m-4 lg:my-4 lg:mr-4 lg:ml-0 bg-white/70 dark:bg-[#151613]/70 backdrop-blur-xl rounded-[2rem] border border-[#EAE8E3]/60 dark:border-[#2E302A]/60 shadow-[0_8px_32px_0_rgba(0,0,0,0.02)] overflow-hidden transition-all duration-300">
       <Header />
       <div className="flex-1 p-4 sm:p-8 overflow-y-auto custom-scrollbar">
         {currentTab === 'overview' && <OverviewWorkspace />}
@@ -37,6 +37,22 @@ const DashboardContent: React.FC = () => {
 
 const AdminPortalInner: React.FC = () => {
   const { isAuthenticated } = useAuth();
+
+  React.useEffect(() => {
+    // Save original body styles
+    const originalZoom = document.body.style.zoom;
+    const originalOverflow = document.body.style.overflow;
+
+    // Reset zoom and hide body scrollbar for the admin section
+    document.body.style.zoom = '1';
+    document.body.style.overflow = 'hidden';
+
+    // Restore when unmounting
+    return () => {
+      document.body.style.zoom = originalZoom;
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   if (!isAuthenticated) {
     return <LoginView />;

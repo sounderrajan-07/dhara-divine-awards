@@ -65,7 +65,7 @@ export const Sidebar: React.FC = () => {
       <aside 
         className={`bg-gradient-to-b from-[#2E1205] via-[#401C0C] to-[#200B02] text-white flex flex-col transition-all duration-300 shadow-[0_8px_32px_0_rgba(64,28,12,0.2)] border border-white/10 fixed lg:sticky z-50 lg:z-30 w-72 h-[calc(100vh-2rem)] my-4 ml-4 rounded-[2rem] overflow-hidden ${
           sidebarOpen 
-            ? 'translate-x-0 left-4 top-4' 
+            ? 'translate-x-0 left-0 top-0' 
             : '-translate-x-full lg:translate-x-0 lg:left-0 lg:top-0'
         }`}
       >
