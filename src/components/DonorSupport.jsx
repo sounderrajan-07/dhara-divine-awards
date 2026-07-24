@@ -90,7 +90,7 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
 
     setIsProcessing(true);
 
-    let sevaDomain = 'General Fund';
+    let sevaDomain = 'Custom Fund';
     if (amountType === 'preset') {
       const presetObj = presets.find(p => p.amount === selectedPreset);
       if (presetObj) {
