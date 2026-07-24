@@ -27,10 +27,14 @@ export const DonationsWorkspace: React.FC = () => {
 
   const domains: string[] = ['all', 'Meal Seva', 'Sevak Support', 'Kala Seva', 'Nominee Seva', 'General Fund', 'Custom Fund'];
 
+  const presets = [510, 1008, 5001, 10008];
+
   const filteredDonations = donations.filter(don => {
+    const isCustomAmount = !presets.includes(don.amount);
     const matchesDomain = selectedDomain === 'all' || 
-      don.seva_domain === selectedDomain || 
-      (selectedDomain === 'General Fund' && don.seva_domain === 'Custom Fund');
+      (selectedDomain === 'Custom Fund' && isCustomAmount) ||
+      (selectedDomain === 'General Fund' && (don.seva_domain === 'General Fund' || don.seva_domain === 'Custom Fund')) ||
+      (selectedDomain !== 'Custom Fund' && selectedDomain !== 'General Fund' && don.seva_domain === selectedDomain);
     const matchesType = selectedType === 'all' || don.type === selectedType;
     const matchesSearch = !globalSearchQuery || 
       don.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
