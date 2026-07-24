@@ -1217,45 +1217,56 @@ export const SettingsWorkspace: React.FC = () => {
                         </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <label className="inline-block px-3 py-1.5 bg-[#401C0C] hover:bg-[#5C2913] text-[#FFD27F] font-bold text-xs rounded transition-all cursor-pointer border border-[#C9A646]/40">
-                          Choose Image File
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={async (e) => {
-                              const file = e.target.files?.[0];
-                              if (!file) return;
-                              const reader = new FileReader();
-                              reader.onload = async () => {
-                                try {
-                                  const rawBase64 = reader.result as string;
-                                  const base64 = await compressImage(rawBase64, 400, 400);
-                                  const res = await fetch('/api/upload', {
-                                    method: 'POST',
-                                    headers: {
-                                      'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                      base64,
-                                      name: file.name
-                                    })
-                                  });
-                                  const data = await res.json();
-                                  if (data.success && data.url) {
-                                    handleFounderChange(index, 'image', data.url);
-                                  } else {
-                                    alert('Upload failed: ' + (data.error || 'Unknown error'));
+                        <div className="flex flex-wrap gap-2">
+                          <label className="inline-block px-3 py-1.5 bg-[#401C0C] hover:bg-[#5C2913] text-[#FFD27F] font-bold text-xs rounded transition-all cursor-pointer border border-[#C9A646]/40">
+                            Choose Image File
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                const reader = new FileReader();
+                                reader.onload = async () => {
+                                  try {
+                                    const rawBase64 = reader.result as string;
+                                    const base64 = await compressImage(rawBase64, 400, 400);
+                                    const res = await fetch('/api/upload', {
+                                      method: 'POST',
+                                      headers: {
+                                        'Content-Type': 'application/json'
+                                      },
+                                      body: JSON.stringify({
+                                        base64,
+                                        name: file.name
+                                      })
+                                    });
+                                    const data = await res.json();
+                                    if (data.success && data.url) {
+                                      handleFounderChange(index, 'image', data.url);
+                                    } else {
+                                      alert('Upload failed: ' + (data.error || 'Unknown error'));
+                                    }
+                                  } catch (err) {
+                                    console.error('Upload error:', err);
+                                    alert('Failed to upload image');
                                   }
-                                } catch (err) {
-                                  console.error('Upload error:', err);
-                                  alert('Failed to upload image');
-                                }
-                              };
-                              reader.readAsDataURL(file);
-                            }}
-                            className="hidden"
-                          />
-                        </label>
+                                };
+                                reader.readAsDataURL(file);
+                              }}
+                              className="hidden"
+                            />
+                          </label>
+                          {founder.image && (
+                            <button
+                              type="button"
+                              onClick={() => handleFounderChange(index, 'image', '')}
+                              className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white font-bold text-xs rounded transition-all border border-red-500/20 cursor-pointer"
+                            >
+                              Delete Image
+                            </button>
+                          )}
+                        </div>
                         <p className="text-[10px] text-[#867463] truncate mt-1">{founder.image || 'No file selected'}</p>
                       </div>
                     </div>
