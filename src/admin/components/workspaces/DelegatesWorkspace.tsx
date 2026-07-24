@@ -25,7 +25,14 @@ export const DelegatesWorkspace: React.FC = () => {
   const [selectedTier, setSelectedTier] = useState<string>('all');
   const [isScanning, setIsScanning] = useState(false);
 
-  const tiers: string[] = ['all', 'vip', 'delegate', 'sponsor'];
+  const tiers = [
+    { id: 'all', label: 'All Tiers' },
+    { id: 'delegate', label: 'Delegate Pass' },
+    { id: 'premium delegate', label: 'Premium Delegate' },
+    { id: 'patron', label: 'Patron Pass' },
+    { id: 'vip', label: 'VIP Pass' },
+    { id: 'sponsor', label: 'Sponsor Pass' }
+  ];
 
   const filteredDelegates = delegates.filter(del => {
     const matchesTier = selectedTier === 'all' || del.pass_tier === selectedTier;
@@ -165,15 +172,15 @@ export const DelegatesWorkspace: React.FC = () => {
           <div className="flex items-center gap-2 flex-wrap">
             {tiers.map(tier => (
               <button
-                key={tier}
-                onClick={() => setSelectedTier(tier)}
+                key={tier.id}
+                onClick={() => setSelectedTier(tier.id)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold uppercase transition-all cursor-pointer ${
-                  selectedTier === tier
+                  selectedTier === tier.id
                     ? 'bg-[#401C0C] dark:bg-[#FFD27F] text-white dark:text-[#401C0C] shadow-sm'
                     : 'bg-[#F5F3EE] dark:bg-[#242622] text-[#534436] dark:text-[#D1D5DB] hover:bg-[#EAE8E3]'
                 }`}
               >
-                {tier === 'all' ? 'All Tiers' : `${tier} Pass`}
+                {tier.label}
               </button>
             ))}
           </div>
@@ -216,11 +223,12 @@ export const DelegatesWorkspace: React.FC = () => {
                       <QrCode size={15} /> {del.pass_code}
                     </div>
                     <span className={`inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
-                      del.pass_tier === 'vip' ? 'bg-[#D9762E] text-white' :
+                      del.pass_tier === 'vip' || del.pass_tier === 'patron' ? 'bg-[#D9762E] text-white' :
                       del.pass_tier === 'sponsor' ? 'bg-[#C9A646]/30 text-[#8A5000] dark:text-[#FFD27F] border border-[#C9A646]' :
+                      del.pass_tier === 'premium delegate' ? 'bg-[#FFD27F]/20 text-[#D9762E] dark:text-[#FFD27F] border border-[#FFD27F]/40' :
                       'bg-[#F5F3EE] dark:bg-[#2E302A] text-[#534436] dark:text-[#D1D5DB]'
                     }`}>
-                      {del.pass_tier} Pass
+                      {del.pass_tier}
                     </span>
                   </td>
                   <td className="py-4 px-4">

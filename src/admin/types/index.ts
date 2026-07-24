@@ -39,7 +39,7 @@ export interface Donation {
   created_at: string;
 }
 
-export type PassTier = 'vip' | 'delegate' | 'sponsor';
+export type PassTier = 'vip' | 'delegate' | 'sponsor' | 'premium delegate' | 'patron';
 
 export interface Delegate {
   id: string;
