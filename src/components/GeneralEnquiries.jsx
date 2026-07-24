@@ -31,8 +31,20 @@ export default function GeneralEnquiries({ onSubmitSuccess, siteConfig }) {
       alert('Please fill in all required fields.');
       return;
     }
-    if (!formData.agreeGuidelines) {
-      // Just normal validation if any, but since agreeGuidelines isn't strictly on this form, skip
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    if (formData.phone) {
+      const cleanedPhone = formData.phone.replace(/[\s-]/g, '');
+      const phoneRegex = /^(\+?91)?[6-9]\d{9}$/;
+      if (!phoneRegex.test(cleanedPhone)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
     }
 
     const submission = {
@@ -66,7 +78,14 @@ export default function GeneralEnquiries({ onSubmitSuccess, siteConfig }) {
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="text-center mb-12">
-        <span className="text-sun-gold font-semibold uppercase tracking-wider text-sm font-sans">Contact Our Team</span>
+        <div className="flex justify-center mb-4">
+          <div className="flex items-center gap-2 bg-[#FFD27F]/20 px-4 py-1.5 rounded-full border border-[var(--color-saffron-glow)] shadow-[0_4px_12px_rgba(217,166,70,0.15)] scale-105 inline-flex">
+            <Mail className="w-4 h-4 text-[var(--color-primary-accent)]" />
+            <span className="text-[var(--color-deep-forest-dark)] font-mono tracking-[1.5px] text-[13px] uppercase font-extrabold">
+              Contact Our Team
+            </span>
+          </div>
+        </div>
         <h2 className="text-4xl font-serif text-forest-teal-dark mt-2 mb-4">General Event Enquiries</h2>
         <p className="text-neutral-600 max-w-2xl mx-auto font-sans">
           Have questions about the venue, seating arrangements, timings, or transport? Reach out to us through the form or chat with us instantly.

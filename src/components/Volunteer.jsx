@@ -117,6 +117,20 @@ export default function Volunteer({ onSubmitSuccess, siteConfig }) {
       alert('Please fill in all required fields.');
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    const cleanedPhone = formData.phone.replace(/[\s-]/g, '');
+    const phoneRegex = /^(\+?91)?[6-9]\d{9}$/;
+    if (!phoneRegex.test(cleanedPhone)) {
+      alert('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
     if (!formData.agreeGuidelines) {
       alert('You must agree to follow the volunteer guidelines.');
       return;

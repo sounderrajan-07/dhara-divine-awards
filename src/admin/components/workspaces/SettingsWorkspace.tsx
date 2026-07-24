@@ -66,6 +66,11 @@ export const SettingsWorkspace: React.FC = () => {
   const [heroVideoPoster, setHeroVideoPoster] = useState('');
   const [heroImageUrl, setHeroImageUrl] = useState('');
   const [heroMediaOrder, setHeroMediaOrder] = useState<'video-first' | 'image-first'>('video-first');
+
+  const [flagshipTitle, setFlagshipTitle] = useState('Dhara Divine Awards 2025');
+  const [flagshipDesc, setFlagshipDesc] = useState('A prestigious convergence of spiritual leaders, selfless changemakers, and corporate CSR visionaries. Join us in cultivating harmony, empowering community growth, and acknowledging the quiet souls who serve humanity.');
+  const [flagshipDate, setFlagshipDate] = useState('January 24, 2025');
+  const [flagshipLocation, setFlagshipLocation] = useState('Chinmaya Heritage Centre, Chennai');
   
   const [homeStats, setHomeStats] = useState<{ number: string, label: string }[]>([
     { number: '3', label: 'Founding Trustees' },
@@ -541,6 +546,13 @@ export const SettingsWorkspace: React.FC = () => {
         if (cc.corporatePartners && cc.corporatePartners.length > 0) setCsrCorporatePartners(cc.corporatePartners);
         if (cc.testimonial) setCsrTestimonial(cc.testimonial);
       }
+
+      if (siteConfig.flagshipEvent) {
+        setFlagshipTitle(siteConfig.flagshipEvent.title || 'Dhara Divine Awards 2025');
+        setFlagshipDesc(siteConfig.flagshipEvent.description || 'A prestigious convergence of spiritual leaders, selfless changemakers, and corporate CSR visionaries. Join us in cultivating harmony, empowering community growth, and acknowledging the quiet souls who serve humanity.');
+        setFlagshipDate(siteConfig.flagshipEvent.date || 'January 24, 2025');
+        setFlagshipLocation(siteConfig.flagshipEvent.location || 'Chinmaya Heritage Centre, Chennai');
+      }
     }
   }, [siteConfig]);
 
@@ -707,7 +719,13 @@ export const SettingsWorkspace: React.FC = () => {
       founders,
       homeCredentials,
       registrations,
-      generalEnquiriesConfig: contactInfo
+      generalEnquiriesConfig: contactInfo,
+      flagshipEvent: {
+        title: flagshipTitle,
+        description: flagshipDesc,
+        date: flagshipDate,
+        location: flagshipLocation
+      }
     });
     setSaving(false);
     alert('Site settings updated successfully!');
@@ -990,6 +1008,67 @@ export const SettingsWorkspace: React.FC = () => {
                   </button>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Flagship Event Settings */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#1B1C19] border border-[#EAE8E3] dark:border-[#30312E] shadow-sm space-y-5 lg:col-span-2">
+            <h3 className="font-serif text-xl font-bold flex items-center gap-2 text-[#401C0C] dark:text-[#F3F4F6]">
+              <Award className="text-[#C9A646]" size={20} /> Flagship Event Configuration (Home Band)
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
+                  Event Title
+                </label>
+                <input
+                  type="text"
+                  value={flagshipTitle}
+                  onChange={(e) => setFlagshipTitle(e.target.value)}
+                  placeholder="e.g. Dhara Divine Awards 2025"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
+                  Event Date
+                </label>
+                <input
+                  type="text"
+                  value={flagshipDate}
+                  onChange={(e) => setFlagshipDate(e.target.value)}
+                  placeholder="e.g. January 24, 2025"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
+                  Event Venue / Location
+                </label>
+                <input
+                  type="text"
+                  value={flagshipLocation}
+                  onChange={(e) => setFlagshipLocation(e.target.value)}
+                  placeholder="e.g. Chinmaya Heritage Centre, Chennai"
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5">
+                  Event Description Paragraph
+                </label>
+                <textarea
+                  value={flagshipDesc}
+                  onChange={(e) => setFlagshipDesc(e.target.value)}
+                  placeholder="A prestigious convergence..."
+                  rows={3}
+                  className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C] resize-none"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -548,9 +548,14 @@ export default function EventsActivities() {
     <div className="py-16 px-6 md:px-12 max-w-7xl mx-auto w-full space-y-16">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="text-xs font-mono font-bold text-[var(--color-primary-accent)] uppercase tracking-[3px]">
-          Divine Awards Videos
-        </span>
+        <div className="flex justify-center mb-2">
+          <div className="flex items-center gap-2 bg-[#FFD27F]/20 px-4 py-1.5 rounded-full border border-[var(--color-saffron-glow)] shadow-[0_4px_12px_rgba(217,166,70,0.15)] scale-105 inline-flex">
+            <Play className="w-4 h-4 text-[var(--color-primary-accent)]" fill="var(--color-primary-accent)" />
+            <span className="text-[var(--color-deep-forest-dark)] font-mono tracking-[1.5px] text-[13px] uppercase font-extrabold">
+              Divine Awards Videos
+            </span>
+          </div>
+        </div>
         <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-deep-forest-dark)] font-serif leading-tight">
           Dhara Divine Awards Videos
         </h2>

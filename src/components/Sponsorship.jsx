@@ -174,6 +174,19 @@ export default function Sponsorship({ onSubmitSuccess, siteConfig }) {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    const cleanedPhone = formData.phone.replace(/[\s-]/g, '');
+    const phoneRegex = /^(\+?91)?[6-9]\d{9}$/;
+    if (!phoneRegex.test(cleanedPhone)) {
+      alert('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
     const packageDetails = packages.find(p => p.id === selectedTier);
     const packageName = packageDetails ? `${packageDetails.name} (${packageDetails.amount})` : selectedTier;
 

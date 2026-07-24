@@ -887,16 +887,24 @@ export default function App() {
           <svg width="15" height="18" viewBox="0 0 16 22" fill="none"><path d="M8 22V11M8 11C8 6 4 4 1 4c0 5 3 7 7 7zM8 11c0-5 4-7 7-7 0 5-3 7-7 7z" stroke="var(--color-saffron-glow)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
           Flagship Event
         </div>
-        <h2 style={{ fontFamily: 'var(--font-serif)', color: '#fff', fontSize: '36px', fontWeight: 'bold', marginTop: '12px', marginBottom: '16px' }}>Dhara Divine Awards 2025</h2>
-        <p style={{ color: '#D5E5CD', fontSize: '15.5px', maxWidth: '460px', marginBottom: '30px' }}>A prestigious convergence of spiritual leaders, selfless changemakers, and corporate CSR visionaries. Join us in cultivating harmony, empowering community growth, and acknowledging the quiet souls who serve humanity.</p>
+        <h2 style={{ fontFamily: 'var(--font-serif)', color: '#fff', fontSize: '36px', fontWeight: 'bold', marginTop: '12px', marginBottom: '16px' }}>
+          {siteConfig?.flagshipEvent?.title || 'Dhara Divine Awards 2025'}
+        </h2>
+        <p style={{ color: '#D5E5CD', fontSize: '15.5px', maxWidth: '460px', marginBottom: '30px' }}>
+          {siteConfig?.flagshipEvent?.description || 'A prestigious convergence of spiritual leaders, selfless changemakers, and corporate CSR visionaries. Join us in cultivating harmony, empowering community growth, and acknowledging the quiet souls who serve humanity.'}
+        </p>
         <div className="awards-meta" style={{ display: 'flex', gap: '28px', marginBottom: '8px', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#F3E9D4', fontWeight: '500' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="var(--color-saffron-glow)" strokeWidth="1.6"/><path d="M3 9h18M8 3v4M16 3v4" stroke="var(--color-saffron-glow)" strokeWidth="1.6"/></svg>
-            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '1px' }}>January 24, 2025</span>
+            <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '1px' }}>
+              {siteConfig?.flagshipEvent?.date || 'January 24, 2025'}
+            </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: '#F3E9D4', fontWeight: '500' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.5 7-12.5A7 7 0 0 0 5 9.5C5 14.5 12 22 12 22z" stroke="var(--color-saffron-glow)" strokeWidth="1.6"/><circle cx="12" cy="9.5" r="2.4" stroke="var(--color-saffron-glow)" strokeWidth="1.6"/></svg>
-            <span>Chinmaya Heritage Centre, Chennai</span>
+            <span>
+              {siteConfig?.flagshipEvent?.location || 'Chinmaya Heritage Centre, Chennai'}
+            </span>
           </div>
         </div>
         <div className="awards-actions" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginTop: '30px' }}>

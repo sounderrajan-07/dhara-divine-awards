@@ -87,9 +87,24 @@ export default function DonorSupport({ onSubmitSuccess, siteConfig }) {
       alert('Minimum custom contribution is ₹100.');
       return;
     }
-    if (!formData.anonymous && (!formData.name || !formData.email || !formData.phone)) {
-      alert('Please fill in all required fields.');
-      return;
+    if (!formData.anonymous) {
+      if (!formData.name || !formData.email || !formData.phone) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email.trim())) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      const cleanedPhone = formData.phone.replace(/[\s-]/g, '');
+      const phoneRegex = /^(\+?91)?[6-9]\d{9}$/;
+      if (!phoneRegex.test(cleanedPhone)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
     }
 
     setIsProcessing(true);

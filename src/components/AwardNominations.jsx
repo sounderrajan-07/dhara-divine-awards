@@ -108,12 +108,44 @@ export default function AwardNominations({ onSubmitSuccess, siteConfig }) {
         alert('Please fill in all nominator details.');
         return;
       }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.nominatorEmail.trim())) {
+        alert('Please enter a valid email address for the nominator.');
+        return;
+      }
+
+      const cleanedPhone = formData.nominatorPhone.replace(/[\s-]/g, '');
+      const phoneRegex = /^(\+?91)?[6-9]\d{9}$/;
+      if (!phoneRegex.test(cleanedPhone)) {
+        alert('Please enter a valid 10-digit mobile number for the nominator.');
+        return;
+      }
+
       setStep(2);
     } else if (step === 2) {
       if (!formData.nomineeName || !formData.nomineeLocation) {
         alert('Please fill in the nominee name and location.');
         return;
       }
+
+      if (formData.nomineeEmail) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.nomineeEmail.trim())) {
+          alert('Please enter a valid email address for the nominee.');
+          return;
+        }
+      }
+
+      if (formData.nomineePhone) {
+        const cleanedPhone = formData.nomineePhone.replace(/[\s-]/g, '');
+        const phoneRegex = /^(\+?91)?[6-9]\d{9}$/;
+        if (!phoneRegex.test(cleanedPhone)) {
+          alert('Please enter a valid 10-digit mobile number for the nominee.');
+          return;
+        }
+      }
+
       if (!formData.nomineeWorkImages || formData.nomineeWorkImages.length === 0) {
         alert("Please upload at least one image showing the nominee's work as evidence.");
         return;

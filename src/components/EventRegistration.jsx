@@ -59,6 +59,20 @@ export default function EventRegistration({ onSubmitSuccess, siteConfig }) {
       alert('Please fill in all required fields.');
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    const cleanedPhone = formData.phone.replace(/[\s-]/g, '');
+    const phoneRegex = /^(\+?91)?[6-9]\d{9}$/;
+    if (!phoneRegex.test(cleanedPhone)) {
+      alert('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
     if (!formData.consentTerms) {
       alert('Please accept the Terms and Conditions to proceed.');
       return;
