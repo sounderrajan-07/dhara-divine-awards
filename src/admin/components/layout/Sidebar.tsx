@@ -58,55 +58,48 @@ export const Sidebar: React.FC = () => {
       {sidebarOpen && (
         <div 
           onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 bg-[#281006]/45 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-[#281006]/60 backdrop-blur-md z-40 lg:hidden transition-opacity duration-300"
         />
       )}
 
       <aside 
-        style={{ height: 'calc(100dvh / 1.1)' }}
-        className={`bg-[#FBF9F4] dark:bg-[#151613] border-r border-[#EAE8E3] dark:border-[#2E302A] flex flex-col transition-all duration-300 shadow-[0_4px_25px_rgba(0,0,0,0.02)] fixed inset-y-0 left-0 z-50 w-72 lg:sticky lg:top-0 lg:z-30 lg:w-72 lg:translate-x-0 ${
+        className={`bg-gradient-to-b from-[#2E1205] via-[#401C0C] to-[#200B02] text-white flex flex-col transition-all duration-300 shadow-[0_8px_32px_0_rgba(64,28,12,0.2)] border border-white/10 fixed lg:sticky z-50 lg:z-30 w-72 h-[calc(100vh-2rem)] my-4 ml-4 rounded-[2rem] overflow-hidden ${
           sidebarOpen 
-            ? 'translate-x-0' 
-            : '-translate-x-full'
+            ? 'translate-x-0 left-4 top-4' 
+            : '-translate-x-full lg:translate-x-0 lg:left-0 lg:top-0'
         }`}
       >
         {/* Brand Header */}
-        <div className="p-3 lg:p-6 border-b border-[#EAE8E3] dark:border-[#2E302A] bg-[#401C0C] shadow-inner relative">
-          <div className="flex flex-col gap-2 items-center text-center">
-            {/* Desktop / Expanded Logo */}
-            <img 
-              src="/logo.png" 
-              alt="Dhara Foundations" 
-              width={160}
-              height={80}
-              className={`h-20 w-auto object-contain transition-transform duration-300 hover:scale-105 ${
-                sidebarOpen ? 'block' : 'hidden lg:block'
-              }`}
-              style={{ filter: 'drop-shadow(0 2px 10px rgba(201, 166, 70, 0.5))' }}
-            />
-            {/* Mobile / Collapsed Logo */}
-            <img 
-              src="/logo.png" 
-              alt="Dhara Foundations" 
-              width={40}
-              height={40}
-              className={`h-10 w-10 object-contain transition-transform duration-300 hover:scale-105 ${
-                sidebarOpen ? 'hidden' : 'block lg:hidden'
-              }`}
-              style={{ filter: 'drop-shadow(0 2px 8px rgba(201, 166, 70, 0.5))' }}
-            />
-            <p className={`text-[9px] font-bold tracking-widest uppercase text-[#FFD27F] mt-1 ${
-              sidebarOpen ? 'block' : 'hidden lg:block'
-            }`}>
-              Divine Awards 2026 • Admin
-            </p>
+        <div className="p-6 border-b border-white/10 bg-black/25 relative">
+          <div className="flex flex-col gap-3 items-center text-center">
+            {/* Logo Container with Golden Glow */}
+            <div className="relative group p-2 rounded-2xl bg-white/5 border border-white/10 shadow-inner transition-transform duration-300 hover:scale-105">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#FFD27F]/20 to-[#C9A646]/20 blur-md opacity-75 group-hover:opacity-100 transition-opacity"></div>
+              <img 
+                src="/logo.png" 
+                alt="Dhara Foundations" 
+                width={150}
+                height={75}
+                className="h-16 w-auto object-contain relative z-10 filter drop-shadow-[0_2px_8px_rgba(201,166,70,0.4)]"
+              />
+            </div>
+            
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#FFD27F] font-mono">
+                Divine Awards 2026
+              </p>
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-[8px] font-mono tracking-widest text-[#FFD27F] uppercase">
+                <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>
+                Admin Panel
+              </div>
+            </div>
           </div>
           
           {/* Close button for mobile menu */}
           {sidebarOpen && (
             <button 
               onClick={() => setSidebarOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 lg:hidden cursor-pointer"
+              className="absolute top-4 right-4 p-1.5 rounded-xl text-white/50 hover:text-white hover:bg-white/10 lg:hidden cursor-pointer transition-colors"
               aria-label="Close menu"
             >
               <X size={18} />
@@ -115,11 +108,9 @@ export const Sidebar: React.FC = () => {
         </div>
 
         {/* Navigation List */}
-        <div className="p-2 lg:p-4 pb-12 space-y-1.5 overflow-y-auto flex-1 custom-scrollbar">
-          <div className={`px-3 py-2 text-[11px] font-semibold tracking-wider text-[#867463] dark:text-[#6B7280] uppercase ${
-            sidebarOpen ? 'block' : 'hidden lg:block'
-          }`}>
-            Workspaces & Operations
+        <div className="p-4 pb-10 space-y-3 overflow-y-auto flex-1 custom-scrollbar">
+          <div className="px-3 text-[10px] font-bold tracking-[0.15em] text-[#FFD27F]/50 uppercase font-mono">
+            Workspaces
           </div>
           <nav className="space-y-1">
             {navItems.map((item) => {
@@ -131,37 +122,32 @@ export const Sidebar: React.FC = () => {
                     setCurrentTab(item.id);
                     setSidebarOpen(false); // Collapse sidebar drawer on selection
                   }}
-                  className={`w-full flex items-center px-2.5 py-3 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer group ${
-                    sidebarOpen ? 'justify-between' : 'justify-center lg:justify-between'
-                  } ${
+                  className={`w-full flex items-center px-3.5 py-3 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 cursor-pointer group ${
                     isActive
-                      ? 'bg-[#401C0C] dark:bg-[#5C2913] text-white shadow-md shadow-[#401C0C]/15 font-semibold'
-                      : 'text-[#534436] dark:text-[#D1D5DB] hover:bg-[#F5F3EE] dark:hover:bg-[#242622] hover:text-[#401C0C] dark:hover:text-[#FFD27F]'
+                      ? 'bg-gradient-to-r from-[#FFD27F]/15 via-[#C9A646]/5 to-transparent text-[#FFD27F] border-r-4 border-[#FFD27F] shadow-sm shadow-[#FFD27F]/5'
+                      : 'text-neutral-300 hover:text-white hover:bg-white/5 hover:translate-x-1'
                   }`}
                 >
-                  <div className="flex items-center gap-3 relative">
-                    <span className={`transition-colors duration-200 ${
-                      isActive ? 'text-[#FFD27F]' : 'text-[#867463] dark:text-[#9CA3AF] group-hover:text-[#401C0C] dark:group-hover:text-[#FFD27F]'
+                  <div className="flex items-center gap-3.5 relative">
+                    <span className={`transition-colors duration-300 ${
+                      isActive ? 'text-[#FFD27F]' : 'text-neutral-400 group-hover:text-[#FFD27F]'
                     }`}>
                       {item.icon}
                     </span>
-                    {item.badge && !sidebarOpen && (
-                      <span className="absolute -top-1.5 -right-1.5 w-2 h-2 rounded-full bg-[#D9762E] lg:hidden animate-pulse"></span>
-                    )}
-                    <span className={`truncate ${sidebarOpen ? 'block' : 'hidden lg:block'}`}>{item.label}</span>
+                    <span>{item.label}</span>
                   </div>
                   
-                  <div className={`${sidebarOpen ? 'flex' : 'hidden lg:flex'} items-center gap-1.5`}>
+                  <div className="ml-auto flex items-center gap-2">
                     {item.badge && (
-                      <span className={`px-2 py-0.5 text-xs font-bold rounded-full ${
+                      <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full font-mono transition-colors duration-300 ${
                         isActive 
                           ? 'bg-[#D9762E] text-white' 
-                          : 'bg-[#FFD27F]/40 dark:bg-[#D9762E]/30 text-[#8A5000] dark:text-[#FFD27F]'
+                          : 'bg-[#D9762E]/20 text-[#FFD27F] group-hover:bg-[#D9762E]/30'
                       }`}>
                         {item.badge}
                       </span>
                     )}
-                    {isActive && <ChevronRight size={16} className="text-[#FFD27F]" />}
+                    {isActive && <ChevronRight size={14} className="text-[#FFD27F] animate-pulse" />}
                   </div>
                 </button>
               );

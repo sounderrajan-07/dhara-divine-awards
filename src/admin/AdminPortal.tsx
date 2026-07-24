@@ -18,9 +18,9 @@ const DashboardContent: React.FC = () => {
   const { currentTab } = useApp();
 
   return (
-    <main className="flex-1 min-w-0 w-full bg-[#FDFBF8] dark:bg-[#121310] min-h-screen transition-colors duration-300">
+    <main className="flex-1 min-w-0 w-full flex flex-col h-[calc(100vh-2rem)] my-4 mr-4 bg-white/70 dark:bg-[#151613]/70 backdrop-blur-xl rounded-[2rem] border border-[#EAE8E3]/60 dark:border-[#2E302A]/60 shadow-[0_8px_32px_0_rgba(0,0,0,0.02)] overflow-hidden transition-all duration-300">
       <Header />
-      <div className="p-4 sm:p-8 max-w-[1600px] mx-auto">
+      <div className="flex-1 p-4 sm:p-8 overflow-y-auto custom-scrollbar">
         {currentTab === 'overview' && <OverviewWorkspace />}
         {currentTab === 'nominations' && <NominationsWorkspace />}
         {currentTab === 'donations' && <DonationsWorkspace />}
@@ -44,7 +44,7 @@ const AdminPortalInner: React.FC = () => {
 
   return (
     <AppProvider>
-      <div className="flex items-start min-h-screen bg-[#FDFBF8] dark:bg-[#121310] text-[#1B1C19] dark:text-[#E5E7EB] selection:bg-[#401C0C] selection:text-[#FFD27F]">
+      <div className="flex items-start h-screen w-screen overflow-hidden bg-gradient-to-br from-[#FAF6EE] via-[#FDFBF8] to-[#F3EEE3] dark:from-[#121310] dark:via-[#161713] dark:to-[#0F100D] text-[#1B1C19] dark:text-[#E5E7EB] selection:bg-[#401C0C] selection:text-[#FFD27F] gap-4">
         <Sidebar />
         <DashboardContent />
       </div>
