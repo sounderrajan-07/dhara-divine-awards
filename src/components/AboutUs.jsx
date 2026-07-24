@@ -214,7 +214,7 @@ export default function AboutUs({ siteConfig }) {
           </h3>
           <div className="w-16 h-0.5 bg-[var(--color-saffron-glow)] mx-auto rounded-full"></div>
           <p className="text-xs text-[var(--ink-soft)] font-sans max-w-2xl mx-auto">
-            An annual celebration honouring selfless individuals in the path of spiritual and social service. We recognize excellence from grassroots volunteers to thought leaders, representing <strong>63 Nayanmars</strong> from various fields.
+            An annual celebration honouring <strong>63 selfless individuals</strong> in the path of spiritual and social service. We recognize excellence from grassroots volunteers to thought leaders, representing <strong>63 Nayanmars</strong> from various fields.
           </p>
         </div>
 
@@ -307,8 +307,9 @@ export default function AboutUs({ siteConfig }) {
                   <div className="w-10 h-10 rounded-xl bg-[#FFD27F]/15 border border-[#FFD27F]/30 flex items-center justify-center text-[#FFD27F] shrink-0">
                     <Award className="w-5 h-5 text-[#FFD27F]" />
                   </div>
-                  <div className="text-sm font-bold text-white font-serif">
-                    ₹25000 Cash Prize &amp; Trophy to 12 deserving awardees.
+                  <div className="text-sm font-bold text-white font-serif flex flex-col">
+                    <span className="text-[#FFD27F]">₹25000 Cash Prize &amp; Trophy</span>
+                    <span className="text-xs text-neutral-300 font-sans font-normal mt-0.5">to 12 deserving awardees.</span>
                   </div>
                 </div>
               </div>
