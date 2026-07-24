@@ -60,6 +60,7 @@ export default async function handler(req: any, res: any) {
         awardConfig: body.awardConfig ?? existing.awardConfig ?? null,
         generalEnquiriesConfig: body.generalEnquiriesConfig ?? existing.generalEnquiriesConfig ?? null,
         razorpayConfig: body.razorpayConfig ?? existing.razorpayConfig ?? null,
+        flagshipEvent: body.flagshipEvent ?? existing.flagshipEvent ?? null,
       };
 
       if (index === -1) {
