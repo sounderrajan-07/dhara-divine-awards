@@ -10,7 +10,6 @@ import {
 const compressImage = (base64Str: string, maxWidth = 300, maxHeight = 300): Promise<string> => {
   return new Promise((resolve) => {
     const img = new Image();
-    img.src = base64Str;
     img.onload = () => {
       const canvas = document.createElement('canvas');
       let width = img.width;
@@ -39,7 +38,23 @@ const compressImage = (base64Str: string, maxWidth = 300, maxHeight = 300): Prom
     img.onerror = () => {
       resolve(base64Str);
     };
+    img.src = base64Str;
   });
+};
+
+const getImageUrl = (imagePath: string) => {
+  if (!imagePath) return '/images/default-avatar.png';
+  if (imagePath.startsWith('data:')) return imagePath;
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) return imagePath;
+  
+  const base = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : '';
+  
+  if (imagePath.startsWith('/uploads')) {
+    return `${base}${imagePath}`;
+  }
+  return imagePath;
 };
 
 export const SettingsWorkspace: React.FC = () => {
@@ -1192,7 +1207,7 @@ export const SettingsWorkspace: React.FC = () => {
                     <div className="flex items-center gap-3">
                       {founder.image && !founder.useDefaultIcon ? (
                         <img 
-                          src={founder.image.startsWith('/uploads') ? `${window.location.protocol}//${window.location.host}${founder.image}` : founder.image} 
+                          src={getImageUrl(founder.image)} 
                           alt={founder.name} 
                           className="w-12 h-12 rounded-full object-cover border border-[#C9A646]/40 shrink-0"
                           onError={(e) => {
