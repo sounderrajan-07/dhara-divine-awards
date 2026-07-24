@@ -832,22 +832,19 @@ export default function App() {
               name: "S. Vinoth Ragavendran",
               role: "Founder President & Trustee",
               bio: "Two decades in construction; active in temple protection and legal advocacy for heritage preservation.",
-              image: "/images/S. Vinoth Ragavendran.jpg",
-              useDefaultIcon: true
+              image: ""
             },
             {
               name: "P. Ezhumalai",
               role: "Agriculturist & Social Worker",
               bio: "A dedicated dairy farmer in public life since childhood, guided by deep devotion to Hindu values.",
-              image: "/logo/photo_6195100629672333271_y.jpg",
-              useDefaultIcon: true
+              image: ""
             },
             {
               name: "S. Srividhya",
               role: "Chartered Accountant & CS",
               bio: "Dual-qualified professional bringing ethics and precision to the trust's governance.",
-              image: "/logo/photo_6195100629672333269_y.jpg",
-              useDefaultIcon: true
+              image: ""
             }
           ]
       ).map((founder, idx) => (
@@ -858,9 +855,7 @@ export default function App() {
             outlineOffset: '4px',
             boxShadow: '0 8px 24px rgba(64, 28, 12,0.1)'
           }}>
-            {founder.useDefaultIcon ? (
-              <User className="w-16 h-16 text-[var(--color-deep-forest-dark)]/70" />
-            ) : (
+            {founder.image ? (
               <img 
                 src={getImageUrl(founder.image)} 
                 alt={founder.name} 
@@ -870,6 +865,8 @@ export default function App() {
                   e.target.src = "/images/default-avatar.png";
                 }}
               />
+            ) : (
+              <User className="w-16 h-16 text-[var(--color-deep-forest-dark)]/70" />
             )}
           </div>
           <h4 style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-deep-forest-dark)', fontSize: '18px', fontWeight: 'bold' }}>{founder.name}</h4>

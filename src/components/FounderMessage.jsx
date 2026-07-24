@@ -7,24 +7,21 @@ export default function FounderMessage({ siteConfig }) {
       name: "S. Vinoth Ragavendran",
       role: "Founder President & Trustee",
       bio: "With over two decades of leadership in engineering and construction, Vinoth is actively involved in temple heritage protection, traditional restoration, and legal advocacy for public heritage rights across Tamil Nadu.",
-      image: "/images/S. Vinoth Ragavendran.jpg",
-      useDefaultIcon: true,
+      image: "",
       order: 1
     },
     {
       name: "P. Ezhumalai",
       role: "Agriculturist, Social Worker & Trustee",
       bio: "A dedicated agriculturist and progressive dairy farmer, Ezhumalai has spent his life working in public welfare, guiding local community initiatives, and fostering traditional moral values at the grassroot levels.",
-      image: "/logo/photo_6195100629672333271_y.jpg",
-      useDefaultIcon: true,
+      image: "",
       order: 2
     },
     {
       name: "S. Srividhya",
       role: "Chartered Accountant, CS & Trustee",
       bio: "A dual-qualified professional (CA and CS) with extensive experience in corporate governance, Srividhya oversees the administrative precision, compliance, and strict financial transparency of the non-profit organization's initiatives.",
-      image: "/logo/photo_6195100629672333269_y.jpg",
-      useDefaultIcon: true,
+      image: "",
       order: 3
     }
   ];
@@ -94,11 +91,7 @@ export default function FounderMessage({ siteConfig }) {
             >
               {/* Photo or Default Avatar */}
               <div className="h-72 bg-gradient-to-b from-[#F9F6F0] to-[#EAE2D2] overflow-hidden relative border-b border-[#D9CBB0]/40 flex items-center justify-center group-hover:bg-[#E8DFC8] transition-colors">
-                {founder.useDefaultIcon ? (
-                  <div className="w-32 h-32 rounded-full bg-[var(--color-deep-forest)]/10 border-2 border-[var(--color-primary-accent)]/30 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-300">
-                    <User className="w-16 h-16 text-[var(--color-deep-forest-dark)]/70 group-hover:text-[var(--color-primary-accent)] transition-colors" />
-                  </div>
-                ) : (
+                {founder.image ? (
                   <img
                     src={getImageUrl(founder.image)}
                     alt={founder.name}
@@ -108,6 +101,10 @@ export default function FounderMessage({ siteConfig }) {
                       e.target.src = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&h=400&q=80";
                     }}
                   />
+                ) : (
+                  <div className="w-32 h-32 rounded-full bg-[var(--color-deep-forest)]/10 border-2 border-[var(--color-primary-accent)]/30 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-300">
+                    <User className="w-16 h-16 text-[var(--color-deep-forest-dark)]/70 group-hover:text-[var(--color-primary-accent)] transition-colors" />
+                  </div>
                 )}
               </div>
 

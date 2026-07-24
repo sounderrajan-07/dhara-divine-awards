@@ -174,29 +174,26 @@ export const SettingsWorkspace: React.FC = () => {
   ]);
 
   // Founders Section
-  const [founders, setFounders] = useState<{ name: string, role: string, bio: string, image: string, useDefaultIcon: boolean, order: number }[]>([
+  const [founders, setFounders] = useState<{ name: string, role: string, bio: string, image: string, order: number }[]>([
     {
       name: "S. Vinoth Ragavendran",
       role: "Founder President & Trustee",
       bio: "With over two decades of leadership in engineering and construction, Vinoth is actively involved in temple heritage protection, traditional restoration, and legal advocacy for public heritage rights across Tamil Nadu.",
-      image: "/images/S. Vinoth Ragavendran.jpg",
-      useDefaultIcon: true,
+      image: "",
       order: 1
     },
     {
       name: "P. Ezhumalai",
       role: "Agriculturist, Social Worker & Trustee",
       bio: "A dedicated agriculturist and progressive dairy farmer, Ezhumalai has spent his life working in public welfare, guiding local community initiatives, and fostering traditional moral values at the grassroot levels.",
-      image: "/logo/photo_6195100629672333271_y.jpg",
-      useDefaultIcon: true,
+      image: "",
       order: 2
     },
     {
       name: "S. Srividhya",
       role: "Chartered Accountant, CS & Trustee",
       bio: "A dual-qualified professional (CA and CS) with extensive experience in corporate governance, Srividhya oversees the administrative precision, compliance, and strict financial transparency of the non-profit organization's initiatives.",
-      image: "/logo/photo_6195100629672333269_y.jpg",
-      useDefaultIcon: true,
+      image: "",
       order: 3
     }
   ]);
@@ -1205,7 +1202,7 @@ export const SettingsWorkspace: React.FC = () => {
                   <div>
                     <label className="block text-[10px] uppercase font-semibold text-[#867463] mb-1">Photo Image</label>
                     <div className="flex items-center gap-3">
-                      {founder.image && !founder.useDefaultIcon ? (
+                      {founder.image ? (
                         <img 
                           src={getImageUrl(founder.image)} 
                           alt={founder.name} 
@@ -1246,7 +1243,6 @@ export const SettingsWorkspace: React.FC = () => {
                                   const data = await res.json();
                                   if (data.success && data.url) {
                                     handleFounderChange(index, 'image', data.url);
-                                    handleFounderChange(index, 'useDefaultIcon', false);
                                   } else {
                                     alert('Upload failed: ' + (data.error || 'Unknown error'));
                                   }
@@ -1263,19 +1259,6 @@ export const SettingsWorkspace: React.FC = () => {
                         <p className="text-[10px] text-[#867463] truncate mt-1">{founder.image || 'No file selected'}</p>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-1">
-                    <input
-                      type="checkbox"
-                      id={`useDefaultIcon-${index}`}
-                      checked={founder.useDefaultIcon}
-                      onChange={(e) => handleFounderChange(index, 'useDefaultIcon', e.target.checked)}
-                      className="rounded border-[#D9CBB0] text-[#401C0C]"
-                    />
-                    <label htmlFor={`useDefaultIcon-${index}`} className="text-xs text-[#867463] cursor-pointer">
-                      Use Default Avatar Fallback
-                    </label>
                   </div>
 
                   <div>
