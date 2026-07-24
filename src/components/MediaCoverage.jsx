@@ -63,6 +63,21 @@ export default function MediaCoverage({ onSubmitSuccess }) {
     }
   ];
 
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('data:')) return imagePath;
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) return imagePath;
+    
+    const base = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000'
+      : '';
+    
+    if (imagePath.startsWith('/uploads')) {
+      return `${base}${imagePath}`;
+    }
+    return imagePath;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -152,7 +167,7 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                     >
                       {art.mediaUrl ? (
                         <video
-                          src={encodeURI(art.mediaUrl)}
+                          src={getImageUrl(art.mediaUrl)}
                           preload="metadata"
                           className="w-full h-full max-h-[360px] object-contain transition-transform duration-500 group-hover/img:scale-105"
                           muted
@@ -160,7 +175,7 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                         />
                       ) : (
                         <img
-                          src={encodeURI(art.image || "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80")}
+                          src={getImageUrl(art.image || "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80")}
                           alt={art.title}
                           className="w-full h-full max-h-[360px] object-contain transition-transform duration-500 group-hover/img:scale-105"
                           onError={(e) => {
@@ -186,7 +201,7 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                       title="Click to view full image"
                     >
                       <img
-                        src={encodeURI(art.image)}
+                        src={getImageUrl(art.image)}
                         alt={art.title}
                         className="w-full h-full max-h-[360px] object-contain transition-transform duration-500 group-hover/img:scale-105"
                         onError={(e) => {
@@ -194,7 +209,7 @@ export default function MediaCoverage({ onSubmitSuccess }) {
                           e.target.src = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80";
                         }}
                       />
-                      <div className="absolute top-3 left-3 bg-[var(--color-deep-forest)] text-[var(--color-saffron-glow)] px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1 z-10">
+                      <div className="absolute top-3 left-3 bg-opacity-75 bg-[var(--color-deep-forest)] text-[var(--color-saffron-glow)] px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider shadow flex items-center gap-1 z-10">
                         <Newspaper size={12} /> Newspaper Coverage
                       </div>
                       <div className="absolute bottom-3 right-3 bg-black/75 text-white text-[10px] px-2.5 py-1 rounded-lg opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1 font-mono font-bold z-10">
