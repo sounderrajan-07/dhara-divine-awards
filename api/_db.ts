@@ -238,18 +238,24 @@ export async function writeDb(data: DatabaseSchema): Promise<void> {
         News.deleteMany({ id: { $nin: newsIds } })
       ]);
 
-      // Run upserts second to avoid race conditions/conflicts
+      const stripId = (item: any) => {
+        if (!item) return {};
+        const { _id, __v, ...rest } = item;
+        return rest;
+      };
+
+      // Run upserts second to avoid race conditions/conflicts (and strip immutable fields)
       await Promise.all([
-        ...nominations.map(item => (Nomination as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...donations.map(item => (Donation as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...delegates.map(item => (Delegate as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...volunteers.map(item => (Volunteer as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...enquiries.map(item => (Enquiry as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...activityLogs.map(item => (ActivityLog as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...gallery.map(item => (Gallery as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...events.map(item => (Event as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...siteConfig.map(item => (SiteConfig as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...news.map(item => (News as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
+        ...nominations.map(item => (Nomination as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...donations.map(item => (Donation as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...delegates.map(item => (Delegate as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...volunteers.map(item => (Volunteer as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...enquiries.map(item => (Enquiry as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...activityLogs.map(item => (ActivityLog as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...gallery.map(item => (Gallery as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...events.map(item => (Event as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...siteConfig.map(item => (SiteConfig as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true })),
+        ...news.map(item => (News as any).findOneAndUpdate({ id: item.id }, stripId(item), { upsert: true }))
       ]);
       return;
     } catch (err) {
