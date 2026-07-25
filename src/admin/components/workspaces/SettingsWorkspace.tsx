@@ -936,17 +936,85 @@ export const SettingsWorkspace: React.FC = () => {
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1.5 flex items-center gap-1.5">
-                <ImageIcon size={14} className="text-[#D9762E]" /> Hero Banner Image URL
+            <div className="space-y-3">
+              <label className="block text-xs font-semibold text-[#867463] dark:text-[#9CA3AF] mb-1 flex items-center gap-1.5">
+                <ImageIcon size={14} className="text-[#D9762E]" /> Hero Banner Image
               </label>
-              <input
-                type="text"
-                value={heroImageUrl}
-                onChange={(e) => setHeroImageUrl(e.target.value)}
-                placeholder="e.g. /images/News/DHARA Divine Awards Ceremony.jpg"
-                className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
-              />
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                {heroImageUrl ? (
+                  <img 
+                    src={getImageUrl(heroImageUrl)} 
+                    alt="Hero Banner Preview" 
+                    className="w-24 h-16 object-cover rounded-lg border border-[#C9A646]/40 shrink-0"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80';
+                    }}
+                  />
+                ) : (
+                  <div className="w-24 h-16 rounded-lg bg-[#401C0C]/10 border border-[#EAE8E3] dark:border-[#30312E] flex items-center justify-center text-xs font-bold text-[#401C0C] dark:text-[#FFD27F] shrink-0">
+                    No Image
+                  </div>
+                )}
+                <div className="flex-1 w-full space-y-2">
+                  <div className="flex gap-2">
+                    <label className="inline-block px-3 py-1.5 bg-[#401C0C] hover:bg-[#5C2913] text-[#FFD27F] font-bold text-xs rounded transition-all cursor-pointer border border-[#C9A646]/40">
+                      Choose Image File
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          const reader = new FileReader();
+                          reader.onload = async () => {
+                            try {
+                              const rawBase64 = reader.result as string;
+                              const base64 = await compressImage(rawBase64, 800, 500);
+                              const res = await fetch('/api/upload', {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                  base64,
+                                  name: file.name
+                                })
+                              });
+                              const data = await res.json();
+                              if (data.success && data.url) {
+                                setHeroImageUrl(data.url);
+                              } else {
+                                alert('Upload failed: ' + (data.error || 'Unknown error'));
+                              }
+                            } catch (err) {
+                              console.error('Upload error:', err);
+                              alert('Failed to upload image');
+                            }
+                          };
+                          reader.readAsDataURL(file);
+                        }}
+                        className="hidden"
+                      />
+                    </label>
+                    {heroImageUrl && (
+                      <button
+                        type="button"
+                        onClick={() => setHeroImageUrl('')}
+                        className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white font-bold text-xs rounded transition-all border border-red-500/20 cursor-pointer"
+                      >
+                        Clear Image
+                      </button>
+                    )}
+                  </div>
+                  <input
+                    type="text"
+                    value={heroImageUrl}
+                    onChange={(e) => setHeroImageUrl(e.target.value)}
+                    placeholder="Or enter Image URL e.g. /images/News/DHARA.jpg"
+                    className="w-full bg-[#F5F3EE] dark:bg-[#242622] text-[#1B1C19] dark:text-[#F3F4F6] border border-[#E4E2DD] dark:border-[#30312E] rounded-xl p-3 text-sm focus:outline-none focus:border-[#401C0C]"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
