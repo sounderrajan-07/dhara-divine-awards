@@ -728,6 +728,26 @@ export const SettingsWorkspace: React.FC = () => {
         date: flagshipDate,
         location: flagshipLocation,
         image: flagshipImage
+      },
+      sponsorshipConfig: {
+        benefits: sponsorshipBenefits,
+        opportunities: sponsorshipOpportunities,
+        previousSponsors,
+        testimonial: testimonial,
+        faqs: sponsorshipFaqs,
+        packages: sponsorshipPackages
+      },
+      csrConfig: {
+        whyPartner: csrWhyPartner,
+        csrProcess: csrProcess,
+        partnershipModels: csrPartnershipModels,
+        complianceHub: {
+          docs: csrComplianceDocs,
+          downloads: csrComplianceDownloads
+        },
+        caseStudies: csrCaseStudies,
+        corporatePartners: csrCorporatePartners,
+        testimonial: csrTestimonial
       }
     });
     setSaving(false);
