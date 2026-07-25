@@ -291,8 +291,12 @@ export const NominationsWorkspace: React.FC = () => {
             {/* Modal Header */}
             <div className="flex items-start justify-between pb-4 border-b border-[#F5F3EE] dark:border-[#2E302A]">
               <div className="flex items-center gap-4">
-                {previewNomination.avatar_url && (
+                {previewNomination.avatar_url ? (
                   <img src={previewNomination.avatar_url} alt="" className="w-14 h-14 rounded-2xl object-cover ring-2 ring-[#C9A646]" />
+                ) : (
+                  <div className="w-14 h-14 rounded-2xl bg-[#401C0C] text-white font-serif font-bold text-lg flex items-center justify-center shrink-0 ring-2 ring-[#C9A646]">
+                    {previewNomination.nominee_name.charAt(0)}
+                  </div>
                 )}
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#401C0C]/10 text-[#401C0C] dark:text-[#FFD27F]">

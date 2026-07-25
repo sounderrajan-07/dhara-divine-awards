@@ -27,7 +27,7 @@ const NominationSchema: Schema = new Schema({
   nominator_phone: { type: String, default: '' },
   vetting_status: { type: String, enum: ['pending', 'approved', 'rejected', 'shortlisted'], default: 'pending' },
   created_at: { type: String, default: () => new Date().toISOString() },
-  avatar_url: { type: String, default: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80' },
+  avatar_url: { type: String, default: '' },
   assigned_jury: { type: String },
   nominee_work_image: { type: String, default: '' }
 });
