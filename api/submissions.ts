@@ -49,7 +49,7 @@ export default async function handler(req: any, res: any) {
         nominee_phone: body.nomineePhone || '',
         category: body.categoryTitle || 'Arts & Culture',
         bio_summary: body.sevaSummary || '',
-        supporting_links: body.supportingLinks ? body.supportingLinks.split(',').map((s: string) => s.trim()) : [],
+        supporting_links: (body.supportingLinks || body.references) ? (body.supportingLinks || body.references).split(',').map((s: string) => s.trim()) : [],
         nominator_name: body.nominatorName || 'Anonymous',
         nominator_phone: body.nominatorPhone || '',
         vetting_status: 'pending',

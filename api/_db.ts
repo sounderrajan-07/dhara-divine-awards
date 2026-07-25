@@ -151,6 +151,15 @@ async function readLocalDbFile(): Promise<DatabaseSchema> {
   try {
     const data = await fs.readFile(dbPath, 'utf8');
     const parsed = JSON.parse(data);
+    if (!parsed.nominations) parsed.nominations = [];
+    if (!parsed.donations) parsed.donations = [];
+    if (!parsed.delegates) parsed.delegates = [];
+    if (!parsed.volunteers) parsed.volunteers = [];
+    if (!parsed.enquiries) parsed.enquiries = [];
+    if (!parsed.activityLogs) parsed.activityLogs = [];
+    if (!parsed.gallery) parsed.gallery = [];
+    if (!parsed.events) parsed.events = [];
+    if (!parsed.siteConfig) parsed.siteConfig = [];
     if (!parsed.news) parsed.news = [];
     return parsed;
   } catch (error) {
@@ -190,22 +199,33 @@ async function seedMongoFromLocal(data: DatabaseSchema) {
 export async function writeDb(data: DatabaseSchema): Promise<void> {
   const mongoAvailable = await connectMongo();
 
+  const nominations = data.nominations || [];
+  const donations = data.donations || [];
+  const delegates = data.delegates || [];
+  const volunteers = data.volunteers || [];
+  const enquiries = data.enquiries || [];
+  const activityLogs = data.activityLogs || [];
+  const gallery = data.gallery || [];
+  const events = data.events || [];
+  const siteConfig = data.siteConfig || [];
+  const news = data.news || [];
+
   if (mongoAvailable) {
     try {
       // Collect IDs of current items to preserve
-      const nominationIds = (data.nominations || []).map(item => item.id);
-      const donationIds = (data.donations || []).map(item => item.id);
-      const delegateIds = (data.delegates || []).map(item => item.id);
-      const volunteerIds = (data.volunteers || []).map(item => item.id);
-      const enquiryIds = (data.enquiries || []).map(item => item.id);
-      const activityLogIds = (data.activityLogs || []).map(item => item.id);
-      const galleryIds = (data.gallery || []).map(item => item.id);
-      const eventIds = (data.events || []).map(item => item.id);
-      const siteConfigIds = (data.siteConfig || []).map(item => item.id);
-      const newsIds = (data.news || []).map(item => item.id);
+      const nominationIds = nominations.map(item => item.id);
+      const donationIds = donations.map(item => item.id);
+      const delegateIds = delegates.map(item => item.id);
+      const volunteerIds = volunteers.map(item => item.id);
+      const enquiryIds = enquiries.map(item => item.id);
+      const activityLogIds = activityLogs.map(item => item.id);
+      const galleryIds = gallery.map(item => item.id);
+      const eventIds = events.map(item => item.id);
+      const siteConfigIds = siteConfig.map(item => item.id);
+      const newsIds = news.map(item => item.id);
 
+      // Run deletions first
       await Promise.all([
-        // Delete items from MongoDB that are no longer in the provided arrays
         Nomination.deleteMany({ id: { $nin: nominationIds } }),
         Donation.deleteMany({ id: { $nin: donationIds } }),
         Delegate.deleteMany({ id: { $nin: delegateIds } }),
@@ -215,19 +235,21 @@ export async function writeDb(data: DatabaseSchema): Promise<void> {
         Gallery.deleteMany({ id: { $nin: galleryIds } }),
         Event.deleteMany({ id: { $nin: eventIds } }),
         SiteConfig.deleteMany({ id: { $nin: siteConfigIds } }),
-        News.deleteMany({ id: { $nin: newsIds } }),
+        News.deleteMany({ id: { $nin: newsIds } })
+      ]);
 
-        // Upsert existing items
-        ...data.nominations.map(item => (Nomination as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.donations.map(item => (Donation as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.delegates.map(item => (Delegate as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.volunteers.map(item => (Volunteer as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.enquiries.map(item => (Enquiry as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.activityLogs.map(item => (ActivityLog as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.gallery.map(item => (Gallery as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.events.map(item => (Event as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.siteConfig.map(item => (SiteConfig as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
-        ...data.news.map(item => (News as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
+      // Run upserts second to avoid race conditions/conflicts
+      await Promise.all([
+        ...nominations.map(item => (Nomination as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...donations.map(item => (Donation as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...delegates.map(item => (Delegate as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...volunteers.map(item => (Volunteer as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...enquiries.map(item => (Enquiry as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...activityLogs.map(item => (ActivityLog as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...gallery.map(item => (Gallery as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...events.map(item => (Event as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...siteConfig.map(item => (SiteConfig as any).findOneAndUpdate({ id: item.id }, item, { upsert: true })),
+        ...news.map(item => (News as any).findOneAndUpdate({ id: item.id }, item, { upsert: true }))
       ]);
       return;
     } catch (err) {
@@ -236,7 +258,19 @@ export async function writeDb(data: DatabaseSchema): Promise<void> {
   }
 
   try {
-    await fs.writeFile(dbPath, JSON.stringify(data, null, 2), 'utf8');
+    const serialized = {
+      nominations,
+      donations,
+      delegates,
+      volunteers,
+      enquiries,
+      activityLogs,
+      gallery,
+      events,
+      siteConfig,
+      news
+    };
+    await fs.writeFile(dbPath, JSON.stringify(serialized, null, 2), 'utf8');
   } catch (error) {
     console.warn("Database local write skipped (read-only filesystem or file write error):", error);
   }
