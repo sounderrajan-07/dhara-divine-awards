@@ -45,7 +45,7 @@ export const YoutubeWorkspace: React.FC = () => {
 
   // Statistics editor states
   const [eventStats, setEventStats] = useState([
-    { value: '63+', label: 'Divine Awardees Honored', desc: 'Grassroots leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.', icon: 'Award' },
+    { value: '63', label: 'Divine Awardees Honored', desc: 'Grassroot leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.', icon: 'Award' },
     { value: '2,500+', label: 'Dignitaries & Attendees', desc: 'Gathering of Madras High Court Judge Justice GR Swaminathan, Adheenams, and eminent personalities.', icon: 'Users' },
     { value: 'Jan 2025', label: 'Flagship Assembly Date', desc: 'A grand devotional assembly hosted at the Chinmaya Heritage Centre in Chennai.', icon: 'Calendar' },
     { value: '100% Seva', label: 'Pure Selfless Platform', desc: 'Organized fully by volunteers to recognize quiet champions of socio-cultural revival.', icon: 'Trees' }

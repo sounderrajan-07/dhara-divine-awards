@@ -17,9 +17,9 @@ export default function EventsActivities() {
   const [eventStats, setEventStats] = useState([
     {
       icon: Award,
-      value: '63+',
+      value: '63',
       label: 'Divine Awardees Honored',
-      desc: 'Grassroots leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.'
+      desc: 'Grassroot leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.'
     },
     {
       icon: Users,
@@ -66,9 +66,9 @@ export default function EventsActivities() {
   const stats = [
     {
       icon: Award,
-      value: '63+',
+      value: '63',
       label: 'Divine Awardees Honored',
-      desc: 'Grassroots leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.'
+      desc: 'Grassroot leaders, philanthropists, and silent seva sadhaks honored for Sanatana Dharma service.'
     },
     {
       icon: Users,
